@@ -114,7 +114,8 @@
 			ViewModelEntity?.Delete();
 			ViewModelEntity = null;
 
-			Owner.Controller = LastController;
+			if (LastController != null)
+				Owner.Controller = LastController;
 		}
 
 		public override void Deactivate()
