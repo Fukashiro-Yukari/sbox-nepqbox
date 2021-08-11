@@ -1,0 +1,96 @@
+﻿
+@import "_crosshair.scss";
+@import "_damageindicator.scss";
+@import "_hitindicator.scss";
+@import "_inventory.scss";
+@import "_killfeed.scss";
+// @import "_pickupfeed.scss";
+// @import "_scoreboard.scss";
+
+rootpanel
+{
+	background-color: rgba( #333, 0 );
+	transition: background-color 0.2s ease-in;
+	transform-origin: 50% 50%;
+
+	&.spawnmenuopen
+	{
+		transition: background-color 0.3s ease-out;
+		background-color: rgba( #333, 0.9 );
+	}
+
+	&.devcamera
+	{
+		display: none;
+	}
+}
+
+vitals
+{
+	position: absolute;
+	bottom: 64px;
+	left: 100px;
+	font-size: 64px;
+	color: #ff0;
+	mix-blend-mode: lighten;
+	font-family: Roboto;
+
+	label
+	{
+		text-shadow: 0px 0px 20px #f70a;
+
+		&.danger
+		{
+			color: #f00;
+			text-shadow: 0px 0px 10px #f005;
+		}
+	}
+}
+
+
+ammo
+{
+	position: absolute;
+	bottom: 64px;
+	right: 100px;
+	font-size: 64px;
+	color: #ff0;
+	mix-blend-mode: lighten;
+	font-family: Roboto;
+
+	label
+	{
+		text-shadow: 0px 0px 20px #f70a;
+
+		&.danger
+		{
+			color: #f00;
+		}
+	}
+}
+
+
+.weapon_pistol .icon, .physgun .icon, .gravgun .icon, .weapon_tool .icon, .weapon_flashlight .icon, .weapon_flying .icon
+{
+	background-image: url( /ui/weapons/weapon_pistol.png );
+}
+
+.weapon_shotgun .icon, .weapon_nicegun .icon, .weapon_cwep .icon, .weapon_pumpshotgun .icon
+{
+	background-image: url( /ui/weapons/weapon_shotgun.png );
+}
+
+.weapon_smg .icon, .weapon_smgshotgun .icon
+{
+	background-image: url( /ui/weapons/weapon_smg.png );
+}
+
+.weapon_crossbow .icon, .weapon_automaticcrossbow .icon, .crossbow_bolt .icon
+{
+	background-image: url( /ui/weapons/weapon_crossbow.png );
+}
+
+.weapon_knife .icon
+{
+	background-image: url( /ui/weapons/weapon_knife.png );
+}
