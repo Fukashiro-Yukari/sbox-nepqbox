@@ -17,7 +17,7 @@
 				if (!Owner.IsLocalPawn) return;
 				if (SPlayer.ActiveChild == null)
                 {
-					ViewModelEntity.Delete();
+					ViewModelEntity?.Delete();
 					ViewModelEntity = null;
 
 					return;
@@ -111,9 +111,7 @@
 				SOwner.Camera = SOwner.MainCamera;
 			}
 
-			if (ViewModelEntity != null)
-				ViewModelEntity.Delete();
-
+			ViewModelEntity?.Delete();
 			ViewModelEntity = null;
 			Owner.Controller = LastController;
 		}

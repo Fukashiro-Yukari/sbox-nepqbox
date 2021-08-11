@@ -79,9 +79,9 @@ partial class AutomaticCrossbow : Weapon
 		anim.SetParam( "aimat_weight", 1.0f );
 	}
 
-	[Event.Tick]
-	void Tick()
-	{
-		ViewModelEntity?.SetAnimBool( "loaded", AmmoClip >= 1 );
-	}
+	//[Event.Tick]
+	//void Tick()
+	//{
+	//	ViewModelEntity?.SetAnimBool( "loaded", AmmoClip >= 1 );
+	//}
 }

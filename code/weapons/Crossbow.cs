@@ -39,6 +39,11 @@ partial class Crossbow : Weapon
 		base.Simulate( cl );
 
 		Zoomed = Input.Down( InputButton.Attack2 );
+
+        //if (Owner.IsLocalPawn)
+			//ViewModelEntity?.SetAnimBool("loaded", true);
+		//Log.Info(ViewModelEntity?.GetAnimBool("loaded"));
+		//	ViewModelEntity?.SetAnimBool("loaded", false);
 	}
 
 	public override void PostCameraSetup( ref CameraSetup camSetup )
@@ -79,9 +84,11 @@ partial class Crossbow : Weapon
 		anim.SetParam( "aimat_weight", 1.0f );
 	}
 
-	[Event.Tick]
-	void Tick()
-	{
-		ViewModelEntity?.SetAnimBool( "loaded", AmmoClip >= 1 );
-	}
+	//[Event.Tick]
+	//void Tick()
+	//{
+		//Log.Info((IsServer ? "Server " : "Client ") + (AmmoClip >= 1));
+
+		//ViewModelEntity?.SetAnimBool( "loaded", false );
+	//}
 }
