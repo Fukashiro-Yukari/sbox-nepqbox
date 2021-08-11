@@ -23,13 +23,13 @@
 					return;
                 }
 
-				var cplywep = SPlayer.ActiveChild as BaseCarriable;
+				var splywep = SPlayer.ActiveChild as BaseCarriable;
 
-				if (cplywep == null) return;
+				if (splywep == null) return;
 				if (ViewModelEntity != null)
-					CloneViewModel(cplywep.ViewModelPath);
+					CloneViewModel(splywep.ViewModelPath);
 				else
-					CreateViewModel(cplywep.ViewModelPath);
+					CreateViewModel(splywep.ViewModelPath);
 
                 return;
 			}
@@ -49,6 +49,12 @@
 
 			CreateHitEffects(tr.EndPos);
 
+			LastController = Owner.Controller;
+			Owner.Controller = null;
+
+			if (Owner.IsLocalPawn)
+				Parent.ViewModelEntity.EnableDrawing = false;
+
 			SPlayer = tr.Entity as SandboxPlayer;
 			var SOwner = Owner as SandboxPlayer;
 
@@ -60,17 +66,11 @@
 
 			if (SPlayer.ActiveChild == null) return;
 
-			var cplywep2 = SPlayer.ActiveChild as BaseCarriable;
+			var splywep2 = SPlayer.ActiveChild as BaseCarriable;
 
-			if (cplywep2 == null) return;
+			if (splywep2 == null) return;
 			if (Owner.IsLocalPawn)
-            {
-				CreateViewModel(cplywep2.ViewModelPath);
-				Parent.ViewModelEntity.EnableDrawing = false;
-			}
-
-			LastController = Owner.Controller;
-			Owner.Controller = null;
+				CreateViewModel(splywep2.ViewModelPath);
 		}
 
 		private void CreateViewModel(string CloneViewModelPath)
@@ -113,6 +113,7 @@
 
 			ViewModelEntity?.Delete();
 			ViewModelEntity = null;
+
 			Owner.Controller = LastController;
 		}
 
