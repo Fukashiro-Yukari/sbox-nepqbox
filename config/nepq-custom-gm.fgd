@@ -308,6 +308,18 @@
 ]
 
 // 
+// Crowbar : Weapon 
+// 
+@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_crowbar : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
 // CWEPW : Weapon 
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_cwep : ""
@@ -383,6 +395,18 @@
 // PumpShotgun : Weapon 
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_pumpshotgun : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// Python357 : Weapon 
+// 
+@PointClass editormodel( "models/weapons/w_357.vmdl" ) = weapon_357 : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."

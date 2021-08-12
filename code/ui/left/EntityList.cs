@@ -28,7 +28,7 @@ public partial class EntityList : Panel
 			};
 		};
 
-		var ents = Library.GetAllAttributes<Entity>().Where( x => x.Spawnable ).OrderBy( x => x.Title ).ToArray();
+		var ents = Library.GetAllAttributes<Entity>().Where( x => x.Spawnable && !x.Name.StartsWith("weapon_")).OrderBy( x => x.Title ).ToArray();
 
 		foreach ( var entry in ents )
 		{

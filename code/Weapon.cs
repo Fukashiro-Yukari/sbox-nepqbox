@@ -5,6 +5,7 @@ public partial class Weapon : BaseWeapon, IUse
 	public virtual int ClipSize => 16;
 	public virtual int ClipTake => 1;
 	public virtual float ReloadTime => 3.0f;
+	public virtual string ReloadSound => "";
 	public virtual bool RealReload => true;
 	public virtual int Bucket => 1;
 	public virtual int BucketWeight => 100;
@@ -60,6 +61,9 @@ public partial class Weapon : BaseWeapon, IUse
 		IsReloading = true;
 
 		(Owner as AnimEntity)?.SetAnimBool( "b_reload", true );
+
+		if (ReloadSound != "")
+			PlaySound(ReloadSound);
 
 		StartReloadEffects();
 	}

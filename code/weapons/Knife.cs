@@ -10,7 +10,7 @@ partial class Knife : Weapon
 	public override int ClipSize => -1;
 	public override float PrimaryRate => 1.0f;
 	public override float SecondaryRate => 0.5f;
-	public override float ReloadTime => 4.0f;
+	public override float ReloadTime => 0f;
 	public override int Bucket => 0;
 	public override CType Crosshair => CType.None;
 	public virtual int BaseDamage => 35;

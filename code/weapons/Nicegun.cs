@@ -136,7 +136,7 @@ partial class NiceGun : Weapon
 	{
 		if ( eventData.Speed > 500.0f )
 		{
-			if ( AmmoClip >= ClipSize )
+			if ( AmmoClip > 0 )
 				Discharge();
 		}
 	}

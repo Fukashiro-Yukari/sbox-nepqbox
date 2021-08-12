@@ -62,18 +62,21 @@ partial class SandboxPlayer : Player
 			Inventory.Add(Library.Create<Carriable>(wep.Name));
 		}
 
-		foreach ( var wep in Library.GetAllAttributes<Weapon>() )
-		{
-			if ( wep.Title == "Weapon" )
-				continue;
+		//foreach ( var wep in Library.GetAllAttributes<Weapon>() )
+		//{
+		//	if ( wep.Title == "Weapon" )
+		//		continue;
 
-			Inventory.Add( Library.Create<Weapon>( wep.Name ) );
-		}
-		
-		//Inventory.Add( new Pistol() );
-		//Inventory.Add( new Flashlight() );
+		//	Inventory.Add( Library.Create<Weapon>( wep.Name ) );
+		//}
 
-		base.Respawn();
+		Inventory.Add(new Crowbar());
+		Inventory.Add(new Knife());
+		Inventory.Add(new Pistol());
+		Inventory.Add(new Python357());
+		Inventory.Add(new Flashlight());
+
+        base.Respawn();
 	}
 
 	public override void OnKilled()

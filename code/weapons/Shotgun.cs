@@ -25,7 +25,7 @@ partial class Shotgun : Weapon
 	{
 		if ( !BaseAttackPrimary() ) return;
 
-		PlaySound( "rust_pumpshotgun.shoot" );
+		PlaySound("rust_pumpshotgun.shoot");
 
 		//
 		// Shoot the bullets

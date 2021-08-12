@@ -1,0 +1,828 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "BoneMarkupList"
+				bone_cull_type = "None"
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "WeightList"
+						name = "bonemask_default"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "base"
+								weight = 1.0
+							},
+						]
+						master_morph_weight = -1.0
+						morph_weights = [  ]
+					},
+				]
+			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "base"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "bip01_l_upperarm"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "bip01_l_forearm"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "bip01_l_hand"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "bip01_l_finger4"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "bip01_l_finger41"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bip01_l_finger42"
+																		origin = [ 0.729364, 0.0, -0.000002 ]
+																		angles = [ -0.000001, -13.762849, -0.000001 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 1.312561, 0.000004, 0.0 ]
+																angles = [ -0.000001, -24.951511, 0.000001 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 3.859703, -0.142409, -1.191975 ]
+														angles = [ 11.405758, -46.283703, -26.087803 ]
+														do_not_discard = true
+													},
+													{
+														_class = "Bone"
+														name = "bip01_l_finger3"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "bip01_l_finger31"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bip01_l_finger32"
+																		origin = [ 1.196323, 0.000008, -0.000002 ]
+																		angles = [ 0.000001, -33.315491, -0.000001 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 1.539089, -0.000002, 0.0 ]
+																angles = [ -0.000001, -20.093113, 0.000001 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 3.942324, 0.046769, -0.431444 ]
+														angles = [ 5.388672, -37.796425, -8.028459 ]
+														do_not_discard = true
+													},
+													{
+														_class = "Bone"
+														name = "bip01_l_finger2"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "bip01_l_finger21"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bip01_l_finger22"
+																		origin = [ 1.209175, -0.000004, 0.000006 ]
+																		angles = [ -0.000001, -14.698602, 0.000003 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 1.719578, -0.0, 0.000002 ]
+																angles = [ 0.000003, -23.46022, -0.000001 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 3.883686, -0.046772, 0.431442 ]
+														angles = [ 1.362151, -32.342495, 4.890191 ]
+														do_not_discard = true
+													},
+													{
+														_class = "Bone"
+														name = "bip01_l_finger1"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "bip01_l_finger11"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bip01_l_finger12"
+																		origin = [ 1.099665, -0.000001, 0.000004 ]
+																		angles = [ 0.000001, -16.932163, -0.000001 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 1.719429, 0.000002, 0.0 ]
+																angles = [ 0.000003, -23.931818, -0.000003 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 3.859861, -0.13795, 1.332464 ]
+														angles = [ -3.031799, -28.017401, 19.855446 ]
+														do_not_discard = true
+													},
+													{
+														_class = "Bone"
+														name = "bip01_l_finger0"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "bip01_l_finger01"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bip01_l_finger02"
+																		origin = [ 1.206996, -0.000004, -0.0 ]
+																		angles = [ -0.000002, 16.301739, 0.000001 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 1.789784, 0.000008, 0.000001 ]
+																angles = [ -0.000007, 12.177989, 0.000001 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 0.80604, -0.348923, 1.321262 ]
+														angles = [ -36.272587, -53.021454, -66.71315 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 11.481667, -0.000002, -0.00003 ]
+												angles = [ -1.608519, 2.542788, 90.13607 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 11.692566, -0.000001, 0.0 ]
+										angles = [ -0.0, -42.931271, 0.0 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 7.723853, 4.071114, -1.956161 ]
+								angles = [ 1.679507, -86.402557, -80.679855 ]
+								do_not_discard = true
+							},
+							{
+								_class = "Bone"
+								name = "arm"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "hand"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "python"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "muzzle"
+														origin = [ -0.000131, 0.76527, 8.032598 ]
+														angles = [ -0.0, 0.0, -0.0 ]
+														do_not_discard = true
+													},
+													{
+														_class = "Bone"
+														name = "cylinder_release"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "cylinder"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "bullet1"
+																		origin = [ 0.004413, 0.696491, -1.430599 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																	{
+																		_class = "Bone"
+																		name = "bullet2"
+																		origin = [ 0.58066, 0.349007, -1.430597 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																	{
+																		_class = "Bone"
+																		name = "bullet3"
+																		origin = [ 0.583442, -0.305901, -1.430597 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																	{
+																		_class = "Bone"
+																		name = "bullet4"
+																		origin = [ 0.005317, -0.648727, -1.430595 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																	{
+																		_class = "Bone"
+																		name = "bullet5"
+																		origin = [ -0.574618, -0.303123, -1.430597 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																	{
+																		_class = "Bone"
+																		name = "bullet6"
+																		origin = [ -0.573713, 0.34811, -1.430599 ]
+																		angles = [ -0.0, 0.0, -0.0 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ 0.001032, 1.440441, -1.526787 ]
+																angles = [ -0.0, 0.0, -0.0 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 0.025546, -1.273521, 1.7533 ]
+														angles = [ -0.0, 0.0, -0.0 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 0.09978, 3.177677, 4.325964 ]
+												angles = [ 0.207296, -1.050805, -0.515204 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 0.46347, 5.50676, 13.080231 ]
+										angles = [ -0.0, 0.0, 0.0 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ -6.211924, -0.713154, 8.058478 ]
+								angles = [ -0.0, 0.0, 0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ 0.0, -0.878417, 54.32534 ]
+						angles = [ -0.0, 0.0, 89.999985 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "muzzle"
+						relative_origin = [ -0.0, -0.000001, 0.000002 ]
+						relative_angles = [ -90.0, 90.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "HitboxSet"
+						name = "default"
+						children = 
+						[
+							{
+								_class = "Hitbox"
+								parent_bone = "base"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -6.211924, -0.713153, -1.956161 ]
+								hitbox_maxs = [ 7.723854, 4.07111, 8.058478 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "bip01_l_forearm"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ 0.0, -2.879718, -3.013641 ]
+								hitbox_maxs = [ 11.481673, 2.54019, 2.542167 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "bip01_l_hand"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ 0.0, -2.092539, -2.102732 ]
+								hitbox_maxs = [ 4.591892, 0.708064, 1.750654 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "bip01_l_finger0"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ 0.0, -0.444017, -1.279032 ]
+								hitbox_maxs = [ 2.236269, 0.915964, 1.134511 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "arm"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -2.748274, -2.963444, -2.078731 ]
+								hitbox_maxs = [ 2.976196, 7.090543, 13.08023 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "hand"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.7938, -1.996769, -2.345151 ]
+								hitbox_maxs = [ 1.426429, 5.099071, 12.267991 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "cylinder"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.049766, -1.060427, -1.430599 ]
+								hitbox_maxs = [ 1.059583, 1.079102, 0.730674 ]
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "v_357_bg_studio_lod0"
+						filename = "models/weapons/v_357_refs/mesh/v_357_bg_studio_lod0.dmx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "idle01"
+						activity_name = "ACT_VM_IDLE"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_idle01_0.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "fire"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_MUZZLEFLASH"
+								event_frame = 0
+								event_keys = 
+								{
+									weaponType = "357"
+									attachment = "muzzle"
+								}
+							},
+						]
+						activity_name = "ACT_VM_PRIMARYATTACK"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_fire_1.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "draw"
+						activity_name = "ACT_VM_DRAW"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_draw_2.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "reload"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 28
+								event_keys = 
+								{
+									name = "Weapon_357.OpenLoader"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 39
+								event_keys = 
+								{
+									name = "Weapon_357.RemoveLoader"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_WEAPON_RELOAD"
+								event_frame = 55
+								event_keys = null
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 67
+								event_keys = 
+								{
+									name = "Weapon_357.ReplaceLoader"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 92
+								event_keys = 
+								{
+									name = "Weapon_357.Spin"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
+						activity_name = "ACT_VM_RELOAD"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_reload_3.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "holster"
+						activity_name = "ACT_VM_HOLSTER"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_holster_4.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "idletolow"
+						activity_name = "ACT_VM_LOWERED_TO_IDLE"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_idletolow_5.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "lowtoidle"
+						activity_name = "ACT_VM_IDLE_TO_LOWERED"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_lowtoidle_6.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "lowidle"
+						activity_name = "ACT_VM_IDLE_LOWERED"
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_lowidle_7.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@idle01_0"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_idle01_0.dmx"
+						start_frame = 0
+						end_frame = 120
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@fire_1"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_fire_1.dmx"
+						start_frame = 0
+						end_frame = 24
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@draw_2"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_draw_2.dmx"
+						start_frame = 0
+						end_frame = 30
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@reload_3"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_reload_3.dmx"
+						start_frame = 0
+						end_frame = 110
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@holster_4"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_holster_4.dmx"
+						start_frame = 0
+						end_frame = 10
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@idletolow_5"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_idletolow_5.dmx"
+						start_frame = 0
+						end_frame = 15
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@lowtoidle_6"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_lowtoidle_6.dmx"
+						start_frame = 0
+						end_frame = 15
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@lowidle_7"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/weapons/v_357_refs/anim/_lowidle_7.dmx"
+						start_frame = 0
+						end_frame = 100
+						framerate = 30.0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "models/weapons/v_357.vanmgrph"
+	}
+}

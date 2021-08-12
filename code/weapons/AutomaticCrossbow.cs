@@ -9,6 +9,7 @@ partial class AutomaticCrossbow : Weapon
 	public override int ClipSize => 50;
 	public override float PrimaryRate => 10f;
 	public override int Bucket => 3;
+	public override string ReloadSound => "rush_crossbow.reload";
 
 	[Net]
 	public bool Zoomed { get; set; }
@@ -23,6 +24,9 @@ partial class AutomaticCrossbow : Weapon
 	public override void AttackPrimary()
 	{
 		if ( !BaseAttackPrimary() ) return;
+
+		PlaySound("rush_crossbow.shoot");
+
 		if ( IsServer )
 		using ( Prediction.Off() )
 		{
