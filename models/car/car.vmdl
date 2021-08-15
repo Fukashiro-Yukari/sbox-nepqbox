@@ -6,21 +6,6 @@
 		children = 
 		[
 			{
-				_class = "LODGroupList"
-				children = 
-				[
-					{
-						_class = "LODGroup"
-						switch_threshold = 0.0
-						meshes = 
-						[
-							"Chassis_2_Main",
-							"unnamed_1",
-						]
-					},
-				]
-			},
-			{
 				_class = "MaterialGroupList"
 				children = 
 				[
@@ -31,10 +16,6 @@
 							{
 								from = "modular_vehicle_a.vmat"
 								to = "entities/modular_vehicle/modular_vehicle_a.vmat"
-							},
-							{
-								from = "03 - default.vmat"
-								to = "models/rust_props/chairs/wooden_chairs.vmat"
 							},
 						]
 						use_global_default = false

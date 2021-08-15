@@ -57,9 +57,8 @@ partial class Flashlight : Weapon
 			OuterConeAngle = 40,
 			FogStength = 1.0f,
 			Owner = Owner,
+			LightCookie = Texture.Load("materials/effects/lightcookie.vtex")
 		};
-
-		light.UseFog();
 
 		return light;
 	}
