@@ -1,7 +1,7 @@
 namespace Sandbox.CWEP
 {
 	[Library( "cwep_smg", Title = "SMG", Description = "Submachine gun" )]
-	public partial class SMG : CWEPFireMode
+	public partial class SMGFireMode : CWEPFireMode // An item with the same key has already been added. Key: SMG (I don¡¯t understand why I can¡¯t set this class name to SMG)
 	{
 		public override string PrimarySoundName => "rust_smg.shoot";
 		public override CType Crosshair => CType.SMG;

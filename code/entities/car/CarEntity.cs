@@ -10,15 +10,22 @@ public partial class CarEntity : Prop, IUse
 	[ConVar.Replicated( "car_accelspeed" )]
 	public static float car_accelspeed { get; set; } = 500.0f;
 
+	public virtual float CarAccelSpeed => car_accelspeed;
+	public virtual string CarModel => "models/car/car.vmdl";
+
+	public virtual float Height => 20f;
+	public virtual float LeanForward => 42f;
+	public virtual float LeanRight => 32f;
+
 	private CarWheel frontLeft;
 	private CarWheel frontRight;
 	private CarWheel backLeft;
 	private CarWheel backRight;
 
-	private float frontLeftDistance;
-	private float frontRightDistance;
-	private float backLeftDistance;
-	private float backRightDistance;
+	public float frontLeftDistance;
+	public float frontRightDistance;
+	public float backLeftDistance;
+	public float backRightDistance;
 
 	private bool frontWheelsOnGround;
 	private bool backWheelsOnGround;
@@ -28,10 +35,10 @@ public partial class CarEntity : Prop, IUse
 	private float grip;
 	private TimeSince timeSinceDriverLeft;
 
-	[Net] private float WheelSpeed { get; set; }
-	[Net] private float TurnDirection { get; set; }
-	[Net] private float AccelerationTilt { get; set; }
-	[Net] private float TurnLean { get; set; }
+	[Net] public float WheelSpeed { get; set; }
+	[Net] public float TurnDirection { get; set; }
+	[Net] public float AccelerationTilt { get; set; }
+	[Net] public float TurnLean { get; set; }
 
 	[Net] public float MovementSpeed { get; private set; }
 	[Net] public bool Grounded { get; private set; }
@@ -66,20 +73,18 @@ public partial class CarEntity : Prop, IUse
 
 	[Net] public Player driver { get; private set; }
 
-	private ModelEntity chassis_axle_rear;
-	private ModelEntity chassis_axle_front;
-	private ModelEntity wheel0;
-	private ModelEntity wheel1;
-	private ModelEntity wheel2;
-	private ModelEntity wheel3;
+	public ModelEntity chassis_axle_rear;
+	public ModelEntity chassis_axle_front;
+	public ModelEntity wheel0;
+	public ModelEntity wheel1;
+	public ModelEntity wheel2;
+	public ModelEntity wheel3;
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		var modelName = "models/car/car.vmdl";
-
-		SetModel( modelName );
+		SetModel(CarModel);
 		SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
 		SetInteractsExclude( CollisionLayer.Player );
 		EnableSelfCollisions = false;
@@ -95,73 +100,78 @@ public partial class CarEntity : Prop, IUse
 			EnableSelfCollisions = false,
 		};
 
-		trigger.SetModel( modelName );
+		trigger.SetModel(CarModel);
 		trigger.SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
+	}
+
+	public virtual void ClientCreateModel()
+    {
+		{
+			var vehicle_fuel_tank = new ModelEntity();
+			vehicle_fuel_tank.SetModel("entities/modular_vehicle/vehicle_fuel_tank.vmdl");
+			vehicle_fuel_tank.Transform = Transform;
+			vehicle_fuel_tank.Parent = this;
+			vehicle_fuel_tank.LocalPosition = new Vector3(0.75f, 0, 0) * 40.0f;
+		}
+
+		{
+			chassis_axle_front = new ModelEntity();
+			chassis_axle_front.SetModel("entities/modular_vehicle/chassis_axle_front.vmdl");
+			chassis_axle_front.Transform = Transform;
+			chassis_axle_front.Parent = this;
+			chassis_axle_front.LocalPosition = new Vector3(1.05f, 0, 0.35f) * 40.0f;
+
+			{
+				wheel0 = new ModelEntity();
+				wheel0.SetModel("entities/modular_vehicle/wheel_a.vmdl");
+				wheel0.SetParent(chassis_axle_front, "Wheel_Steer_R", new Transform(Vector3.Zero, Rotation.From(0, 180, 0)));
+			}
+
+			{
+				wheel1 = new ModelEntity();
+				wheel1.SetModel("entities/modular_vehicle/wheel_a.vmdl");
+				wheel1.SetParent(chassis_axle_front, "Wheel_Steer_L", new Transform(Vector3.Zero, Rotation.From(0, 0, 0)));
+			}
+
+			{
+				var chassis_steering = new ModelEntity();
+				chassis_steering.SetModel("entities/modular_vehicle/chassis_steering.vmdl");
+				chassis_steering.SetParent(chassis_axle_front, "Axle_front_Center", new Transform(Vector3.Zero, Rotation.From(-90, 180, 0)));
+			}
+		}
+
+		{
+			chassis_axle_rear = new ModelEntity();
+			chassis_axle_rear.SetModel("entities/modular_vehicle/chassis_axle_rear.vmdl");
+			chassis_axle_rear.Transform = Transform;
+			chassis_axle_rear.Parent = this;
+			chassis_axle_rear.LocalPosition = new Vector3(-1.05f, 0, 0.35f) * 40.0f;
+
+			{
+				var chassis_transmission = new ModelEntity();
+				chassis_transmission.SetModel("entities/modular_vehicle/chassis_transmission.vmdl");
+				chassis_transmission.SetParent(chassis_axle_rear, "Axle_Rear_Center", new Transform(Vector3.Zero, Rotation.From(-90, 180, 0)));
+			}
+
+			{
+				wheel2 = new ModelEntity();
+				wheel2.SetModel("entities/modular_vehicle/wheel_a.vmdl");
+				wheel2.SetParent(chassis_axle_rear, "Axle_Rear_Center", new Transform(Vector3.Left * (0.7f * 40), Rotation.From(0, 90, 0)));
+			}
+
+			{
+				wheel3 = new ModelEntity();
+				wheel3.SetModel("entities/modular_vehicle/wheel_a.vmdl");
+				wheel3.SetParent(chassis_axle_rear, "Axle_Rear_Center", new Transform(Vector3.Right * (0.7f * 40), Rotation.From(0, -90, 0)));
+			}
+		}
 	}
 
 	public override void ClientSpawn()
 	{
 		base.ClientSpawn();
 
-		{
-			var vehicle_fuel_tank = new ModelEntity();
-			vehicle_fuel_tank.SetModel( "entities/modular_vehicle/vehicle_fuel_tank.vmdl" );
-			vehicle_fuel_tank.Transform = Transform;
-			vehicle_fuel_tank.Parent = this;
-			vehicle_fuel_tank.LocalPosition = new Vector3( 0.75f, 0, 0 ) * 40.0f;
-		}
-
-		{
-			chassis_axle_front = new ModelEntity();
-			chassis_axle_front.SetModel( "entities/modular_vehicle/chassis_axle_front.vmdl" );
-			chassis_axle_front.Transform = Transform;
-			chassis_axle_front.Parent = this;
-			chassis_axle_front.LocalPosition = new Vector3( 1.05f, 0, 0.35f ) * 40.0f;
-
-			{
-				wheel0 = new ModelEntity();
-				wheel0.SetModel( "entities/modular_vehicle/wheel_a.vmdl" );
-				wheel0.SetParent( chassis_axle_front, "Wheel_Steer_R", new Transform( Vector3.Zero, Rotation.From( 0, 180, 0 ) ) );
-			}
-
-			{
-				wheel1 = new ModelEntity();
-				wheel1.SetModel( "entities/modular_vehicle/wheel_a.vmdl" );
-				wheel1.SetParent( chassis_axle_front, "Wheel_Steer_L", new Transform( Vector3.Zero, Rotation.From( 0, 0, 0 ) ) );
-			}
-
-			{
-				var chassis_steering = new ModelEntity();
-				chassis_steering.SetModel( "entities/modular_vehicle/chassis_steering.vmdl" );
-				chassis_steering.SetParent( chassis_axle_front, "Axle_front_Center", new Transform( Vector3.Zero, Rotation.From( -90, 180, 0 ) ) );
-			}
-		}
-
-		{
-			chassis_axle_rear = new ModelEntity();
-			chassis_axle_rear.SetModel( "entities/modular_vehicle/chassis_axle_rear.vmdl" );
-			chassis_axle_rear.Transform = Transform;
-			chassis_axle_rear.Parent = this;
-			chassis_axle_rear.LocalPosition = new Vector3( -1.05f, 0, 0.35f ) * 40.0f;
-
-			{
-				var chassis_transmission = new ModelEntity();
-				chassis_transmission.SetModel( "entities/modular_vehicle/chassis_transmission.vmdl" );
-				chassis_transmission.SetParent( chassis_axle_rear, "Axle_Rear_Center", new Transform( Vector3.Zero, Rotation.From( -90, 180, 0 ) ) );
-			}
-
-			{
-				wheel2 = new ModelEntity();
-				wheel2.SetModel( "entities/modular_vehicle/wheel_a.vmdl" );
-				wheel2.SetParent( chassis_axle_rear, "Axle_Rear_Center", new Transform( Vector3.Left * (0.7f * 40), Rotation.From( 0, 90, 0 ) ) );
-			}
-
-			{
-				wheel3 = new ModelEntity();
-				wheel3.SetModel( "entities/modular_vehicle/wheel_a.vmdl" );
-				wheel3.SetParent( chassis_axle_rear, "Axle_Rear_Center", new Transform( Vector3.Right * (0.7f * 40), Rotation.From( 0, -90, 0 ) ) );
-			}
-		}
+		ClientCreateModel();
 	}
 
 	protected override void OnDestroy()
@@ -265,7 +275,7 @@ public partial class CarEntity : Prop, IUse
 		{
 			var forwardSpeed = MathF.Abs( localVelocity.x );
 			var speedFactor = 1.0f - (forwardSpeed / 5000.0f).Clamp( 0.0f, 1.0f );
-			var acceleration = speedFactor * (accelerateDirection < 0.0f ? car_accelspeed * 0.5f : car_accelspeed) * accelerateDirection * dt;
+			var acceleration = speedFactor * (accelerateDirection < 0.0f ? CarAccelSpeed * 0.5f : CarAccelSpeed) * accelerateDirection * dt;
 			var impulse = rotation * new Vector3( acceleration, 0, 0 );
 			body.Velocity += impulse;
 		}
@@ -395,10 +405,10 @@ public partial class CarEntity : Prop, IUse
 		return rotation * (localVelocity * dampingPow);
 	}
 
-	private void RaycastWheels( Rotation rotation, bool doPhysics, out bool frontWheels, out bool backWheels, float dt )
+	public void RaycastWheels( Rotation rotation, bool doPhysics, out bool frontWheels, out bool backWheels, float dt )
 	{
-		float forward = 42;
-		float right = 32;
+		float forward = LeanForward;
+		float right = LeanRight;
 
 		var frontLeftPos = rotation.Forward * forward + rotation.Right * right + rotation.Up * 20;
 		var frontRightPos = rotation.Forward * forward - rotation.Right * right + rotation.Up * 20;
@@ -408,7 +418,7 @@ public partial class CarEntity : Prop, IUse
 		var tiltAmount = AccelerationTilt * 2.5f;
 		var leanAmount = TurnLean * 2.5f;
 
-		float length = 20.0f;
+		float length = Height;
 
 		frontWheels =
 			frontLeft.Raycast( length + tiltAmount - leanAmount, doPhysics, frontLeftPos * Scale, ref frontLeftDistance, dt ) |
@@ -422,24 +432,23 @@ public partial class CarEntity : Prop, IUse
 	float wheelAngle = 0.0f;
 	float wheelRevolute = 0.0f;
 
-	[Event.Frame]
-	public void OnFrame()
-	{
-		wheelAngle = wheelAngle.LerpTo( TurnDirection * 25, 1.0f - MathF.Pow( 0.001f, Time.Delta ) );
+	public virtual void OnCarFrame()
+    {
+		wheelAngle = wheelAngle.LerpTo(TurnDirection * 25, 1.0f - MathF.Pow(0.001f, Time.Delta));
 		wheelRevolute += (WheelSpeed / (14.0f * Scale)).RadianToDegree() * Time.Delta;
 
-		var wheelRotRight = Rotation.From( -wheelAngle, 180, -wheelRevolute );
-		var wheelRotLeft = Rotation.From( wheelAngle, 0, wheelRevolute );
-		var wheelRotBackRight = Rotation.From( 0, 90, -wheelRevolute );
-		var wheelRotBackLeft = Rotation.From( 0, -90, wheelRevolute );
+		var wheelRotRight = Rotation.From(-wheelAngle, 180, -wheelRevolute);
+		var wheelRotLeft = Rotation.From(wheelAngle, 0, wheelRevolute);
+		var wheelRotBackRight = Rotation.From(0, 90, -wheelRevolute);
+		var wheelRotBackLeft = Rotation.From(0, -90, wheelRevolute);
 
-		RaycastWheels( Rotation, false, out _, out _, Time.Delta );
+		RaycastWheels(Rotation, false, out _, out _, Time.Delta);
 
-		float frontOffset = 20.0f - Math.Min( frontLeftDistance, frontRightDistance );
-		float backOffset = 20.0f - Math.Min( backLeftDistance, backRightDistance );
+		float frontOffset = 20.0f - Math.Min(frontLeftDistance, frontRightDistance);
+		float backOffset = 20.0f - Math.Min(backLeftDistance, backRightDistance);
 
-		chassis_axle_front.SetBoneTransform( "Axle_front_Center", new Transform( Vector3.Up * frontOffset ), false );
-		chassis_axle_rear.SetBoneTransform( "Axle_Rear_Center", new Transform( Vector3.Up * backOffset ), false );
+		chassis_axle_front.SetBoneTransform("Axle_front_Center", new Transform(Vector3.Up * frontOffset), false);
+		chassis_axle_rear.SetBoneTransform("Axle_Rear_Center", new Transform(Vector3.Up * backOffset), false);
 
 		wheel0.LocalRotation = wheelRotRight;
 		wheel1.LocalRotation = wheelRotLeft;
@@ -447,20 +456,33 @@ public partial class CarEntity : Prop, IUse
 		wheel3.LocalRotation = wheelRotBackLeft;
 	}
 
+	[Event.Frame]
+	public void OnFrame()
+	{
+		OnCarFrame();
+	}
+
 	private void RemoveDriver( SandboxPlayer player )
 	{
 		driver = null;
+		timeSinceDriverLeft = 0;
+
+		ResetInput();
+
+		if ( !player.IsValid() )
+			return;
+
 		player.Vehicle = null;
 		player.VehicleController = null;
 		player.VehicleAnimator = null;
 		player.VehicleCamera = null;
 		player.Parent = null;
-		player.PhysicsBody.Enabled = true;
-		player.PhysicsBody.Position = player.Position;
 
-		timeSinceDriverLeft = 0;
-
-		ResetInput();
+		if ( player.PhysicsBody.IsValid() )
+		{
+			player.PhysicsBody.Enabled = true;
+			player.PhysicsBody.Position = player.Position;
+		}
 	}
 
 	public bool OnUse( Entity user )
@@ -558,6 +580,7 @@ public partial class CarEntity : Prop, IUse
 				if ( eventData.Entity.LifeState == LifeState.Dead && eventData.Entity is not SandboxPlayer )
 				{
 					PhysicsBody.Velocity = eventData.PreVelocity;
+					PhysicsBody.AngularVelocity = eventData.PreAngularVelocity;
 				}
 			}
 		}

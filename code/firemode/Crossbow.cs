@@ -1,7 +1,7 @@
 namespace Sandbox.CWEP
 {
 	[Library( "cwep_crossbow", Title = "Crossbow", Description = "Automatic crossbow" )]
-	public partial class Crossbow : CWEPFireMode
+	public partial class CrossbowFireMode : CWEPFireMode // An item with the same key has already been added. Key: Crossbow (WTF??? The Sandbox.CWEP.Crossbow class is the same as the Crossbow class??)
 	{
 		public override string PrimarySoundName => "rust_smg.shoot";
 

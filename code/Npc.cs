@@ -10,7 +10,7 @@ public partial class Npc : AnimEntity
 	public virtual string ModelPath => "models/citizen/citizen.vmdl";
 	public virtual float InitHealth => 0;
 	public virtual bool HaveDress => true;
-	public NavPath Path = new NavPath();
+	public NavSteer Steer;
 
 	DamageInfo lastDamage;
 
@@ -159,7 +159,6 @@ public partial class Npc : AnimEntity
 				"models/citizen_clothes/trousers/trousers.police.vmdl",
 				"models/citizen_clothes/trousers/trousers.smart.vmdl",
 				"models/citizen_clothes/trousers/trousers.smarttan.vmdl",
-				"models/citizen/clothes/trousers_tracksuit.vmdl",
 				"models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl",
 				"models/citizen_clothes/trousers/trousers_tracksuit.vmdl",
 				"models/citizen_clothes/shoes/shorts.cargo.vmdl",
@@ -245,5 +244,101 @@ public partial class Npc : AnimEntity
 			hat.EnableShadowInFirstPerson = true;
 			hat.EnableHideInFirstPerson = true;
 		}
+	}
+
+	Vector3 InputVelocity;
+	Vector3 LookDir;
+
+	public virtual void MoveTick()
+    {
+		InputVelocity = 0;
+
+		if (Steer != null)
+		{
+			Steer.Tick(Position);
+
+			if (!Steer.Output.Finished)
+			{
+				InputVelocity = Steer.Output.Direction.Normal;
+				Velocity = Velocity.AddClamped(InputVelocity * Time.Delta * 500, Speed);
+			}
+		}
+
+		Move(Time.Delta);
+
+		var walkVelocity = Velocity.WithZ(0);
+		if (walkVelocity.Length > 0.5f)
+		{
+			var turnSpeed = walkVelocity.Length.LerpInverse(0, 100, true);
+			var targetRotation = Rotation.LookAt(walkVelocity.Normal, Vector3.Up);
+			Rotation = Rotation.Lerp(Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f);
+		}
+
+		var animHelper = new CitizenAnimationHelper(this);
+
+		LookDir = Vector3.Lerp(LookDir, InputVelocity.WithZ(0) * 1000, Time.Delta * 100.0f);
+		animHelper.WithLookAt(EyePos + LookDir);
+		animHelper.WithVelocity(Velocity);
+		animHelper.WithWishVelocity(InputVelocity);
+	}
+
+	public virtual void OnTick()
+    {
+
+    }
+
+	[Event.Tick.Server]
+	public void Tick()
+	{
+		MoveTick();
+		OnTick();
+	}
+
+	protected virtual void Move( float timeDelta )
+	{
+		var bbox = BBox.FromHeightAndRadius( 64, 4 );
+
+		MoveHelper move = new( Position, Velocity );
+		move.MaxStandableAngle = 50;
+		move.Trace = move.Trace.Ignore( this ).Size( bbox );
+
+		if ( !Velocity.IsNearlyZero( 0.001f ) )
+		{
+			move.TryUnstuck();
+			move.TryMoveWithStep( timeDelta, 30 );
+		}
+
+		var tr = move.TraceDirection( Vector3.Down * 10.0f );
+
+		if ( move.IsFloor( tr ) )
+		{
+			GroundEntity = tr.Entity;
+
+			if ( !tr.StartedSolid )
+			{
+				move.Position = tr.EndPos;
+			}
+
+			if ( InputVelocity.Length > 0 )
+			{
+				var movement = move.Velocity.Dot( InputVelocity.Normal );
+				move.Velocity = move.Velocity - movement * InputVelocity.Normal;
+				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );
+				move.Velocity += movement * InputVelocity.Normal;
+
+			}
+			else
+			{
+				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );
+			}
+		}
+		else
+		{
+			GroundEntity = null;
+			move.Velocity += Vector3.Down * 900 * timeDelta;
+		}
+
+		Position = move.Position;
+		Velocity = move.Velocity;
 	}
 }

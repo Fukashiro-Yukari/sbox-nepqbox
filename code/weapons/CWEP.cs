@@ -68,11 +68,30 @@ public partial class CWEPW : Weapon
 			OuterConeAngle = 40,
 			FogStength = 1.0f,
 			Owner = Owner,
+			LightCookie = Texture.Load("materials/effects/lightcookie.vtex")
 		};
 
-		light.UseFog();
-
 		return light;
+	}
+
+	//[Event.Hotload]
+	//public void OnHotloaded()
+ //   {
+ //       LoadAllFireMode();
+ //   }
+
+	private void LoadAllFireMode()
+    {
+		if (FireModes.Count > 0)
+			FireModes = new();
+
+		foreach (var en in Library.GetAllAttributes<CWEPFireMode>())
+		{
+			if (en.Title == "CWEPFireMode")
+				continue;
+
+			FireModes.Add(en.Name);
+		}
 	}
 
 	public override void ActiveStart( Entity ent )
@@ -84,13 +103,7 @@ public partial class CWEPW : Weapon
 			Activate();
 		}
 
-		foreach ( var en in Library.GetAllAttributes<CWEPFireMode>() )
-		{
-			if ( en.Title == "CWEPFireMode" )
-				continue;
-
-			FireModes.Add( en.Name );
-		}
+		LoadAllFireMode();
 	}
 
 	public override void ActiveEnd( Entity ent, bool dropped )

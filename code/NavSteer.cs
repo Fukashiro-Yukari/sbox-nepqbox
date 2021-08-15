@@ -7,6 +7,8 @@ public class NavSteer
 {
 	protected NavPath Path { get; private set; }
 
+	public Func<Entity, bool> DontAvoidance = x => false;
+
 	public NavSteer()
 	{
 		Path = new NavPath();
@@ -43,6 +45,7 @@ public class NavSteer
 		foreach ( var ent in Physics.GetEntitiesInSphere( center, radius ) )
 		{
 			if ( ent is not Npc ) continue;
+			if (DontAvoidance.Invoke(ent)) continue;
 			if ( ent.IsWorld ) continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );

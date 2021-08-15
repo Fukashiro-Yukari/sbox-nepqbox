@@ -95,15 +95,6 @@ partial class Crowbar : Weapon
 		ViewModelEntity?.SetAnimBool("fire", true);
 	}
 
-	[ClientRpc]
-	protected override void ShootEffects()
-	{
-		Host.AssertClient();
-
-		ViewModelEntity?.SetAnimBool("fire", true);
-		CrosshairPanel?.CreateEvent("fire");
-	}
-
 	public override void SimulateAnimator(PawnAnimator anim)
 	{
 		anim.SetParam("holdtype", 4); // TODO this is shit

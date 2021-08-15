@@ -479,7 +479,7 @@
 ]
 
 // 
-// MelonCarEntity : Sandbox.Prop 
+// MelonCar : CarEntity 
 // 
 @PointClass model() = ent_meloncar : ""
 [
