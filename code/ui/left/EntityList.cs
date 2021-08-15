@@ -28,11 +28,26 @@ public partial class EntityList : Panel
 			};
 		};
 
-		var ents = Library.GetAllAttributes<Entity>().Where( x => x.Spawnable && !x.Name.StartsWith("weapon_")).OrderBy( x => x.Title ).ToArray();
+		LoadAllItem(false);
+	}
 
-		foreach ( var entry in ents )
+	private void LoadAllItem(bool isreload)
+	{
+		if (isreload)
+			Canvas.Data.Clear();
+
+		var ents = Library.GetAllAttributes<Entity>().Where(x => x.Spawnable && !x.Name.StartsWith("weapon_")).OrderBy(x => x.Title).ToArray();
+
+		foreach (var entry in ents)
 		{
-			Canvas.AddItem( entry );
+			Canvas.AddItem(entry);
 		}
+	}
+
+	public override void OnHotloaded()
+	{
+		base.OnHotloaded();
+
+		LoadAllItem(true);
 	}
 }
