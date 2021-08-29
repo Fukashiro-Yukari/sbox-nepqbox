@@ -184,7 +184,7 @@ partial class SandboxPlayer : Player
 
 	public bool IsOnGround()
 	{
-		var tr = Trace.Ray( Position, Position + Vector3.Down * 20 )
+		var tr = Trace.Ray( Position, Position + Vector3.Down * 5 )
 				.Radius( 1 )
 				.Ignore( this )
 				.Run();
@@ -263,6 +263,8 @@ partial class SandboxPlayer : Player
 
 		if ( timeSinceFall > 0.02f && DownVel.z > 750 && IsOnGround() && !controller.HasTag( "noclip" ) && HavaFallDamage )
 		{
+			timeSinceFall = 0;
+
 			var dmg = new DamageInfo()
 			{
 				Position = Position,
@@ -271,7 +273,6 @@ partial class SandboxPlayer : Player
 
 			PlaySound( "dm.ui_attacker" );
 			TakeDamage( dmg );
-			timeSinceFall = 0;
 		}
 	}
 

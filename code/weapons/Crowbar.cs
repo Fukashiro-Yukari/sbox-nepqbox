@@ -80,6 +80,11 @@ partial class Crowbar : Weapon
 	{
 		Host.AssertClient();
 
+		if (IsLocalPawn)
+		{
+			_ = new Sandbox.ScreenShake.Perlin(1.0f, 1.0f, 3.0f);
+		}
+
 		ViewModelEntity?.SetAnimBool("fire_miss", true);
 	}
 
@@ -106,6 +111,9 @@ partial class Crowbar : Weapon
 	public override void SimulateAnimator(PawnAnimator anim)
 	{
 		anim.SetParam("holdtype", 4); // TODO this is shit
+		anim.SetParam("holdtype_attack", 2.0f);
+		anim.SetParam("holdtype_handedness", 1);
+		anim.SetParam("holdtype_pose", 0f);
 		anim.SetParam("aimat_weight", 1.0f);
 	}
 }

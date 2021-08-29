@@ -81,6 +81,9 @@ partial class Knife : Weapon
 	public override void SimulateAnimator(PawnAnimator anim)
 	{
 		anim.SetParam("holdtype", 4); // TODO this is shit
+		anim.SetParam("holdtype_attack", 2.0f);
+		anim.SetParam("holdtype_handedness", 1);
+		anim.SetParam("holdtype_pose", 0f);
 		anim.SetParam("aimat_weight", 1.0f);
 	}
 }

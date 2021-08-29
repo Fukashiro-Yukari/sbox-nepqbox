@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,9 @@ public partial class Npc : AnimEntity
 	public ModelEntity Corpse;
 
 	DamageInfo lastDamage;
+	TimeSince timeSinceJump;
+	TimeSince timeSinceFall;
+	TimeSince timeSinceMeleeStrike;
 
 	public override void Spawn()
 	{
@@ -69,6 +73,77 @@ public partial class Npc : AnimEntity
 
 			// Note - sending this only to the attacker!
 			attacker.DidDamage(To.Single(attacker), info.Position, info.Damage, Health.LerpInverse(100, 0), Health <= 0);
+		}
+	}
+
+	public virtual IEnumerable<TraceResult> TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
+	{
+		bool InWater = Physics.TestPointContents(start, CollisionLayer.Water);
+
+		var tr = Sandbox.Trace.Ray(start, end)
+				.UseHitboxes()
+				.HitLayer(CollisionLayer.Water, !InWater)
+				.Ignore(Owner)
+				.Ignore(this)
+				.Size(radius)
+				.Run();
+
+		yield return tr;
+
+		//
+		// Another trace, bullet going through thin material, penetrating water surface?
+		//
+	}
+
+	public bool CanMeleeStrike()
+	{
+		return false;
+	}
+
+	public void MeleeStrike(float damage, float force)
+	{
+		SetAnimInt("holdtype", 4);
+
+		// random swing attack
+		if (Rand.Int(1) == 1)
+			SetAnimFloat("holdtype_attack", 2.0f);
+		else
+			SetAnimFloat("holdtype_attack", 1.0f);
+
+		// random hand
+		if (Rand.Int(1) == 1)
+			SetAnimInt("holdtype_handedness", 1);
+		else if (Rand.Int(2) == 1)
+			SetAnimInt("holdtype_handedness", 2);
+		else
+			SetAnimInt("holdtype_handedness", 0);
+
+		SetAnimBool("b_attack", true);
+		Velocity = 0;
+		var forward = EyeRot.Forward;
+		forward = forward.Normal;
+
+		var overlaps = Physics.GetEntitiesInSphere(Position, 80);
+
+		if (IsServer)
+		{
+			foreach (var overlap in overlaps.OfType<Entity>().ToArray())
+			{
+				if (overlap == this) continue;
+
+				using (Prediction.Off())
+				{
+					var damageInfo = DamageInfo.FromBullet(overlap.Position, forward * 100 * force, damage)
+						.WithAttacker(this);
+					overlap.TakeDamage(damageInfo);
+
+					// blood particles
+					foreach (var tr in TraceBullet(EyePos, EyePos, 100f))
+					{
+						tr.Surface.DoBulletImpact(tr);
+					}
+				}
+			}
 		}
 	}
 
@@ -142,6 +217,28 @@ public partial class Npc : AnimEntity
 		ent.DeleteAsync(10.0f);
 	}
 
+	public bool IsOnGround()
+	{
+		var tr = Sandbox.Trace.Ray(Position, Position + Vector3.Down * 1)
+				.Radius(1)
+				.Ignore(this)
+				.Run();
+
+		return tr.Hit;
+	}
+
+	private Sandbox.TraceResult StartTrace(Vector3 start, Vector3 end)
+	{
+		var tr = Sandbox.Trace.Ray(start, end)
+			.Ignore(this)
+			.HitLayer(CollisionLayer.All, false)
+			.HitLayer(CollisionLayer.STATIC_LEVEL)
+			.HitLayer(CollisionLayer.Solid)
+			.Run();
+
+		return tr;
+	}
+
 	Vector3 InputVelocity;
 	Vector3 LookDir;
 
@@ -157,6 +254,52 @@ public partial class Npc : AnimEntity
 			{
 				InputVelocity = Steer.Output.Direction.Normal;
 				Velocity = Velocity.AddClamped(InputVelocity * Time.Delta * 500, Speed);
+
+				var distance = 60f;
+				var start = Position;
+				var end = Position + Rotation.Forward * distance;
+				var tr = StartTrace(start, end);
+
+				if (tr.Hit)
+				{
+					start = Position;
+					end = Position + Vector3.Up * 5;
+					tr = StartTrace(start, end);
+
+					if (!tr.Hit)
+					{
+						start = tr.EndPos;
+						end = tr.EndPos + Rotation.Forward * distance + 5;
+						tr = StartTrace(start, end);
+
+						if (tr.Hit)
+						{
+							start = Position;
+							end = Position + Vector3.Up * 64;
+							tr = StartTrace(start, end);
+
+							if (!tr.Hit)
+							{
+								start = tr.EndPos;
+								end = tr.EndPos + Rotation.Forward * distance + 5;
+								tr = StartTrace(start, end);
+
+								if (!tr.Hit && timeSinceJump > 1f)
+								{
+									float flGroundFactor = 1.0f;
+									float flMul = 268.3281572999747f * 1.2f;
+									float startz = Velocity.z;
+
+									timeSinceJump = 0f;
+									Position += Vector3.Up * 5;
+									Velocity = Velocity.WithZ(startz + flMul * flGroundFactor);
+
+									SetAnimBool("b_jump", true);
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -176,12 +319,42 @@ public partial class Npc : AnimEntity
 		animHelper.WithLookAt(EyePos + LookDir);
 		animHelper.WithVelocity(Velocity);
 		animHelper.WithWishVelocity(InputVelocity);
+
+		var DownVel = Velocity * Rotation.Down;
+		var falldamage = DownVel.z / 50;
+
+		if (timeSinceFall > 0.05f && DownVel.z > 750 && IsOnGround())
+        {
+			timeSinceFall = 0;
+
+			var dmg = new DamageInfo()
+			{
+				Position = Position,
+				Damage = falldamage
+			};
+
+			//PlaySound("dm.ui_attacker");
+			TakeDamage(dmg);
+		}
+
+		if (timeSinceMeleeStrike > 1f)
+        {
+			timeSinceMeleeStrike = 0f;
+
+			SetAnimInt("holdtype", 0);
+			DoMeleeStrike();
+		}
 	}
 
 	public virtual void OnTick()
     {
 
     }
+
+	public virtual void DoMeleeStrike()
+	{
+
+	}
 
 	[Event.Tick.Server]
 	public void Tick()

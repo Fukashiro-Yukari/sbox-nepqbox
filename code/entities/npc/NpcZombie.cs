@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 public partial class NpcZombie : Npc
 {
 	public override float Speed => 500;
-	public override float SpawnHealth => 200;
+	public override float SpawnHealth => 50;
+    public override bool HaveDress => false;
 
 	SandboxPlayer Target;
-	TimeSince timeSinceAttPlayer;
+	
 
 	public override void Spawn()
 	{
@@ -19,9 +21,43 @@ public partial class NpcZombie : Npc
 
 		SetMaterialGroup(3);
 
-		RenderColor = Color.Green;
+		RenderColor = new Color32((byte)(105 + Rand.Int(20)), (byte)(174 + Rand.Int(20)), (byte)(59 + Rand.Int(20)), 255);
 
-		//SetAnimInt("holdtype", 2);
+		RegularZombieClothes();
+	}
+
+	private void RegularZombieClothes()
+    {
+		if (true)
+		{
+			var model = Rand.FromArray(new[]
+			{
+				"models/citizen_clothes/trousers/trousers.jeans.vmdl",
+				"models/citizen_clothes/trousers/trousers.lab.vmdl"
+			});
+
+			new ModelEntity(model, this);
+		}
+
+		if (true)
+		{
+			var model = Rand.FromArray(new[]
+			{
+				"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl",
+				"models/citizen_clothes/shirt/shirt_longsleeve.police.vmdl",
+				"models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl",
+			});
+
+			if (Rand.Int(3) == 1)
+				new ModelEntity(model, this);
+		}
+
+		if (Rand.Int(3) == 1)
+			new ModelEntity("models/citizen_clothes/hair/hair_femalebun.black.vmdl", this);
+		else if (Rand.Int(10) == 1)
+			new ModelEntity("models/citizen_clothes/hat/hat_hardhat.vmdl", this);
+
+		SetBodyGroup(1, 0);
 	}
 
 	private void FindTarget()
@@ -31,18 +67,6 @@ public partial class NpcZombie : Npc
 		Target = rply[Rand.Int( 0, rply.Count() - 1 )];
     }
 
-	private void AttPlayer()
-    {
-		var dmg = new DamageInfo()
-		{
-			Attacker = this,
-			Position = Position,
-			Damage = 5
-		};
-
-		Target.TakeDamage(dmg);
-	}
-
 	public override void OnTick()
 	{
 		if (Target == null || Target.LifeState == LifeState.Dead)
@@ -51,14 +75,16 @@ public partial class NpcZombie : Npc
         {
 			Steer = new NavSteer();
 			Steer.Target = Target.Position;
-			Steer.DontAvoidance = e => e.Parent == Target || !e.EnableDrawing || e == this;
+			Steer.DontAvoidance = e => true;
+		}
+	}
 
-			if (Target.Position.Distance(Position) < 100 && timeSinceAttPlayer > 1f)
-			{
-				timeSinceAttPlayer = 0f;
-
-				AttPlayer();
-			}
+	public override void DoMeleeStrike()
+    {
+		if (Target == null || Target.LifeState == LifeState.Dead) return;
+		if (Target.Position.Distance(Position) < 100)
+		{
+			MeleeStrike(3, 1.5f);
 		}
 	}
 }
