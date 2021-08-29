@@ -13,6 +13,7 @@ partial class SMG : Weapon
 	public override float ReloadTime => 4.0f;
 	public override int Bucket => 2;
 	public override CType Crosshair => CType.SMG;
+	public override string Icon => "ui/weapons/weapon_smg.png";
 
 	public override void Spawn()
 	{

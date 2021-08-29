@@ -4,6 +4,7 @@ public partial class Carriable : BaseCarriable, IUse
 {
 	public virtual int Bucket => 1;
 	public virtual int BucketWeight => 100;
+	public virtual string Icon => "";
 
 	public override void CreateViewModel()
 	{

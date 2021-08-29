@@ -12,6 +12,7 @@ public partial class CWEPW : Weapon
 	public override float ReloadTime => 0.5f;
 	public override int Bucket => 2;
 	public override CType Crosshair => CType.ShotGun;
+	public override string Icon => "ui/weapons/weapon_shotgun.png";
 
 	protected virtual Vector3 LightOffset => Vector3.Forward * 10;
 

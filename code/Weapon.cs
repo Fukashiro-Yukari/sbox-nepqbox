@@ -10,6 +10,7 @@ public partial class Weapon : BaseWeapon, IUse
 	public virtual int Bucket => 1;
 	public virtual int BucketWeight => 100;
 	public virtual CType Crosshair => CType.Common;
+	public virtual string Icon => "";
 
 	[Net, Predicted]
 	public int AmmoClip { get; set; }

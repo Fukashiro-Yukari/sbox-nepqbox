@@ -10,8 +10,9 @@ partial class Crossbow : Weapon
 	public override float PrimaryRate => 1;
 	public override int Bucket => 3;
     public override string ReloadSound => "rush_crossbow.reload";
+	public override string Icon => "ui/weapons/weapon_crossbow.png";
 
-    [Net]
+	[Net]
 	public bool Zoomed { get; set; }
 
 	public override void Spawn()

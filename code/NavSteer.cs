@@ -7,7 +7,7 @@ public class NavSteer
 {
 	protected NavPath Path { get; private set; }
 
-	public Func<Entity, bool> DontAvoidance = x => false;
+	public Func<Entity, bool> DontAvoidance = e => !e.EnableDrawing;
 
 	public NavSteer()
 	{

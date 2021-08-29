@@ -14,6 +14,7 @@ partial class Python357 : Weapon
     public override string ReloadSound => "weapon_357.reload";
     public override bool RealReload => false;
     public override CType Crosshair => CType.Common;
+	public override string Icon => "ui/weapons/weapon_357.png";
 
 	public TimeSince TimeSinceDischarge { get; set; }
 

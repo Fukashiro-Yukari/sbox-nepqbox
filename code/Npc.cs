@@ -8,22 +8,18 @@ public partial class Npc : AnimEntity
 {
 	public virtual float Speed => Rand.Float(100, 500);
 	public virtual string ModelPath => "models/citizen/citizen.vmdl";
-	public virtual float InitHealth => 0;
+	public virtual float SpawnHealth => 0;
 	public virtual bool HaveDress => true;
 	public NavSteer Steer;
+	public ModelEntity Corpse;
 
 	DamageInfo lastDamage;
-
-	ModelEntity pants;
-	ModelEntity jacket;
-	ModelEntity shoes;
-	ModelEntity hat;
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		Health = InitHealth;
+		Health = SpawnHealth;
 		SetModel(ModelPath);
 		EyePos = Position + Vector3.Up * 64;
 		CollisionGroup = CollisionGroup.Player;
@@ -49,11 +45,8 @@ public partial class Npc : AnimEntity
 			PlaySound("kersplat");
 		}
 
-		BecomeRagdollOnClient(Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone(lastDamage.HitboxIndex));
-
-		EnableAllCollisions = false;
-		EnableDrawing = false;
-	}
+		BecomeRagdoll(Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone(lastDamage.HitboxIndex));
+    }
 
 	public override void TakeDamage(DamageInfo info)
 	{
@@ -66,7 +59,7 @@ public partial class Npc : AnimEntity
 
 		base.TakeDamage(info);
 
-		if (InitHealth <= 0) return;
+		if (SpawnHealth <= 0) return;
 		if ((info.Attacker != null && (info.Attacker is SandboxPlayer || info.Attacker.Owner is SandboxPlayer)))
 		{
 			SandboxPlayer attacker = info.Attacker as SandboxPlayer;
@@ -79,8 +72,7 @@ public partial class Npc : AnimEntity
 		}
 	}
 
-	[ClientRpc]
-	private void BecomeRagdollOnClient(Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone)
+	private void BecomeRagdoll(Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone)
 	{
 		var ent = new ModelEntity();
 		ent.Position = Position;
@@ -145,105 +137,9 @@ public partial class Npc : AnimEntity
 			}
 		}
 
+		Corpse = ent;
+
 		ent.DeleteAsync(10.0f);
-	}
-
-	public void Dress()
-	{
-		if (true)
-		{
-			var model = Rand.FromArray(new[]
-			{
-				"models/citizen_clothes/trousers/trousers.jeans.vmdl",
-				"models/citizen_clothes/trousers/trousers.lab.vmdl",
-				"models/citizen_clothes/trousers/trousers.police.vmdl",
-				"models/citizen_clothes/trousers/trousers.smart.vmdl",
-				"models/citizen_clothes/trousers/trousers.smarttan.vmdl",
-				"models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl",
-				"models/citizen_clothes/trousers/trousers_tracksuit.vmdl",
-				"models/citizen_clothes/shoes/shorts.cargo.vmdl",
-			});
-
-			pants = new ModelEntity();
-			pants.SetModel(model);
-			pants.SetParent(this, true);
-			pants.EnableShadowInFirstPerson = true;
-			pants.EnableHideInFirstPerson = true;
-
-			SetBodyGroup("Legs", 1);
-		}
-
-		if (true)
-		{
-			var model = Rand.FromArray(new[]
-			{
-				"models/citizen_clothes/jacket/labcoat.vmdl",
-				"models/citizen_clothes/jacket/jacket.red.vmdl",
-				"models/citizen_clothes/jacket/jacket.tuxedo.vmdl",
-				"models/citizen_clothes/jacket/jacket_heavy.vmdl",
-			});
-
-			jacket = new ModelEntity();
-			jacket.SetModel(model);
-			jacket.SetParent(this, true);
-			jacket.EnableShadowInFirstPerson = true;
-			jacket.EnableHideInFirstPerson = true;
-
-			var propInfo = jacket.GetModel().GetPropData();
-			if (propInfo.ParentBodyGroupName != null)
-			{
-				SetBodyGroup(propInfo.ParentBodyGroupName, propInfo.ParentBodyGroupValue);
-			}
-			else
-			{
-				SetBodyGroup("Chest", 0);
-			}
-		}
-
-		if (true)
-		{
-			var model = Rand.FromArray(new[]
-			{
-				"models/citizen_clothes/shoes/trainers.vmdl",
-				"models/citizen_clothes/shoes/shoes.workboots.vmdl"
-			});
-
-			shoes = new ModelEntity();
-			shoes.SetModel(model);
-			shoes.SetParent(this, true);
-			shoes.EnableShadowInFirstPerson = true;
-			shoes.EnableHideInFirstPerson = true;
-
-			SetBodyGroup("Feet", 1);
-		}
-
-		if (true)
-		{
-			var model = Rand.FromArray(new[]
-			{
-				"models/citizen_clothes/hat/hat_hardhat.vmdl",
-				"models/citizen_clothes/hat/hat_woolly.vmdl",
-				"models/citizen_clothes/hat/hat_securityhelmet.vmdl",
-				"models/citizen_clothes/hair/hair_malestyle02.vmdl",
-				"models/citizen_clothes/hair/hair_femalebun.black.vmdl",
-				"models/citizen_clothes/hat/hat_beret.red.vmdl",
-				"models/citizen_clothes/hat/hat.tophat.vmdl",
-				"models/citizen_clothes/hat/hat_beret.black.vmdl",
-				"models/citizen_clothes/hat/hat_cap.vmdl",
-				"models/citizen_clothes/hat/hat_leathercap.vmdl",
-				"models/citizen_clothes/hat/hat_leathercapnobadge.vmdl",
-				"models/citizen_clothes/hat/hat_securityhelmetnostrap.vmdl",
-				"models/citizen_clothes/hat/hat_service.vmdl",
-				"models/citizen_clothes/hat/hat_uniform.police.vmdl",
-				"models/citizen_clothes/hat/hat_woollybobble.vmdl",
-			});
-
-			hat = new ModelEntity();
-			hat.SetModel(model);
-			hat.SetParent(this, true);
-			hat.EnableShadowInFirstPerson = true;
-			hat.EnableHideInFirstPerson = true;
-		}
 	}
 
 	Vector3 InputVelocity;

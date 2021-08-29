@@ -19,6 +19,7 @@ public partial class PhysGun : Carriable
 	protected bool grabbing;
 
 	public override int Bucket => 0;
+	public override string Icon => "ui/weapons/weapon_pistol.png";
 
 	protected virtual float MinTargetDistance => 0.0f;
 	protected virtual float MaxTargetDistance => 10000.0f;

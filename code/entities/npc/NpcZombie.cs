@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public partial class NpcZombie : Npc
 {
 	public override float Speed => 500;
-	public override float InitHealth => 200;
+	public override float SpawnHealth => 200;
 
 	SandboxPlayer Target;
 	TimeSince timeSinceAttPlayer;
@@ -51,6 +51,7 @@ public partial class NpcZombie : Npc
         {
 			Steer = new NavSteer();
 			Steer.Target = Target.Position;
+			Steer.DontAvoidance = e => e.Parent == Target || !e.EnableDrawing || e == this;
 
 			if (Target.Position.Distance(Position) < 100 && timeSinceAttPlayer > 1f)
 			{

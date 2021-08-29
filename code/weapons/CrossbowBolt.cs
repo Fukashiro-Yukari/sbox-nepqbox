@@ -7,13 +7,15 @@ partial class CrossbowBolt : ModelEntity
 {
 	bool Stuck;
 
+	public virtual string ModelPath => "weapons/rust_crossbow/rust_crossbow_bolt.vmdl";
+	public virtual string Icon => "ui/weapons/weapon_crossbow.png";
+
 	public override void Spawn()
 	{
 		base.Spawn();
 
-		SetModel( "weapons/rust_crossbow/rust_crossbow_bolt.vmdl" );
+		SetModel(ModelPath);
 	}
-
 
 	[Event.Tick.Server]
 	public virtual void Tick()
@@ -56,10 +58,16 @@ partial class CrossbowBolt : ModelEntity
 													.WithWeapon( this );
 
 				tr.Entity.TakeDamage( damageInfo );
-			}
+            }
+
+			var npc = tr.Entity as Npc;
 
 			// TODO: Parent to bone so this will stick in the meaty heads
-			SetParent( tr.Entity, tr.Bone );
+			if (npc != null && npc.Corpse != null)
+				SetParent(npc?.Corpse, tr.Bone);
+            else
+				SetParent(tr.Entity, tr.Bone);
+
 			Owner = null;
 
 			//

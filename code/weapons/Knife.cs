@@ -15,6 +15,7 @@ partial class Knife : Weapon
 	public override CType Crosshair => CType.None;
 	public virtual int BaseDamage => 35;
 	public virtual int MeleeDistance => 80;
+	public override string Icon => "ui/weapons/weapon_knife.png";
 
 	public override void Spawn()
 	{

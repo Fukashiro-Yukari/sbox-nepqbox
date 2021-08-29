@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 [Library("npc_follow", Title = "Follow Player Npc", Spawnable = true )]
 public partial class NpcFollow : Npc
 {
-	public override float InitHealth => 100;
+	public override float SpawnHealth => 100;
 
 	SandboxPlayer Target;
 
@@ -26,7 +26,7 @@ public partial class NpcFollow : Npc
         {
 			Steer = new NavSteer();
 			Steer.Target = Target.Position;
-			Steer.DontAvoidance = e => e.Parent == Target || e is Weapon || e.Parent is Weapon;
+			Steer.DontAvoidance = e => e.Parent == Target || !e.EnableDrawing || e == this;
 		}
 		else
         {

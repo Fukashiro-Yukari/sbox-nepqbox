@@ -12,6 +12,7 @@ partial class PumpShotgun : Weapon
 	public override float ReloadTime => 0.4f;
 	public override int Bucket => 2;
 	public override CType Crosshair => CType.ShotGun;
+	public override string Icon => "ui/weapons/weapon_shotgun.png";
 
 	public override void Spawn()
 	{

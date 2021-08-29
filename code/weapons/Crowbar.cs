@@ -15,6 +15,7 @@ partial class Crowbar : Weapon
 	public override CType Crosshair => CType.None;
 	public virtual int BaseDamage => 25;
 	public virtual int MeleeDistance => 90;
+	public override string Icon => "ui/weapons/weapon_crowbar.png";
 
 	public override void Spawn()
 	{
@@ -93,6 +94,13 @@ partial class Crowbar : Weapon
 		}
 
 		ViewModelEntity?.SetAnimBool("fire", true);
+		CrosshairPanel?.CreateEvent("fire");
+	}
+
+	[ClientRpc]
+	protected override void ShootEffects()
+	{
+		Host.AssertClient();
 	}
 
 	public override void SimulateAnimator(PawnAnimator anim)

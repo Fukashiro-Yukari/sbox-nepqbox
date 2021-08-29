@@ -7,15 +7,23 @@ using System;
 class InventoryIcon : Panel
 {
 	public Entity Weapon;
-	public Panel Icon;
+	public Image Icon;
 	public Label Label;
 
 	public InventoryIcon( Entity weapon )
 	{
 		Weapon = weapon;
-		Icon = Add.Panel( "icon" );
 		Label = Add.Label( "", "item-name" );
-		AddClass( weapon.ClassInfo.Name );
+
+		AddChild(out Icon, "icon");
+
+		Weapon wep = weapon as Weapon;
+		Carriable car = weapon as Carriable;
+
+		if (wep != null)
+			Icon.SetTexture(wep.Icon);
+		else if (car != null)
+			Icon.SetTexture(car.Icon);
 	}
 
 	internal void TickSelection( Entity selectedWeapon, bool SomeColumn )

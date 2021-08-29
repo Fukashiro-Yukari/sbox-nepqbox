@@ -8,6 +8,7 @@ partial class Flashlight : Weapon
 	public override int ClipSize => -1;
 	public override float SecondaryRate => 2.0f;
 	public override CType Crosshair => CType.None;
+	public override string Icon => "ui/weapons/weapon_pistol.png";
 
 	protected virtual Vector3 LightOffset => Vector3.Forward * 10;
 

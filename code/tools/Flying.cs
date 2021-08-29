@@ -7,6 +7,7 @@ partial class Flying : Carriable
 { 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
 	public override int Bucket => 8;
+	public override string Icon => "ui/weapons/weapon_pistol.png";
 	private PawnController LastController;
 
 	public override void Spawn()

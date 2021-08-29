@@ -12,6 +12,7 @@ partial class Pistol : Weapon
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 3.0f;
 	public override CType Crosshair => CType.Pistol;
+	public override string Icon => "ui/weapons/weapon_pistol.png";
 
 	public TimeSince TimeSinceDischarge { get; set; }
 

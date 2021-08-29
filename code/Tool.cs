@@ -13,6 +13,7 @@ partial class Tool : Carriable
 	public BaseTool CurrentTool { get; set; }
 
 	public override int Bucket => 8;
+	public override string Icon => "ui/weapons/weapon_pistol.png";
 
 	public override void Spawn()
 	{

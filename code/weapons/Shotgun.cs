@@ -13,6 +13,7 @@ partial class Shotgun : Weapon
 	public override int Bucket => 2;
 	public override CType Crosshair => CType.ShotGun;
 	public override bool RealReload => false;
+	public override string Icon => "ui/weapons/weapon_shotgun.png";
 
 	public override void Spawn()
 	{
