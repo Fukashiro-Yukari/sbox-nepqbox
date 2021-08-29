@@ -23,7 +23,7 @@ partial class CrossbowBolt : ModelEntity
 		if ( !IsServer )
 			return;
 
-		if ( Stuck )
+		if (Stuck)
 			return;
 
 		float Speed = 10000.0f;
@@ -61,11 +61,24 @@ partial class CrossbowBolt : ModelEntity
             }
 
 			var npc = tr.Entity as Npc;
+			var prop = tr.Entity as Prop;
 
 			// TODO: Parent to bone so this will stick in the meaty heads
 			if (npc != null && npc.Corpse != null)
 				SetParent(npc?.Corpse, tr.Bone);
-            else
+            else if (prop != null)
+            {
+				if (prop.GetModel().GetPropData().Health > 0)
+                {
+					if (prop.Health > 0)
+						SetParent(prop, tr.Bone);
+                    else
+						Delete();
+				}
+				else if (prop.GetModel().GetPropData().Health <= 0)
+					SetParent(prop, tr.Bone);
+			}
+			else
 				SetParent(tr.Entity, tr.Bone);
 
 			Owner = null;
