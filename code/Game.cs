@@ -28,17 +28,20 @@ partial class SandboxGame : Game
 
 			LastDayNightCycle = DayNightCycle;
 
-			dnc = new DayNightController();
-			dnc.DawnColor = new Color( 1.00f, 0.42f, 0f );
-			dnc.DawnSkyColor = new Color( 0.73f, 0.42f, 0f);
-			dnc.DayColor = new Color( 0.97f, 0.96f, 0.95f );
-			dnc.DaySkyColor = new Color( 0.94f, 0.95f, 1.00f );
-			dnc.DuskColor = new Color( 1.00f, 0.35f, 0f );
-			dnc.DuskSkyColor = new Color( 1.00f, 0.35f, 0f );
-			dnc.NightColor = new Color( 0f, 0.58f, 1.00f );
-			dnc.NightSkyColor = new Color( 0f, 0.58f, 1.00f );
-			dnc.Enable = DayNightCycle;
-			dnc.SetColors();
+			if (All.OfType<EnvironmentLightEntity>().Count() < 1)
+            {
+				dnc = new DayNightController();
+				dnc.DawnColor = new Color(1.00f, 0.42f, 0f);
+				dnc.DawnSkyColor = new Color(0.73f, 0.42f, 0f);
+				dnc.DayColor = new Color(0.97f, 0.96f, 0.95f);
+				dnc.DaySkyColor = new Color(0.94f, 0.95f, 1.00f);
+				dnc.DuskColor = new Color(1.00f, 0.35f, 0f);
+				dnc.DuskSkyColor = new Color(1.00f, 0.35f, 0f);
+				dnc.NightColor = new Color(0f, 0.58f, 1.00f);
+				dnc.NightSkyColor = new Color(0f, 0.58f, 1.00f);
+				dnc.Enable = DayNightCycle;
+				dnc.SetColors();
+			}
 		}
 	}
 
@@ -55,6 +58,9 @@ partial class SandboxGame : Game
 	{
 		base.OnDestroy();
 	}
+
+	[ConVar.ClientData]
+	public static bool cl_print_modelname { get; set; } = false;
 
 	[ServerCmd( "spawn" )]
 	public static void Spawn( string modelname )
@@ -74,7 +80,16 @@ partial class SandboxGame : Game
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRot.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 );
 		ent.SetModel( modelname );
 		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
+
+		if (ConsoleSystem.Caller.GetUserString("cl_print_modelname") != "False")
+			PrintModelPath(To.Single(owner), modelname);
 	}
+
+	[ClientRpc]
+	public static void PrintModelPath(string modelname)
+    {
+		Log.Info($"Spawn Prop: {modelname}");
+    }
 
 	[ServerCmd( "spawn_entity" )]
 	public static void SpawnEntity( string entName )

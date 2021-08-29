@@ -10,7 +10,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 
 		var e = Current.AddChild<KillFeedEntry>();
 
-		if ( method != null && method.StartsWith( "weapon_" ) || method == "crossbow_bolt" )
+		if (method != null && method.StartsWith("weapon_") || method == "crossbow_bolt")
 		{
 			e.AddClass( method );
 			e.Icon.SetClass( "close", false );
