@@ -78,7 +78,7 @@ partial class CrossbowBolt : ModelEntity
 				else if (prop.GetModel().GetPropData().Health <= 0)
 					SetParent(prop, tr.Bone);
 			}
-			else
+			else if (tr.Entity is WorldEntity || tr.Entity.Health > 0)
 				SetParent(tr.Entity, tr.Bone);
 
 			Owner = null;

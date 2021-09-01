@@ -28,22 +28,20 @@ partial class NiceGun : Weapon
 		return base.CanPrimaryAttack() && Input.Pressed( InputButton.Attack1 );
 	}
 
-	public override void AttackPrimary()
+    public override void AttackPrimary()
 	{
 		if ( !BaseAttackPrimary() ) return;
 
 		PlaySound( "rust_pumpshotgun.shoot" );
 		ShootBullets( 50, 0.3f, 10.0f, 9.0f, 3.0f );
 
-		//SandboxPlayer ply = Owner as SandboxPlayer;
+		SandboxPlayer ply = Owner as SandboxPlayer;
 
-		// Error: Not Authority
-		//if ( ply.Vehicle != null )
-		//{
-		//	ply.Vehicle.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 200.0f );
-		//}
+		if (IsClient) return;
+		if (ply.Vehicle != null)
+			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRot.Backward * 500.0f);
 
-		Owner.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 500.0f );
+        Owner.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 500.0f );
 	}
 
 	public override void AttackSecondary()
@@ -79,6 +77,12 @@ partial class NiceGun : Weapon
 		// Shoot the bullets
 		//
 		ShootBullets( 100, 0.6f, 20.0f, 8.0f, 5.0f );
+
+		SandboxPlayer ply = Owner as SandboxPlayer;
+
+		if (IsClient) return;
+		if (ply.Vehicle != null)
+			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRot.Backward * 5000.0f);
 
 		Owner.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 5000.0f );
 	}

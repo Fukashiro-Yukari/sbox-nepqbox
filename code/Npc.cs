@@ -11,6 +11,7 @@ public partial class Npc : AnimEntity
 	public virtual string ModelPath => "models/citizen/citizen.vmdl";
 	public virtual float SpawnHealth => 0;
 	public virtual bool HaveDress => true;
+	public virtual float MeleeStrikeTime => 1f;
 	public NavSteer Steer;
 	public ModelEntity Corpse;
 
@@ -93,11 +94,6 @@ public partial class Npc : AnimEntity
 		//
 		// Another trace, bullet going through thin material, penetrating water surface?
 		//
-	}
-
-	public bool CanMeleeStrike()
-	{
-		return false;
 	}
 
 	public void MeleeStrike(float damage, float force)
@@ -217,17 +213,7 @@ public partial class Npc : AnimEntity
 		ent.DeleteAsync(10.0f);
 	}
 
-	public bool IsOnGround()
-	{
-		var tr = Sandbox.Trace.Ray(Position, Position + Vector3.Down * 1)
-				.Radius(1)
-				.Ignore(this)
-				.Run();
-
-		return tr.Hit;
-	}
-
-	private Sandbox.TraceResult StartTrace(Vector3 start, Vector3 end)
+	private TraceResult StartTrace(Vector3 start, Vector3 end)
 	{
 		var tr = Sandbox.Trace.Ray(start, end)
 			.Ignore(this)
@@ -291,6 +277,7 @@ public partial class Npc : AnimEntity
 									float startz = Velocity.z;
 
 									timeSinceJump = 0f;
+									GroundEntity = null;
 									Position += Vector3.Up * 5;
 									Velocity = Velocity.WithZ(startz + flMul * flGroundFactor);
 
@@ -323,7 +310,7 @@ public partial class Npc : AnimEntity
 		var DownVel = Velocity * Rotation.Down;
 		var falldamage = DownVel.z / 50;
 
-		if (timeSinceFall > 0.05f && DownVel.z > 750 && IsOnGround())
+		if (timeSinceFall > 0.05f && DownVel.z > 750 && GroundEntity != null)
         {
 			timeSinceFall = 0;
 
@@ -337,7 +324,7 @@ public partial class Npc : AnimEntity
 			TakeDamage(dmg);
 		}
 
-		if (timeSinceMeleeStrike > 1f)
+		if (timeSinceMeleeStrike > MeleeStrikeTime)
         {
 			timeSinceMeleeStrike = 0f;
 
@@ -394,7 +381,6 @@ public partial class Npc : AnimEntity
 				move.Velocity = move.Velocity - movement * InputVelocity.Normal;
 				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );
 				move.Velocity += movement * InputVelocity.Normal;
-
 			}
 			else
 			{

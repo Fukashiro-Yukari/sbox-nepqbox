@@ -36,7 +36,7 @@ public partial class EntityList : Panel
 		if (isreload)
 			Canvas.Data.Clear();
 
-		var ents = Library.GetAllAttributes<Entity>().Where(x => x.Spawnable && !x.Name.StartsWith("weapon_")).OrderBy(x => x.Title).ToArray();
+		var ents = Library.GetAllAttributes<Entity>().Where(x => x.Spawnable && !x.Name.StartsWith("weapon_") && !x.Name.StartsWith("npc_")).OrderBy(x => x.Title).ToArray();
 
 		foreach (var entry in ents)
 		{

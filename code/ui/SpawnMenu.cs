@@ -34,6 +34,9 @@ public partial class SpawnMenu : Panel
 
 				var weps = body.AddChild<WeaponList>();
 				tabs.AddButtonActive("Weapons", (b) => weps.SetClass("active", b));
+
+				var npcs = body.AddChild<NpcList>();
+				tabs.AddButtonActive("NPCs", (b) => npcs.SetClass("active", b));
 			}
 		}
 

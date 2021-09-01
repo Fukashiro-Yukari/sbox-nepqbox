@@ -259,12 +259,6 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimBool( "fire", true );
-
-		if ( IsLocalPawn )
-		{
-			new Sandbox.ScreenShake.Perlin( 1.0f, 1.5f, 2.0f );
-		}
-
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 
@@ -277,12 +271,6 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimBool( "fire_double", true );
-
-		if ( IsLocalPawn )
-		{
-			new Sandbox.ScreenShake.Perlin( 1.0f, 1.5f, 2.0f );
-		}
-
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 
