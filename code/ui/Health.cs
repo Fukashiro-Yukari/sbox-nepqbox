@@ -1,37 +1,44 @@
-﻿using Sandbox;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-public class Health : Panel
+public partial class Health : Panel
 {
-	public Label Label;
+    public Label Healthn;
+    public Label PlayerName;
+    public Panel HealthBar;
+    public Image Avatar;
 
-	public Health()
-	{
-		Label = Add.Label( "100", "value" );
-	}
+    public Health()
+    {
+        var HealthBarBG = Add.Panel("HealthBarBG");
 
-	public override void Tick()
-	{
-		var player = Local.Pawn;
-		if ( player == null ) return;
+        HealthBar = HealthBarBG.Add.Panel("HealthBar");
+        Healthn = Add.Label("0", "HealthText");
+        PlayerName = Add.Label("", "PlayerName");
+    }
 
-		Label.Text = $"{player.Health.CeilToInt()}";
+    bool setAvatar;
 
-		if ( player.Health < 50 && player.Health > 20 )
-		{
-			SetClass( "yellow", true );
-			SetClass( "danger", false );
-		}
-		else if ( player.Health < 20 )
-		{
-			SetClass( "yellow", false );
-			SetClass( "danger", true );
-		}
-		else
-		{
-			SetClass( "yellow", false );
-			SetClass( "danger", false );
-		}
-	}
+    public override void Tick()
+    {
+        base.Tick();
+
+        var ply = Local.Pawn;
+
+        if (ply == null) return;
+
+        if (!setAvatar)
+        {
+            setAvatar = true;
+
+            Avatar = Add.Image($"avatar:{Local.Client.SteamId}");
+            PlayerName.Text = Local.Client.Name;
+        }
+
+        Healthn.Text = ply.Health.CeilToInt().ToString();
+
+        HealthBar.Style.Dirty();
+        HealthBar.Style.Width = Length.Percent(ply.Health);
+    }
 }

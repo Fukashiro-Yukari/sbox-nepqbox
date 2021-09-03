@@ -81,7 +81,7 @@ partial class SandboxGame : Game
 		ent.SetModel( modelname );
 		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
 
-		if (ConsoleSystem.Caller.GetUserString("cl_print_modelname") != "False")
+		if (ConsoleSystem.Caller.GetClientData<bool>("cl_print_modelname"))
 			PrintModelPath(To.Single(owner), modelname);
 	}
 
@@ -113,8 +113,12 @@ partial class SandboxGame : Game
 		var ent = Library.Create<Entity>( entName );
 		if ( ent is BaseCarriable && owner.Inventory != null )
 		{
-			if ( owner.Inventory.Add( ent, true ) )
+			if ( owner.Inventory.Add( ent, true ))
+            {
+				owner.Inventory.SetActive(ent);
+
 				return;
+			}
 		}
 
 		ent.Position = tr.EndPos;

@@ -1,26 +1,26 @@
-Health
-{
-	position: absolute;
-	background-color: rgba( black, 0.5 );
-	left: 100px;
-	bottom: 48px;
-	font-size: 40px;
-	font-weight: bold;
-	color: white;
-	height: 80px;
-	padding: 0 20px;
-	align-items: center;
+// Health
+// {
+// 	position: absolute;
+// 	background-color: rgba( black, 0.5 );
+// 	left: 100px;
+// 	bottom: 48px;
+// 	font-size: 40px;
+// 	font-weight: bold;
+// 	color: white;
+// 	height: 80px;
+// 	padding: 0 20px;
+// 	align-items: center;
 
-	&.yellow
-	{
-		color: yellow;
-	}
+// 	&.yellow
+// 	{
+// 		color: yellow;
+// 	}
 
-	&.danger
-	{
-		color: red;
-	}
-}
+// 	&.danger
+// 	{
+// 		color: red;
+// 	}
+// }
 
 ClipAmmo
 {

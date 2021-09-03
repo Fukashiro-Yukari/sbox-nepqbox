@@ -14,7 +14,7 @@
 
 	.el0
 	{
-		background-color: rgb(0, 195, 255);
+		background-color: white;
 		border-radius: 1000px;
 		width: 6px;
 		height: 6px;
@@ -34,15 +34,15 @@
 			width: 200px;
 			height: 200px;
 			border: 6px solid #ff00;
-			border-left: 6px solid rgb(0, 195, 255);
-			border-right: 6px solid rgb(0, 195, 255);
+			border-left: 6px solid white;
+			border-right: 6px solid white;
 			transition: all 0.5s ease-out;
 		}
 
 		.el1
 		{
 			transition: all 0.5s ease-out;
-			background-color: rgba(0, 162, 255, 0.333);
+			background-color: white;
 			border-radius: 1000px;
 			width: 10px;
 			height: 10px;
@@ -61,15 +61,15 @@
 				left: -150px;
 				width: 300px;
 				border: 6px solid #0000;
-				border-left: 6px solid rgb(0, 81, 255);
-				border-right: 6px solid rgb(0, 81, 255);
+				border-left: 6px solid white;
+				border-right: 6px solid white;
 				opacity: 1.0;
 			}
 
 			.el1
 			{
 				transition: all 0.01s ease-out;
-				background-color: rgb(0, 195, 255);
+				background-color: white;
 				width: 16px;
 				height: 16px;
 				left: -8px;
@@ -85,7 +85,7 @@
 
 		.el0, .el1, .el2, .el3
 		{
-			background-color: rgb(0, 195, 255);
+			background-color: white;
 			border-radius: 0;
 			transition: all 0.5s ease-out;
 		}
@@ -135,7 +135,7 @@
 			.el0, .el1, .el2, .el3
 			{
 				transition: all 0.01s ease-in;
-				background-color: rgb(0, 81, 255);
+				background-color: white;
 			}
 
 			.el0
@@ -173,7 +173,7 @@
 		{
 			background-color: transparent;
 			border-radius: 100px;
-			border: 2px solid rgb(0, 174, 255);
+			border: 2px solid white;
 			width: 40px;
 			height: 40px;
 			left: -20px;
@@ -193,7 +193,7 @@
 				height: 150px;
 				left: -75px;
 				top: -75px;
-				border: 5px solid rgb(0, 174, 255);
+				border: 5px solid white;
 			}
 		}
 	}

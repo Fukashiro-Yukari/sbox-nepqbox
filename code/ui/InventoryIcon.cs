@@ -1,8 +1,6 @@
-﻿
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
 
 class InventoryIcon : Panel
 {
@@ -10,10 +8,10 @@ class InventoryIcon : Panel
 	public Image Icon;
 	public Label Label;
 
-	public InventoryIcon( Entity weapon )
+	public InventoryIcon(Entity weapon)
 	{
 		Weapon = weapon;
-		Label = Add.Label( "", "item-name" );
+		Label = Add.Label("", "item-name");
 
 		AddChild(out Icon, "icon");
 
@@ -26,19 +24,18 @@ class InventoryIcon : Panel
 			Icon.SetTexture(car.Icon);
 	}
 
-	internal void TickSelection( Entity selectedWeapon, bool SomeColumn )
+	internal void TickSelection(Entity selectedWeapon)
 	{
-		Label.SetText( SomeColumn ? Weapon.ClassInfo.Title : "" );
+		Label.SetText(Weapon.ClassInfo.Title);
 
-		SetClass( "active", selectedWeapon == Weapon );
-		SetClass( "empty", false );
+		SetClass("active", selectedWeapon == Weapon);
 	}
 
 	public override void Tick()
 	{
 		base.Tick();
 
-		if ( !Weapon.IsValid() || Weapon.Owner != Local.Pawn )
-			Delete();
-	}
+		if (!Weapon.IsValid() || Weapon.Owner != Local.Pawn)
+            Delete();
+    }
 }

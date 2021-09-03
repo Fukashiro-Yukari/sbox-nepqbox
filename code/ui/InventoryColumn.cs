@@ -1,4 +1,3 @@
-﻿
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
@@ -9,44 +8,59 @@ using System.Linq;
 public class InventoryColumn : Panel
 {
 	public int Column;
-	public bool IsSelected;
 	public Label Header;
-	public int SelectedIndex;
 
 	internal List<InventoryIcon> Icons = new();
 
-	public InventoryColumn( int i, Panel parent )
+	public InventoryColumn(int i, Panel parent)
 	{
 		Parent = parent;
 		Column = i;
-		Header = Add.Label( $"{i+1}", "slot-number" );
+		Header = Add.Label($"{i + 1}", "slot-number");
 	}
 
-	internal void UpdateWeapon( Entity weapon )
+	internal void UpdateWeapon(Entity weapon)
 	{
-		var icon = ChildrenOfType<InventoryIcon>().FirstOrDefault( x => x.Weapon == weapon );
-		if ( icon == null )
+		var icon = ChildrenOfType<InventoryIcon>().FirstOrDefault(x => x.Weapon == weapon);
+		if (icon == null)
 		{
-			icon = new InventoryIcon( weapon );
+			icon = new InventoryIcon(weapon);
 			icon.Parent = this;
-			Icons.Add( icon );
+			Icons.Add(icon);
 		}
 	}
 
-	internal void TickSelection( Entity selectedWeapon )
+	internal void TickSelection(Entity selectedWeapon, List<Entity> weapons)
 	{
-		Weapon wep = selectedWeapon as Weapon;
-		Carriable car = selectedWeapon as Carriable;
+		var wep = selectedWeapon as Weapon;
+		var car = selectedWeapon as Carriable;
 		var somecol = false;
 
 		if (wep != null) somecol = wep?.Bucket == Column;
-		else if (car != null) somecol =  car?.Bucket == Column;
+		else if (car != null) somecol = car?.Bucket == Column;
 
-		SetClass( "active", somecol );
-
-		for ( int i=0; i< Icons.Count; i++ )
+		SetClass("active", somecol);
+		SetClass("empty", weapons.Where(x => 
 		{
-			Icons[i].TickSelection( selectedWeapon, somecol );
+			Weapon wep = x as Weapon;
+			Carriable car = x as Carriable;
+
+			if (wep != null)
+				return wep.Bucket == Column;
+			else if (car != null)
+				return car.Bucket == Column;
+
+			return false;
+		}).Count() <= 0);
+
+		for (int i = 0; i < Icons.Count; i++)
+		{
+			Icons[i].TickSelection(selectedWeapon);
 		}
+	}
+
+	internal void SetEmpty()
+    {
+		SetClass("empty", true);
 	}
 }
