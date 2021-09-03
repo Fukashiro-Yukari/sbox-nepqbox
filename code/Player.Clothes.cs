@@ -19,14 +19,14 @@ partial class SandboxPlayer
 			var model = Rand.FromArray( new[]
 			{
 				"models/citizen_clothes/trousers/trousers.jeans.vmdl",
-                "models/citizen_clothes/trousers/trousers.lab.vmdl",
-                "models/citizen_clothes/trousers/trousers.police.vmdl",
-                "models/citizen_clothes/trousers/trousers.smart.vmdl",
-                "models/citizen_clothes/trousers/trousers.smarttan.vmdl",
-                "models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl",
-                "models/citizen_clothes/trousers/trousers_tracksuit.vmdl",
-                "models/citizen_clothes/shoes/shorts.cargo.vmdl",
-                "models/citizen_clothes/dress/dress.kneelength.vmdl"
+				"models/citizen_clothes/trousers/trousers.lab.vmdl",
+				"models/citizen_clothes/trousers/trousers.police.vmdl",
+				"models/citizen_clothes/trousers/trousers.smart.vmdl",
+				"models/citizen_clothes/trousers/trousers.smarttan.vmdl",
+				"models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl",
+				"models/citizen_clothes/trousers/trousers_tracksuit.vmdl",
+				"models/citizen_clothes/shoes/shorts.cargo.vmdl",
+				"models/citizen_clothes/dress/dress.kneelength.vmdl"
 			} );
 
 			pants = new ModelEntity();
@@ -37,8 +37,12 @@ partial class SandboxPlayer
 
 			SetBodyGroup( "Legs", 1 );
 
-			if (model.Contains("dress"))
+			if ( model.Contains( "dress" ) )
+			{
+				SetBodyGroup( "Chest", 1 );
+
 				jacket = pants;
+			}
 		}
 
 		if ( true && jacket == null)
