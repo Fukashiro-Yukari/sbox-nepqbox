@@ -15,8 +15,8 @@ InventoryColumn
 	flex-direction: row-reverse;
 	align-items: flex-start; // align to the left, don't stretch
     position: relative;
-    height: 100px;
-	padding: 0 0 0 250px;
+    height: 80px;
+	padding: 0 0 0 200px;
 
     .slot-number
 	{
@@ -42,14 +42,13 @@ InventoryColumn
 	{
 		transition: all 0.1s ease-out;
 		display: flex;
-		width: 150px;
-		height: 90px;
+		width: 100px;
+		height: 80px;
 	}
 }
 
 inventoryicon
 {
-	margin-top: 5px;
     mix-blend-mode: lighten;
 	padding: 10px;
 	align-items: center;
@@ -74,8 +73,8 @@ inventoryicon
 
 	.icon
 	{
-		width: 150px;
-		height: 150px;
+		width: 100px;
+		height: 100px;
 		background-size: 100%;
         background-image-tint: #4b4b4b;
 		position: absolute;

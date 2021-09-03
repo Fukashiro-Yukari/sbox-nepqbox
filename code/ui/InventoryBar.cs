@@ -50,7 +50,7 @@ public partial class InventoryBar : Panel
     {
         var ply = Local.Pawn as SandboxPlayer;
 
-        if (Weapons.Count == 0 || ply == null || ply.LifeState == LifeState.Dead)
+		if ( Weapons.Count == 0 || ply == null || ply.LifeState == LifeState.Dead )
         {
             timeSinceDelay = 0f;
 
@@ -62,12 +62,11 @@ public partial class InventoryBar : Panel
             return;
         }
 
-        if (ply.ActiveChild is PhysGun physgun && physgun.BeamActive) return;
-
-        if (SelectedWeapon == null)
+		if ( ply.ActiveChild is PhysGun physgun && physgun.BeamActive ) return;
+		if ( SelectedWeapon == null )
             SelectedWeapon = Local.Pawn.ActiveChild;
 
-        if (timeSinceDelay > 0.01)
+		if ( timeSinceDelay > 0.01 )
             input.ActiveChild = SelectedWeapon;
 
         int SelectedIndex = Weapons.IndexOf(SelectedWeapon);
@@ -81,7 +80,7 @@ public partial class InventoryBar : Panel
 
         for (int i = 0; i < 9; i++)
         {
-            columns[i].TickSelection(SelectedWeapon, Weapons);
+			columns[i].TickSelection( SelectedWeapon, Weapons );
         }
 
         input.MouseWheel = 0;
