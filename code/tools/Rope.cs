@@ -92,6 +92,8 @@
 					spring.Remove();
 				} );
 
+				new Undo( "Rope" ).SetClient( Owner.GetClientOwner() ).AddEntity( rope ).AddEntity( spring ).Finish();
+
 				CreateHitEffects( tr.EndPos );
 
 				Reset();

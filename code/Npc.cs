@@ -210,6 +210,8 @@ public partial class Npc : AnimEntity
 
 		Corpse = ent;
 
+		Undo.ReplaceEntity( this, Corpse );
+
 		ent.DeleteAsync(10.0f);
 	}
 

@@ -83,6 +83,8 @@ partial class SandboxGame : Game
 
 		if (ConsoleSystem.Caller.GetClientData<bool>("cl_print_modelname"))
 			PrintModelPath(To.Single(owner), modelname);
+
+		new Undo( $"Prop ({ent.GetModelName()})" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish();
 	}
 
 	[ClientRpc]
@@ -114,17 +116,45 @@ partial class SandboxGame : Game
 		if ( ent is BaseCarriable && owner.Inventory != null )
 		{
 			if ( owner.Inventory.Add( ent, true ))
-            {
-				owner.Inventory.SetActive(ent);
-
 				return;
-			}
 		}
 
 		ent.Position = tr.EndPos;
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRot.Angles().yaw, 0 ) );
 
+		new Undo( ent.ClassInfo.Title ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish();
+
 		//Log.Info( $"ent: {ent}" );
+	}
+
+	[ServerCmd("undo")]
+	public static void UndoCmd()
+	{
+		var owner = ConsoleSystem.Caller.Pawn;
+
+		if ( owner == null )
+			return;
+
+		var text = Undo.DoUndo( ConsoleSystem.Caller );
+
+		if ( text != null )
+		{
+			var game = Current as SandboxGame;
+
+			game.AddUndoText( To.Single( owner ), text );
+		}
+	}
+
+	[ClientRpc]
+	public void AddUndoText(string text)
+	{
+		UndoUI.Current.AddEntry( text );
+	}
+
+	[ClientRpc]
+	public void AddUndoText( Entity ent )
+	{
+		UndoUI.Current.AddEntry( ent.ClassInfo.Title );
 	}
 
 	public override void DoPlayerNoclip( Client player )

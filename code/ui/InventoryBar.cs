@@ -7,20 +7,27 @@ using System.Linq;
 
 public partial class InventoryBar : Panel
 {
-    List<InventoryColumn> columns = new();
+	public static InventoryBar Current;
+
+	List<InventoryColumn> columns = new();
     List<Entity> Weapons = new();
     Entity SelectedWeapon;
+	Entity OldSelectedWeapon;
 
-    public InventoryBar()
+	public InventoryBar()
     {
-        for (int i = 0; i < 9; i++)
+		Current = this;
+
+		for (int i = 0; i < 9; i++)
         {
             var icon = new InventoryColumn(i, this);
             columns.Add(icon);
         }
     }
 
-    public override void Tick()
+	int oldWeaponsCount;
+
+	public override void Tick()
     {
         base.Tick();
 
@@ -41,9 +48,22 @@ public partial class InventoryBar : Panel
             else if (car != null)
                 columns[car.Bucket].UpdateWeapon(car);
         }
+
+		if ( Weapons.Count != oldWeaponsCount )
+		{
+			oldWeaponsCount = Weapons.Count;
+
+			UpdateWeapon();
+		}
     }
 
-    TimeSince timeSinceDelay;
+	public void UpdateWeapon()
+	{
+		SelectedWeapon = Local.Pawn.ActiveChild;
+		OldSelectedWeapon = SelectedWeapon;
+	}
+
+	TimeSince timeSinceDelay;
 
     [Event.BuildInput]
     public void ProcessClientInput(InputBuilder input)
@@ -66,10 +86,14 @@ public partial class InventoryBar : Panel
 		if ( SelectedWeapon == null )
             SelectedWeapon = Local.Pawn.ActiveChild;
 
-		if ( timeSinceDelay > 0.01 )
-            input.ActiveChild = SelectedWeapon;
+		if ( timeSinceDelay > 0.01 && OldSelectedWeapon != SelectedWeapon )
+		{
+			OldSelectedWeapon = SelectedWeapon;
 
-        int SelectedIndex = Weapons.IndexOf(SelectedWeapon);
+			input.ActiveChild = SelectedWeapon;
+		}
+
+		int SelectedIndex = Weapons.IndexOf(SelectedWeapon);
 
         SelectedIndex = SlotPressInput(input, SelectedIndex);
 
@@ -80,7 +104,7 @@ public partial class InventoryBar : Panel
 
         for (int i = 0; i < 9; i++)
         {
-			columns[i].TickSelection( SelectedWeapon, Weapons );
+			columns[i].TickSelection( Weapons );
         }
 
         input.MouseWheel = 0;
@@ -102,8 +126,8 @@ public partial class InventoryBar : Panel
 
         if (columninput == -1) return SelectedIndex;
 
-        Weapon wep = SelectedWeapon as Weapon;
-        Carriable car = SelectedWeapon as Carriable;
+        Weapon wep = Local.Pawn.ActiveChild as Weapon;
+        Carriable car = Local.Pawn.ActiveChild as Carriable;
 
         if (wep != null)
         {
@@ -151,15 +175,13 @@ public partial class InventoryBar : Panel
 
     int NextInBucket()
 	{
-        Assert.NotNull(SelectedWeapon);
-
         Entity first = null;
         Entity prev = null;
 
         foreach (var weapon in Weapons.Where(x =>
         {
-            Weapon swep = SelectedWeapon as Weapon;
-            Carriable scar = SelectedWeapon as Carriable;
+            Weapon swep = Local.Pawn.ActiveChild as Weapon;
+            Carriable scar = Local.Pawn.ActiveChild as Carriable;
             Weapon we = x as Weapon;
             Carriable ca = x as Carriable;
 
@@ -181,7 +203,7 @@ public partial class InventoryBar : Panel
         }))
         {
             if (first == null) first = weapon;
-            if (prev == SelectedWeapon) return Weapons.IndexOf(weapon);
+            if (prev == Local.Pawn.ActiveChild ) return Weapons.IndexOf(weapon);
             prev = weapon;
         }
 

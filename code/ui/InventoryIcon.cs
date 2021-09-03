@@ -24,11 +24,11 @@ class InventoryIcon : Panel
 			Icon.SetTexture(car.Icon);
 	}
 
-	internal void TickSelection(Entity selectedWeapon)
+	internal void TickSelection()
 	{
 		Label.SetText(Weapon.ClassInfo.Title);
 
-		SetClass("active", selectedWeapon == Weapon);
+		SetClass("active", Local.Pawn.ActiveChild == Weapon);
 	}
 
 	public override void Tick()

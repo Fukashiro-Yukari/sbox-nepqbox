@@ -40,16 +40,16 @@ namespace Sandbox.Tools
 				if ( tr.Entity.Scale != scale )
 				{
 					tr.Entity.Scale = scale;
-					tr.Entity.PhysicsGroup.RebuildMass();
-					tr.Entity.PhysicsGroup.Wake();
+					tr.Entity.PhysicsGroup?.RebuildMass();
+					tr.Entity.PhysicsGroup?.Wake();
 
 					foreach ( var child in tr.Entity.Children )
 					{
 						if ( !child.IsValid() )
 							continue;
 
-						child.PhysicsGroup.RebuildMass();
-						child.PhysicsGroup.Wake();
+						child.PhysicsGroup?.RebuildMass();
+						child.PhysicsGroup?.Wake();
 					}
 				}
 

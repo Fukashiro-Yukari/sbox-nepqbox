@@ -9,6 +9,7 @@ partial class Flying : Carriable
 	public override int Bucket => 8;
 	public override string Icon => "ui/weapons/weapon_pistol.png";
 	private PawnController LastController;
+	private bool isFlying;
 
 	public override void Spawn()
 	{
@@ -23,20 +24,17 @@ partial class Flying : Carriable
 
 		LastController = owner.Controller;
 		owner.Controller = new SandboxFlyingController();
+
+		isFlying = true;
 	}
 
 	private void Deactivate()
     {
-		if (Owner is not Player owner) return;
+		if ( Owner is not Player owner || LastController == null ) return;
 
 		owner.Controller = LastController;
-	}
 
-	public override void ActiveStart(Entity ent)
-	{
-		base.ActiveStart(ent);
-
-		Activate();
+		isFlying = false;
 	}
 
 	public override void ActiveEnd(Entity ent, bool dropped)
@@ -46,17 +44,41 @@ partial class Flying : Carriable
 		Deactivate();
 	}
 
+	public override void Simulate( Client cl )
+	{
+		base.Simulate( cl );
+
+		var ply = Owner as Player;
+		if ( ply == null ) return;
+
+		if ( isFlying )
+		{
+			var tr = Trace.Ray( Position, Position + Vector3.Down * 100 )
+				.Radius( 1 )
+				.Ignore( this )
+				.Run();
+
+			if ( tr.Hit )
+				Deactivate();
+		}
+		else
+		{
+			if ( ply.Controller.GroundEntity == null )
+				Activate();
+		}
+	}
+
 	protected override void OnDestroy()
 	{
-		base.OnDestroy();
-
 		Deactivate();
+
+		base.OnDestroy();
 	}
 
 	public override void OnCarryDrop(Entity dropper)
 	{
-		base.OnCarryDrop(dropper);
-
 		Deactivate();
+
+		base.OnCarryDrop(dropper);
 	}
 }

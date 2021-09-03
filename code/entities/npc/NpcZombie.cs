@@ -23,10 +23,10 @@ public partial class NpcZombie : Npc
 
 		RenderColor = new Color32((byte)(105 + Rand.Int(20)), (byte)(174 + Rand.Int(20)), (byte)(59 + Rand.Int(20)), 255);
 
-		RegularZombieClothes();
+		ZombieClothes();
 	}
 
-	private void RegularZombieClothes()
+	public virtual void ZombieClothes()
     {
 		if (true)
 		{

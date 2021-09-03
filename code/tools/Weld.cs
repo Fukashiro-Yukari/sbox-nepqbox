@@ -45,6 +45,9 @@
 					else
 					{
 						target.Weld( rootProp );
+
+						new Undo( "Weld" ).SetClient( Owner.GetClientOwner() ).Add( new WeldUndo( target ) ).Finish();
+
 						target = null;
 					}
 				}

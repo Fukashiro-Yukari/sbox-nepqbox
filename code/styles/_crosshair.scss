@@ -6,6 +6,11 @@
 	width: 1px;
 	height: 1px;
 
+	&.spawnmenuopen
+	{
+		display: none;
+	}
+
 	.element
 	{
 		position: absolute;

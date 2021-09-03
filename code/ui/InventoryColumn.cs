@@ -30,10 +30,10 @@ public class InventoryColumn : Panel
 		}
 	}
 
-	internal void TickSelection(Entity selectedWeapon, List<Entity> weapons)
+	internal void TickSelection(List<Entity> weapons)
 	{
-		var wep = selectedWeapon as Weapon;
-		var car = selectedWeapon as Carriable;
+		var wep = Local.Pawn.ActiveChild as Weapon;
+		var car = Local.Pawn.ActiveChild as Carriable;
 		var somecol = false;
 
 		if (wep != null) somecol = wep?.Bucket == Column;
@@ -55,7 +55,7 @@ public class InventoryColumn : Panel
 
 		for (int i = 0; i < Icons.Count; i++)
 		{
-			Icons[i].TickSelection(selectedWeapon);
+			Icons[i].TickSelection();
 		}
 	}
 
