@@ -1,0 +1,28 @@
+Ammo
+{
+    position: absolute;
+    background: linear-gradient(to left, rgba(black, 0.5), rgba(black, 0.0));
+    right: 10px;
+	bottom: 10px;
+	height: 45px;
+	width: 250px;
+	padding: 5px;
+	align-items: center;
+
+    .Clip
+    {
+        position: absolute;
+        right: 0px;
+        padding: 40px;
+        font-size: 30px;
+		font-weight: bold;
+        text-shadow: 4px 4px 1px black;
+		color: white;
+    }
+
+    .AmmoText
+    {
+        top: 13px;
+        font-size: 15px;
+    }
+}
