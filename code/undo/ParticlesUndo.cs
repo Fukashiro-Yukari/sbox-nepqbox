@@ -16,15 +16,13 @@ public class ParticlesUndo : UndoRemove
 		return true;
 	}
 
-	public override bool Replace( object obj )
+	public override void Replace( object obj )
 	{
 		var p = obj as Particles;
 
-		if ( p == null ) return false;
+		if ( p == null ) return;
 
 		particles = p;
-
-		return true;
 	}
 
 	public override bool ObjectEquals( object obj )

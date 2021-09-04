@@ -12,11 +12,22 @@ public partial class UndoUI : Panel
 		StyleSheet.Load( "/undo/UndoUI.scss" );
 	}
 
-	public virtual Panel AddEntry( string text)
+	public virtual Panel AddUndoText( string text)
 	{
 		var e = Current.AddChild<UndoUIEntry>();
 
-		e.Text.Text = $"Undo {text}";
+		e.Text.Text = $"Undone {text}";
+
+		Sound.FromScreen( "undo" );
+
+		return e;
+	}
+
+	public virtual Panel AddCustomUndoText( string text )
+	{
+		var e = Current.AddChild<UndoUIEntry>();
+
+		e.Text.Text = $"{text}";
 
 		Sound.FromScreen( "undo" );
 

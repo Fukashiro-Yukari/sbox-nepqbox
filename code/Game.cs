@@ -84,7 +84,7 @@ partial class SandboxGame : Game
 		if (ConsoleSystem.Caller.GetClientData<bool>("cl_print_modelname"))
 			PrintModelPath(To.Single(owner), modelname);
 
-		new Undo( $"Prop ({ent.GetModelName()})" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish();
+		new Undo( "Prop" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Prop ({ent.GetModelName()})" );
 	}
 
 	[ClientRpc]
@@ -122,7 +122,7 @@ partial class SandboxGame : Game
 		ent.Position = tr.EndPos;
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRot.Angles().yaw, 0 ) );
 
-		new Undo( ent.ClassInfo.Title ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish();
+		new Undo( "Entity" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Entity ({ent.ClassInfo.Title})" );
 
 		//Log.Info( $"ent: {ent}" );
 	}
@@ -145,16 +145,58 @@ partial class SandboxGame : Game
 		}
 	}
 
+	[ServerCmd( "cleanup" )]
+	public static void CleanupCmd()
+	{
+		var owner = ConsoleSystem.Caller.Pawn;
+
+		if ( owner == null )
+			return;
+
+		var text = Undo.DoUndoAll( ConsoleSystem.Caller );
+
+		if ( text != null )
+		{
+			var game = Current as SandboxGame;
+
+			game.AddCustomUndoText( To.Single( owner ), text );
+		}
+	}
+
+	[AdminCmd( "admin_cleanup" )]
+	public static void AdminCleanupCmd()
+	{
+		var owner = ConsoleSystem.Caller.Pawn;
+
+		if ( owner == null )
+			return;
+
+		var text = Undo.DoUndoAllAdmin();
+
+		if ( text != null )
+		{
+			var game = Current as SandboxGame;
+
+			game.AddCustomUndoText( To.Single( owner ), text );
+		}
+	}
+
 	[ClientRpc]
 	public void AddUndoText(string text)
 	{
-		UndoUI.Current.AddEntry( text );
+		UndoUI.Current.AddUndoText( text );
 	}
 
 	[ClientRpc]
 	public void AddUndoText( Entity ent )
 	{
-		UndoUI.Current.AddEntry( ent.ClassInfo.Title );
+		UndoUI.Current.AddUndoText( ent.ClassInfo.Title );
+	}
+
+	[ClientRpc]
+	public void AddCustomUndoText( string text )
+	{
+		UndoUI.Current.AddCustomUndoText( text );
 	}
 
 	public override void DoPlayerNoclip( Client player )

@@ -18,15 +18,13 @@ public class EntityUndo : UndoRemove
 		return true;
 	}
 
-	public override bool Replace( object obj )
+	public override void Replace( object obj )
 	{
 		var ent = obj as Entity;
 
-		if ( ent == null ) return false;
+		if ( ent == null ) return;
 
 		entity = ent;
-
-		return true;
 	}
 
 	public override bool ObjectEquals( object obj )

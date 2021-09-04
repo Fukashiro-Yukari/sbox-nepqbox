@@ -3,6 +3,7 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
@@ -11,6 +12,9 @@ public partial class SpawnMenu : Panel
 {
 	public static SpawnMenu Instance;
 	readonly Panel toollist;
+	readonly Panel untilist;
+	private Panel toolPanel;
+	private Panel untiPanel;
 
 	public SpawnMenu()
 	{
@@ -42,19 +46,35 @@ public partial class SpawnMenu : Panel
 
 		var right = Add.Panel( "right" );
 		{
-			var tabs = right.Add.Panel( "tabs" );
+			var tabs = right.Add.ButtonGroup( "tabs" );
 			{
-				tabs.Add.Button( "Tools" ).AddClass( "active" );
+				tabs.SelectedButton = tabs.Add.Button( "Tools" );
 				tabs.Add.Button( "Utility" );
 			}
 			var body = right.Add.Panel( "body" );
 			{
-				toollist = body.Add.Panel("toollist");
+				toollist = body.Add.Panel( "page toollist visible" );
 				{
 					RebuildToolList();
 				}
+				untilist = body.Add.Panel( "page toollist" );
+				{
+					RebuildUtilityList();
+				}
+
 				body.Add.Panel( "inspector" );
 			}
+
+			tabs.AddEventListener( "startactive", () =>
+			{
+				var id = tabs.GetChildIndex( tabs.SelectedButton );
+
+				foreach ( var c in body?.Children )
+				{
+					var i = c.Parent.GetChildIndex( c );
+					c.SetClass( "visible", i == id );
+				}
+			} );
 		}
 	}
 
@@ -79,6 +99,35 @@ public partial class SpawnMenu : Panel
 					child.SetClass("active", child == button);
 			});
 		}
+
+		toolPanel = toollist.Add.Panel( "toolpanel" );
+	}
+
+	Button CreateUtilityButton<T>( Panel untilist, string text ) where T : Panel, new()
+	{
+		var button = untilist.Add.Button( text );
+
+		button.AddEventListener( "onclick", () =>
+		{
+			foreach ( var child in untilist.Children )
+				child.SetClass( "active", child == button );
+
+			untiPanel?.DeleteChildren();
+			untiPanel?.AddChild<T>();
+		} );
+
+		return button;
+	}
+
+	void RebuildUtilityList()
+	{
+		untilist.DeleteChildren( true );
+
+		untiPanel = untilist.Add.Panel( "toolpanel" );
+		untiPanel.AddChild<ClientPanel>();
+
+		CreateUtilityButton<ClientPanel>( untilist, "Client" ).SetClass( "active", true );
+		CreateUtilityButton<AdminPanel>( untilist, "Admin" );
 	}
 
 	public override void Tick()
@@ -93,5 +142,6 @@ public partial class SpawnMenu : Panel
 		base.OnHotloaded();
 
 		RebuildToolList();
+		RebuildUtilityList();
 	}
 }

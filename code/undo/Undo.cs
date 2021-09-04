@@ -35,8 +35,10 @@ namespace Sandbox
 			return this;
 		}
 
-		public void Finish()
+		public void Finish( string text = null )
 		{
+			temptable.SetText( text );
+
 			var cl = temptable.GetClient();
 			if ( cl == null ) return;
 
@@ -76,7 +78,41 @@ namespace Sandbox
 
 			list.RemoveAt( list.Count - 1 );
 
-			return undo.GetName();
+			return undo.GetText();
+		}
+
+		public static string DoUndoAll( Client cl )
+		{
+			if ( cl == null ) return null;
+
+			AddPlayer( cl );
+
+			var list = PlayerEntitys[cl];
+			if ( list == null || list.Count < 1 ) return null;
+
+			foreach ( var undo in list )
+			{
+				undo.Delete();
+			}
+
+			list.Clear();
+
+			return "Cleaned up everything!";
+		}
+
+		public static string DoUndoAllAdmin()
+		{
+			foreach ( var list in PlayerEntitys.Values )
+			{
+				foreach ( var undo in list )
+				{
+					undo.Delete();
+				}
+
+				list.Clear();
+			}
+
+			return "Cleaned up everything!";
 		}
 
 		public static void ReplaceEntity( object from, object to )

@@ -82,10 +82,14 @@
 
 				Tint = Color.Random.ToColor32();
 
-				new Undo( "Balloon" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent ).Finish();
+				var undo = new Undo( "Balloon" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent );
 
 				if ( !useRope )
+				{
+					undo.Finish();
+
 					return;
+				}
 
 				var rope = Particles.Create( "particles/rope.vpcf" );
 				rope.SetEntity( 0, ent );
@@ -119,6 +123,8 @@
 					rope?.Destroy( true );
 					spring.Remove();
 				} );
+
+				undo.AddEntity( rope ).AddEntity( spring ).Finish();
 			}
 		}
 	}

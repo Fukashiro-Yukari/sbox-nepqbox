@@ -6,15 +6,17 @@ namespace Sandbox
 	public struct UndoTable
 	{
 		string Name;
+		string Text;
 		List<UndoRemove> Entities;
 		Client Owner;
 
 		public UndoTable( string name )
 		{
-			if ( name == null )
+			if ( string.IsNullOrEmpty( name ) )
 				throw new ArgumentNullException( "UndoTable name cannot be empty" );
 
 			Name = name;
+			Text = Name;
 			Entities = new();
 			Owner = null;
 		}
@@ -114,6 +116,18 @@ namespace Sandbox
 		public string GetName()
 		{
 			return Name;
+		}
+
+		public void SetText( string text )
+		{
+			if ( string.IsNullOrEmpty( text ) ) return;
+
+			Text = text;
+		}
+
+		public string GetText()
+		{
+			return Text;
 		}
 	}
 }

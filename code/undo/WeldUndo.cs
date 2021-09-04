@@ -18,9 +18,8 @@ public class WeldUndo : UndoRemove
 		return true;
 	}
 
-	public override bool Replace( object obj )
+	public override void Replace( object obj )
 	{
-		return false;
 	}
 
 	public override bool ObjectEquals( object obj )

@@ -18,15 +18,13 @@ public class PhysicsJointUndo : UndoRemove
 		return true;
 	}
 
-	public override bool Replace( object obj )
+	public override void Replace( object obj )
 	{
 		var j = obj as IPhysicsJoint;
 
-		if ( j == null ) return false;
+		if ( j == null ) return;
 
 		Joint = j;
-
-		return true;
 	}
 
 	public override bool ObjectEquals( object obj )
