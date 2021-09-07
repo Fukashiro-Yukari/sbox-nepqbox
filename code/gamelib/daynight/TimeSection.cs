@@ -1,4 +1,4 @@
-﻿namespace Sandbox.DayNight
+﻿namespace Gamelib.DayNight
 {
 	public enum TimeSection
 	{

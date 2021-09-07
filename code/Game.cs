@@ -1,5 +1,5 @@
 ﻿using Sandbox;
-using Sandbox.DayNight;
+using Gamelib.DayNight;
 using System.Linq;
 
 [Library( "nepqbox", Title = "NepQ Box" )]
@@ -31,14 +31,14 @@ partial class SandboxGame : Game
 			if (All.OfType<EnvironmentLightEntity>().Count() < 1)
             {
 				dnc = new DayNightController();
-				dnc.DawnColor = new Color(1.00f, 0.42f, 0f);
-				dnc.DawnSkyColor = new Color(0.73f, 0.42f, 0f);
-				dnc.DayColor = new Color(0.97f, 0.96f, 0.95f);
-				dnc.DaySkyColor = new Color(0.94f, 0.95f, 1.00f);
-				dnc.DuskColor = new Color(1.00f, 0.35f, 0f);
-				dnc.DuskSkyColor = new Color(1.00f, 0.35f, 0f);
-				dnc.NightColor = new Color(0f, 0.58f, 1.00f);
-				dnc.NightSkyColor = new Color(0f, 0.58f, 1.00f);
+				dnc.DawnColor = new Color32( 226, 79, 33 ).ToColor();
+				dnc.DawnSkyColor = new Color32( 226, 79, 33 ).ToColor();
+				dnc.DayColor = new Color( 0.97f, 0.96f, 0.95f );
+				dnc.DaySkyColor = new Color( 0.94f, 0.95f, 1.00f );
+				dnc.DuskColor = new Color32( 197, 38, 7 ).ToColor();
+				dnc.DuskSkyColor = new Color32( 197, 38, 7 ).ToColor();
+				dnc.NightColor = new Color32( 23, 60, 150 ).ToColor();
+				dnc.NightSkyColor = new Color32( 23, 60, 150 ).ToColor();
 				dnc.Enable = DayNightCycle;
 				dnc.SetColors();
 			}
@@ -231,8 +231,8 @@ partial class SandboxGame : Game
 			if ( env != null )
 			{
 				Log.Info( "Env Info: " );
-				Log.Info( "Color: " + env.Color );
-				Log.Info( "SkyColor: " + env.SkyColor );
+				Log.Info( $"Color: R:{env.Color.r * 255},G:{env.Color.g * 255},B:{env.Color.b * 255},A:{env.Color.a * 255}" );
+				Log.Info( $"SkyColor: R:{env.SkyColor.r * 255},G:{env.SkyColor.g * 255},B:{env.SkyColor.b * 255},A:{env.SkyColor.a * 255}" );
 				Log.Info( "SkyIntensity: " + env.SkyIntensity );
 				Log.Info( "Brightness: " + env.Brightness );
 				Log.Info( "Position: " + env.Position );

@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using System;
 
-namespace Sandbox.DayNight
+namespace Gamelib.DayNight
 {
 	public static partial class DayNightManager
 	{
@@ -11,10 +11,10 @@ namespace Sandbox.DayNight
 		public static TimeSection Section { get; private set; }
 
 		//[ConVar.Replicated( "sv_day_night_cycle_time_of_day" )]
-		public static float TimeOfDay { get; set; } = 0f;
+		public static float TimeOfDay { get; set; } = 9f;
 
 		[ConVar.Replicated( "sv_day_night_cycle_speed" )]
-		public static float Speed { get; set; } = 0.05f;
+		public static float Speed { get; set; } = 0.09f;
 
 		public static TimeSection ToSection( float time )
 		{

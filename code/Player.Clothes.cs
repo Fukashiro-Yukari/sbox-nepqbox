@@ -39,7 +39,7 @@ partial class SandboxPlayer
 
 			if ( model.Contains( "dress" ) )
 			{
-				SetBodyGroup( "Chest", 1 );
+				SetBodyGroup( "Legs", 0 );
 
 				jacket = pants;
 			}

@@ -61,5 +61,4 @@ partial class SMG : Weapon
 		anim.SetParam( "holdtype", 2 ); // TODO this is shit
 		anim.SetParam( "aimat_weight", 1.0f );
 	}
-
 }

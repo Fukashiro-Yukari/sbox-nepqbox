@@ -1,8 +1,12 @@
 ﻿using Sandbox;
 using System.Threading.Tasks;
 
-namespace Sandbox.DayNight
+namespace Gamelib.DayNight
 {
+	/// <summary>
+	/// A brush entity that will enable and disable at random times during the morning and night time.
+	/// </summary>
+
 	[Library( "daynight_window" )]
 	[Hammer.EntityTool( "Day Night Window Brush", "Day Night System" )]
 	[Hammer.Solid]

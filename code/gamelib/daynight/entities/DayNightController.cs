@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace Sandbox.DayNight
+namespace Gamelib.DayNight
 {
 	public class DayNightGradient
 	{
@@ -57,8 +57,14 @@ namespace Sandbox.DayNight
 		}
 	}
 
+	/// <summary>
+	/// A way to set the colour based on the time of day, it will smoothly blend between each colour when the time has changed. Also enables the day night cycle using a "light_environment".
+	/// </summary>
+
+
 	[Library( "daynight_controller" )]
 	[Hammer.EntityTool( "Day Night Controller", "Day Night System" )]
+	[Hammer.EditorSprite( "editor/daynight_controller.vmat" )]
 	public partial class DayNightController : ModelEntity
 	{
 		[Property( "DawnColor", Title = "Dawn Color" )]
@@ -142,11 +148,11 @@ namespace Sandbox.DayNight
 			if ( environment == null ) return;
 
 			var sunAngle = ((DayNightManager.TimeOfDay / 24f) * 360f);
-			var moonAngle = 0f;
 			var tempmoonAngle = sunAngle + 180;
 			var radius = 10000f;
 			var changeAngle = 300f;
 
+			float moonAngle;
 			if ( tempmoonAngle < 360 )
 				moonAngle = tempmoonAngle;
 			else
@@ -159,6 +165,7 @@ namespace Sandbox.DayNight
 			{
 				IsSun = true;
 			}
+
 			if ( IsSun && sunAngle > changeAngle )
 			{
 				IsSun = false;
@@ -176,10 +183,13 @@ namespace Sandbox.DayNight
 				DebugOverlay.Sphere( environment.Position, 2000f, Color.Yellow );
 
 			var direction = (Vector3.Zero - environment.Position).Normal;
-			environment.Rotation = Rotation.LookAt( direction );
+			environment.Rotation = Rotation.LookAt( direction, Vector3.Up );
 
 			if ( SandboxGame.DayNightCycleDebug )
 				DebugOverlay.Line( environment.Position, environment.Position + environment.Rotation.Forward * 10000f, Color.Blue );
+
+			//environment.SkyIntensity = -1f;
+			//environment.Brightness = -1f;
 		}
 	}
 }

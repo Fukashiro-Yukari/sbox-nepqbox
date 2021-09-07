@@ -303,7 +303,6 @@ partial class SandboxPlayer : Player
 				continue;
 
 			inventory.SetActiveSlot( i, false );
-			InventoryBar.Current?.UpdateWeapon();
 
 			break;
 		}

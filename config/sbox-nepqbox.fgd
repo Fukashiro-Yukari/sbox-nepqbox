@@ -530,15 +530,35 @@
 ]
 
 // 
-// Sandbox.DayNight.DayNightController : Sandbox.ModelEntity 
+// Gamelib.DayNight.DayNightAmbience : Sandbox.Entity 
 // 
-@PointClass 
+@PointClass iconsprite( "editor/snd_daynight.vmat" ) 
+metadata
+{
+	entity_tool_name = "Day Night Ambience"
+	entity_tool_group = "Day Night System"
+}
+= daynight_ambience : "An audio controller for when a looping sound should play at each point in the day."
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	dawnambience(sound) : "Dawn Ambient Sound" :  : ""
+	dayambience(sound) : "Day Ambient Sound" :  : ""
+	duskambience(sound) : "Dusk Ambient Sound" :  : ""
+	nightambience(sound) : "Night Ambient Sound" :  : ""
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+]
+
+// 
+// Gamelib.DayNight.DayNightController : Sandbox.ModelEntity 
+// 
+@PointClass iconsprite( "editor/daynight_controller.vmat" ) 
 metadata
 {
 	entity_tool_name = "Day Night Controller"
 	entity_tool_group = "Day Night System"
 }
-= daynight_controller : ""
+= daynight_controller : "A way to set the colour based on the time of day, it will smoothly blend between each colour when the time has changed. Also enables the day night cycle using a \"light_environment\"."
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
@@ -561,24 +581,50 @@ metadata
 ]
 
 // 
-// Sandbox.DayNight.DayNightProp : Sandbox.ModelEntity 
+// Gamelib.DayNight.DayNightProp : Sandbox.ModelEntity 
 // 
-@PointClass model() = prop_daynight : ""
+@PointClass model() 
+metadata
+{
+	entity_tool_name = "Day Night Prop"
+	entity_tool_group = "Day Night System"
+}
+= daynight_prop : "Sets the skin of a model depending on if it's day time or night time, example: A street lamp turning on and night time then turning off in the morning."
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	skinday(integer) : "Skin For Day" : 0 : ""
-	skinnight(integer) : "Skin For Night" : 1 : ""
+	daymaterialgroup(integer) : "Day Material Group" : 0 : ""
+	nightmaterialgroup(integer) : "Night Material Group" : 1 : ""
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
 // 
-// Sandbox.DayNight.DayNightWindow : Sandbox.FuncBrush 
+// Gamelib.DayNight.DayNightSound : Sandbox.Entity 
+// 
+@PointClass iconsprite( "editor/daynight_sound.vmat" ) 
+metadata
+{
+	entity_tool_name = "Day Night Sound"
+	entity_tool_group = "Day Night System"
+}
+= daynight_sound : "A way to play sounds during the day night cycle, this also allows you to play a looping sound between 2 time periods e.g. 5pm to 6pm. You can also set the sound to only place once."
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	soundtoplay(sound) : "Sound To Play" :  : ""
+	timetoplay(integer) : "Time To Play" : 12 : ""
+	timetostop(integer) : "Time To Stop" : -1 : ""
+	deleteonplay(boolean) : "Delete On Play" : 0 : ""
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+]
+
+// 
+// Gamelib.DayNight.DayNightWindow : Sandbox.FuncBrush 
 // 
 @SolidClass 
 metadata
@@ -586,7 +632,7 @@ metadata
 	entity_tool_name = "Day Night Window Brush"
 	entity_tool_group = "Day Night System"
 }
-= daynight_window : ""
+= daynight_window : "A brush entity that will enable and disable at random times during the morning and night time."
 [
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."

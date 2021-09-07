@@ -12,7 +12,6 @@ public partial class InventoryBar : Panel
 	List<InventoryColumn> columns = new();
     List<Entity> Weapons = new();
     Entity SelectedWeapon;
-	Entity OldSelectedWeapon;
 
 	public InventoryBar()
     {
@@ -24,8 +23,6 @@ public partial class InventoryBar : Panel
             columns.Add(icon);
         }
     }
-
-	int oldWeaponsCount;
 
 	public override void Tick()
     {
@@ -43,32 +40,20 @@ public partial class InventoryBar : Panel
             Weapon wep = weapon as Weapon;
             Carriable car = weapon as Carriable;
 
-            if (wep != null)
-                columns[wep.Bucket].UpdateWeapon(wep);
-            else if (car != null)
-                columns[car.Bucket].UpdateWeapon(car);
+			if ( wep != null )
+				columns[wep.Bucket].UpdateWeapon( wep );
+			else if ( car != null )
+				columns[car.Bucket].UpdateWeapon( car );
         }
-
-		if ( Weapons.Count != oldWeaponsCount )
-		{
-			oldWeaponsCount = Weapons.Count;
-
-			UpdateWeapon();
-		}
     }
 
-	public void UpdateWeapon()
-	{
-		SelectedWeapon = Local.Pawn.ActiveChild;
-		OldSelectedWeapon = SelectedWeapon;
-	}
-
 	TimeSince timeSinceDelay;
+	Entity LastActiveChild;
 
-    [Event.BuildInput]
+	[Event.BuildInput]
     public void ProcessClientInput(InputBuilder input)
     {
-        var ply = Local.Pawn as SandboxPlayer;
+		var ply = Local.Pawn as SandboxPlayer;
 
 		if ( Weapons.Count == 0 || ply == null || ply.LifeState == LifeState.Dead )
         {
@@ -82,17 +67,19 @@ public partial class InventoryBar : Panel
             return;
         }
 
+		if ( LastActiveChild != Local.Pawn.ActiveChild )
+		{
+			LastActiveChild = Local.Pawn.ActiveChild;
+
+			if ( Local.Pawn.ActiveChild != SelectedWeapon )
+				SelectedWeapon = Local.Pawn.ActiveChild;
+		}
+
 		if ( ply.ActiveChild is PhysGun physgun && physgun.BeamActive ) return;
 		if ( SelectedWeapon == null )
             SelectedWeapon = Local.Pawn.ActiveChild;
 
-		if ( timeSinceDelay > 0.01 && OldSelectedWeapon != SelectedWeapon )
-		{
-			OldSelectedWeapon = SelectedWeapon;
-
-			input.ActiveChild = SelectedWeapon;
-		}
-
+		var oldSelectedWeapon = SelectedWeapon;
 		int SelectedIndex = Weapons.IndexOf(SelectedWeapon);
 
         SelectedIndex = SlotPressInput(input, SelectedIndex);
@@ -108,6 +95,12 @@ public partial class InventoryBar : Panel
         }
 
         input.MouseWheel = 0;
+
+		if ( oldSelectedWeapon != SelectedWeapon )
+		{
+			if ( timeSinceDelay > 0.01 )
+				input.ActiveChild = SelectedWeapon;
+		}
     }
 
     int SlotPressInput(InputBuilder input, int SelectedIndex)
