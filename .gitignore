@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+*.csproj
+launchSettings.json
+tools_asset_info.bin
+tools_thumbnail_cache.bin
+*.xml
+*.dll
+maps/editor/_bakeresourcecache/toolscene_default_baked/*
