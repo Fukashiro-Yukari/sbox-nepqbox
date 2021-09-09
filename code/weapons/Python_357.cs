@@ -1,74 +1,33 @@
 ﻿using Sandbox;
 
-
 [Library( "weapon_357", Title = ".357 Revolver", Spawnable = true )]
 [Hammer.EditorModel("models/weapons/w_357.vmdl")]
 partial class Python357 : Weapon
 { 
-	public override string ViewModelPath => "models/weapons/v_357.vmdl";
+	public override string ViewModelPath => "weapons/hl2_357/v_hl2_357.vmdl";
+	public override string WorldModelPath => "weapons/hl2_357/w_hl2_357.vmdl";
 
 	public override int ClipSize => 6;
+	public override int Bucket => 1;
 	public override float PrimaryRate => 1.0f;
 	public override float SecondaryRate => 1.0f;
-	public override float ReloadTime => 3.6f;
-    public override string ReloadSound => "weapon_357.reload";
+	public override float ReloadTime => 3.67f;
     public override bool RealReload => false;
-    public override CType Crosshair => CType.Common;
+	public override bool Automatic => false;
+	public override CType Crosshair => CType.Common;
 	public override string Icon => "ui/weapons/weapon_357.png";
+	public override string ShootSound => "hl2_357.fire";
+	public override bool CanDischarge => true;
+	public override float Spread => 0f;
+	public override float Force => 3f;
+	public override float Damage => 40f;
+	public override float BulletSize => 3.0f;
+	public override ScreenShake ScreenShake => new ScreenShake { };
 
-	public TimeSince TimeSinceDischarge { get; set; }
-
-	public override int Bucket => 1;
-
-	public override void Spawn()
+	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		base.Spawn();
-
-		SetModel("models/weapons/w_357.vmdl");
-	}
-
-	public override bool CanPrimaryAttack()
-	{
-		return base.CanPrimaryAttack() && Input.Pressed( InputButton.Attack1 );
-	}
-
-	public override void AttackPrimary()
-	{
-		if ( !BaseAttackPrimary() ) return;
-
-		PlaySound("weapon_357.fire");
-
-		//
-		// Shoot the bullets
-		//
-		ShootBullet( 0f, 3f, 40f, 3.0f );
-	}
-
-	private void Discharge()
-	{
-		if ( TimeSinceDischarge < 0.5f )
-			return;
-
-		TimeSinceDischarge = 0;
-
-		var muzzle = GetAttachment( "muzzle" ) ?? default;
-		var pos = muzzle.Position;
-		var rot = muzzle.Rotation;
-
-		TakeAmmo( 1 );
-		ShootEffects();
-		PlaySound("weapon_357.fire");
-		ShootBullet( pos, rot.Forward, 0f, 3f, 40f, 3.0f);
-
-		ApplyAbsoluteImpulse( rot.Backward * 200.0f );
-	}
-
-	protected override void OnPhysicsCollision( CollisionEventData eventData )
-	{
-		if ( eventData.Speed > 500.0f )
-		{
-			if (AmmoClip > 0)
-				Discharge();
-		}
+		anim.SetParam( "holdtype", 1 );
+		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetParam( "holdtype_handedness", 0 );
 	}
 }

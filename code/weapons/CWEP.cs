@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public partial class CWEPW : Weapon
 {
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";
+	public override string WorldModelPath => "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl";
 
 	public override int ClipSize => -1;
 	public override float ReloadTime => 0.5f;
@@ -34,8 +35,6 @@ public partial class CWEPW : Weapon
 	public override void Spawn()
 	{
 		base.Spawn();
-
-		SetModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" );
 
 		worldLight = CreateLight();
 		worldLight.SetParent( this, "muzzle", new Transform( LightOffset ) );

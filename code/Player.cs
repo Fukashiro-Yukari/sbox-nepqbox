@@ -73,19 +73,20 @@ partial class SandboxPlayer : Player
 
 		Inventory.Add( new PhysGun(), true );
 
-		foreach (var wep in Library.GetAllAttributes<Carriable>())
+		foreach ( var wep in Library.GetAllAttributes<Carriable>() )
         {
 			if ( wep.Title == "Carriable" || wep.Title == "PhysGun" )
 				continue;
 
-			Inventory.Add(Library.Create<Carriable>(wep.Name));
+			Inventory.Add( Library.Create<Carriable>( wep.Name ) );
 		}
 
-		Inventory.Add(new Crowbar());
-		Inventory.Add(new Knife());
-		Inventory.Add(new Pistol());
-		Inventory.Add(new Python357());
-		Inventory.Add(new Flashlight());
+		Inventory.Add( new Crowbar() );
+		Inventory.Add( new Knife() );
+		Inventory.Add( new Pistol() );
+		Inventory.Add( new HL2Pistol() );
+		Inventory.Add( new Python357() );
+		Inventory.Add( new Flashlight() );
 
         base.Respawn();
 	}

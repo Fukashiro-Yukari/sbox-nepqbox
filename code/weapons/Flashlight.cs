@@ -5,6 +5,7 @@
 partial class Flashlight : Weapon
 {
 	public override string ViewModelPath => "weapons/rust_flashlight/v_rust_flashlight.vmdl";
+	public override string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 	public override int ClipSize => -1;
 	public override float SecondaryRate => 2.0f;
 	public override CType Crosshair => CType.None;
@@ -23,8 +24,6 @@ partial class Flashlight : Weapon
 	public override void Spawn()
 	{
 		base.Spawn();
-
-		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
 		worldLight = CreateLight();
 		worldLight.SetParent( this, "slide", new Transform( LightOffset ) );
@@ -91,6 +90,11 @@ partial class Flashlight : Weapon
 
 			timeSinceLightToggled = 0;
 		}
+	}
+
+	public override bool CanPrimaryAttack()
+	{
+		return false;
 	}
 
 	public override bool CanReload()

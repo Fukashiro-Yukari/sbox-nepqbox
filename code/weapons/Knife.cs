@@ -1,82 +1,31 @@
 using Sandbox;
 using System;
 
-[Library("weapon_knife", Title = "Knife", Spawnable = true)]
+[Library( "weapon_boneknife", Title = "Bone Knife", Spawnable = true )]
 [Hammer.EditorModel("weapons/rust_boneknife/rust_boneknife.vmdl")]
-partial class Knife : Weapon
+partial class Knife : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/rust_boneknife/v_rust_boneknife.vmdl";
+	public override string WorldModelPath => "weapons/rust_boneknife/rust_boneknife.vmdl";
 
-	public override int ClipSize => -1;
-	public override float PrimaryRate => 1.0f;
-	public override float SecondaryRate => 0.5f;
-	public override float ReloadTime => 0f;
 	public override int Bucket => 0;
+	public override float PrimarySpeed => 1f;
+	public override float SecondarySpeed => 2f;
+	public override float PrimaryDamage => 35f;
+	public override float PrimaryForce => 100f * 1.5f;
+	public override float SecondaryDamage => 35f * 3f;
+	public override float SecondaryForce => 100f * 1.5f;
+	public override float MeleeDistance => 80f;
 	public override CType Crosshair => CType.None;
-	public virtual int BaseDamage => 35;
-	public virtual int MeleeDistance => 80;
-	public override string Icon => "ui/weapons/weapon_knife.png";
-
-	public override void Spawn()
-	{
-		base.Spawn();
-
-		SetModel("weapons/rust_boneknife/rust_boneknife.vmdl");
-	}
-
-	public virtual void MeleeStrike(float damage, float force)
-	{
-		var forward = Owner.EyeRot.Forward;
-		forward = forward.Normal;
-
-		foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * MeleeDistance, 10f))
-		{
-			if (!tr.Entity.IsValid()) continue;
-
-			tr.Surface.DoBulletImpact(tr);
-
-			if (!IsServer) continue;
-
-			using (Prediction.Off())
-			{
-				var damageInfo = DamageInfo.FromBullet(tr.EndPos, forward * 100 * force, damage)
-					.UsingTraceResult(tr)
-					.WithAttacker(Owner)
-					.WithWeapon(this);
-
-				tr.Entity.TakeDamage(damageInfo);
-			}
-		}
-	}
-
-	public override void AttackPrimary()
-	{
-		if (!BaseAttackPrimary()) return;
-
-		PlaySound("rust_boneknife.attack");
-		MeleeStrike(BaseDamage, 1.5f);
-	}
-
-	public override void AttackSecondary()
-	{
-		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
-
-		(Owner as AnimEntity).SetAnimBool("b_attack", true);
-
-		ShootEffects();
-		PlaySound("rust_boneknife.attack");
-		MeleeStrike(BaseDamage * 3f, 1.5f);
-	}
-
-	[ClientRpc]
-	protected override void ShootEffects()
-	{
-		Host.AssertClient();
-
-		ViewModelEntity?.SetAnimBool("fire", true);
-		CrosshairPanel?.CreateEvent("fire");
-	}
+	public override string Icon => "ui/weapons/weapon_boneknife.png";
+	public override string PrimaryAnimationHit => "fire";
+	public override string PrimaryAnimationMiss => "fire";
+	public override string SecondaryAnimationHit => "fire";
+	public override string SecondaryAnimationMiss => "fire";
+	public override string PrimaryAttackSound => "rust_boneknife.attack";
+	public override string HitWorldSound => "rust_boneknife.attack";
+	public override string MissSound => "rust_boneknife.attack";
+	public override bool CanUseSecondary => true;
 
 	public override void SimulateAnimator(PawnAnimator anim)
 	{

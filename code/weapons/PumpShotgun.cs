@@ -1,37 +1,31 @@
 ﻿using Sandbox;
 
-
 [Library( "weapon_pumpshotgun", Title = "Pump Shotgun", Spawnable = true )]
 [Hammer.EditorModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" )]
-partial class PumpShotgun : Weapon
+partial class PumpShotgun : WeaponShotgun
 { 
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";
+	public override string WorldModelPath => "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl";
+
 	public override int ClipSize => 8;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 1f;
 	public override float SecondaryRate => 1f;
 	public override float ReloadTime => 0.4f;
-	public override int Bucket => 2;
 	public override CType Crosshair => CType.ShotGun;
 	public override string Icon => "ui/weapons/weapon_shotgun.png";
-
-	public override void Spawn()
+	public override string ShootSound => "rust_pumpshotgun.shoot";
+	public override int NumBullets => 10;
+	public override float Spread => 0.1f;
+	public override float Force => 10.0f;
+	public override float Damage => 9.0f;
+	public override float BulletSize => 3.0f;
+	public override ScreenShake ScreenShake => new ScreenShake
 	{
-		base.Spawn();
-
-		SetModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" );
-	}
-
-	public override void AttackPrimary()
-	{
-		if ( !BaseAttackPrimary() ) return;
-
-		PlaySound( "rust_pumpshotgun.shoot" );
-
-		//
-		// Shoot the bullets
-		//
-		ShootBullets( 10, 0.1f, 10.0f, 9.0f, 3.0f );
-	}
+		Length = 1.0f,
+		Speed = 1.5f,
+		Size = 2.0f,
+	};
 
 	public override void AttackSecondary()
 	{
@@ -69,24 +63,6 @@ partial class PumpShotgun : Weapon
 	}
 
 	[ClientRpc]
-	protected override void ShootEffects()
-	{
-		Host.AssertClient();
-
-		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
-		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
-
-		ViewModelEntity?.SetAnimBool( "fire", true );
-
-		if ( IsLocalPawn )
-		{
-			new Sandbox.ScreenShake.Perlin(1.0f, 1.5f, 2.0f);
-		}
-
-		CrosshairPanel?.CreateEvent( "fire" );
-	}
-
-	[ClientRpc]
 	protected virtual void DoubleShootEffects()
 	{
 		Host.AssertClient();
@@ -100,46 +76,5 @@ partial class PumpShotgun : Weapon
 		{
 			new Sandbox.ScreenShake.Perlin(3.0f, 3.0f, 3.0f);
 		}
-	}
-
-	public override void OnReloadFinish()
-	{
-		IsReloading = false;
-
-		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
-
-		if ( AmmoClip >= ClipSize )
-			return;
-
-		if ( Input.Down( InputButton.Attack1 ) || Input.Down( InputButton.Attack2 ) )
-		{
-			FinishReload();
-
-			return;
-		}
-
-		AmmoClip += 1;
-
-		if ( AmmoClip < ClipSize )
-		{
-			Reload();
-		}
-		else
-		{
-			FinishReload();
-		}
-	}
-
-	[ClientRpc]
-	protected virtual void FinishReload()
-	{
-		ViewModelEntity?.SetAnimBool( "reload_finished", true );
-	}
-
-	public override void SimulateAnimator( PawnAnimator anim )
-	{
-		anim.SetParam( "holdtype", 3 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
 	}
 }

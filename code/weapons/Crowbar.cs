@@ -1,112 +1,35 @@
 using Sandbox;
-using System;
 
-[Library("weapon_crowbar", Title = "Crowbar", Spawnable = true)]
-[Hammer.EditorModel("weapons/rust_boneknife/rust_boneknife.vmdl")]
-partial class Crowbar : Weapon
+[Library( "weapon_crowbar", Title = "Crowbar", Spawnable = true )]
+[Hammer.EditorModel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" )]
+partial class Crowbar : WeaponMelee
 {
-	public override string ViewModelPath => "models/weapons/v_crowbar.vmdl";
+	public override string ViewModelPath => "weapons/hl2_crowbar/v_hl2_crowbar.vmdl";
+	public override string WorldModelPath => "weapons/hl2_crowbar/w_hl2_crowbar.vmdl";
 
-	public override int ClipSize => -1;
-	public override float PrimaryRate => 4.0f;
-	public override float SecondaryRate => 0.5f;
-	public override float ReloadTime => 0f;
 	public override int Bucket => 0;
+	public override float PrimaryDamage => 25f;
+	public override float PrimarySpeed => 0.4f;
+	public override float ImpactSize => 5f;
 	public override CType Crosshair => CType.None;
-	public virtual int BaseDamage => 25;
-	public virtual int MeleeDistance => 90;
 	public override string Icon => "ui/weapons/weapon_crowbar.png";
-
-	public override void Spawn()
+	public override string PrimaryAnimationHit => "attack_hit";
+	public override string PrimaryAnimationMiss => "attack";
+	public override string PrimaryAttackSound => "hl2_crowbar.hit";
+	public override string HitWorldSound => "hl2_crowbar.hitworld";
+	public override string MissSound => "hl2_crowbar.swing";
+	public override ScreenShake PrimaryScreenShakeHit => new ScreenShake
 	{
-		base.Spawn();
-
-		SetModel("weapons/rust_pistol/rust_pistol.vmdl");
-	}
-
-	bool isFlesh;
-
-	private bool MeleeAttack()
+		Length = 1.0f,
+		Speed = 1.0f,
+		Size = 3.0f,
+	};
+	public override ScreenShake PrimaryScreenShakeMiss => new ScreenShake
 	{
-		var forward = Owner.EyeRot.Forward;
-		forward = forward.Normal;
-
-		bool hit = false;
-
-		foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * MeleeDistance, 5.0f))
-		{
-			if (!tr.Entity.IsValid()) continue;
-
-			tr.Surface.DoBulletImpact(tr);
-
-			hit = true;
-			isFlesh = tr.Entity is SandboxPlayer || tr.Entity is Npc;
-
-			if (!IsServer) continue;
-
-			using (Prediction.Off())
-			{
-				var damageInfo = DamageInfo.FromBullet(tr.EndPos, forward * 100, BaseDamage)
-					.UsingTraceResult(tr)
-					.WithAttacker(Owner)
-					.WithWeapon(this);
-
-				tr.Entity.TakeDamage(damageInfo);
-			}
-		}
-
-		return hit;
-	}
-
-	public override void AttackPrimary()
-	{
-		if (!BaseAttackPrimary()) return;
-		if (MeleeAttack())
-		{
-			PlaySound(isFlesh ? "weapon_crowbar.hit": "weapon_crowbar.hitworld");
-
-			OnMeleeHit();
-		}
-		else
-		{
-			PlaySound("weapon_crowbar.swing");
-
-			OnMeleeMiss();
-		}
-	}
-
-	[ClientRpc]
-	private void OnMeleeMiss()
-	{
-		Host.AssertClient();
-
-		if (IsLocalPawn)
-		{
-			_ = new Sandbox.ScreenShake.Perlin(1.0f, 1.0f, 3.0f);
-		}
-
-		ViewModelEntity?.SetAnimBool("fire_miss", true);
-	}
-
-	[ClientRpc]
-	private void OnMeleeHit()
-	{
-		Host.AssertClient();
-
-		if (IsLocalPawn)
-		{
-			_ = new Sandbox.ScreenShake.Perlin(1.0f, 1.0f, 3.0f);
-		}
-
-		ViewModelEntity?.SetAnimBool("fire", true);
-		CrosshairPanel?.CreateEvent("fire");
-	}
-
-	[ClientRpc]
-	protected override void ShootEffects()
-	{
-		Host.AssertClient();
-	}
+		Length = 1.0f,
+		Speed = 1.0f,
+		Size = 3.0f,
+	};
 
 	public override void SimulateAnimator(PawnAnimator anim)
 	{

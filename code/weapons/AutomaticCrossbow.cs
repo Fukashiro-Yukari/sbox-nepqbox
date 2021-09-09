@@ -1,81 +1,44 @@
 ﻿using Sandbox;
+using System;
 
 [Library( "weapon_automaticcrossbow", Title = "Automatic Crossbow", Spawnable = true )]
 [Hammer.EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
-partial class AutomaticCrossbow : Weapon
+partial class AutomaticCrossbow : WeaponSniper
 { 
 	public override string ViewModelPath => "weapons/rust_crossbow/v_rust_crossbow.vmdl";
+	public override string WorldModelPath => "weapons/rust_crossbow/rust_crossbow.vmdl";
 
 	public override int ClipSize => 50;
 	public override float PrimaryRate => 10f;
 	public override int Bucket => 3;
 	public override string ReloadSound => "rush_crossbow.reload";
+	public override string ShootSound => "rush_crossbow.shoot";
 	public override string Icon => "ui/weapons/weapon_crossbow.png";
-
-	[Net]
-	public bool Zoomed { get; set; }
-
-	public override void Spawn()
+	public override string BulletEjectParticle => "";
+	public override string MuzzleFlashParticle => "";
+	public override ScreenShake ScreenShake => new ScreenShake
 	{
-		base.Spawn();
+		Length = 0.5f,
+		Speed = 4.0f,
+		Size = 1.0f,
+		Rotation = 0.5f
+	};
 
-		SetModel( "weapons/rust_crossbow/rust_crossbow.vmdl" );
-	}
+	public override Func<Vector3, Vector3, Vector3, float, float, float, Entity> CreateEntity => CreateCrossbow;
 
-	public override void AttackPrimary()
+	private Entity CreateCrossbow( Vector3 pos, Vector3 dir, Vector3 forward, float spread, float force, float damage )
 	{
-		if ( !BaseAttackPrimary() ) return;
-
-		PlaySound("rush_crossbow.shoot");
-
-		if ( IsServer )
+		if ( IsClient ) return null;
 		using ( Prediction.Off() )
 		{
 			var bolt = new CrossbowBolt();
-			bolt.Position = Owner.EyePos;
+			bolt.Position = pos;
 			bolt.Rotation = Owner.EyeRot;
 			bolt.Owner = Owner;
 			bolt.Velocity = Owner.EyeRot.Forward * 100;
+
+			return bolt;
 		}
-	}
-
-	public override void Simulate( Client cl )
-	{
-		base.Simulate( cl );
-
-		Zoomed = Input.Down( InputButton.Attack2 );
-	}
-
-	public override void PostCameraSetup( ref CameraSetup camSetup )
-	{
-		base.PostCameraSetup( ref camSetup );
-
-		if ( Zoomed )
-		{
-			camSetup.FieldOfView = 20;
-		}
-	}
-
-	public override void BuildInput( InputBuilder owner ) 
-	{
-		if ( Zoomed )
-		{
-			owner.ViewAngles = Angles.Lerp( owner.OriginalViewAngles, owner.ViewAngles, 0.2f );
-		}
-	}
-
-	[ClientRpc]
-	protected override void ShootEffects()
-	{
-		Host.AssertClient();
-
-		if ( Owner == Local.Pawn )
-		{
-			new Sandbox.ScreenShake.Perlin( 0.5f, 4.0f, 1.0f, 0.5f );
-		}
-
-		ViewModelEntity?.SetAnimBool( "fire", true );
-		CrosshairPanel?.CreateEvent( "fire" );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )

@@ -291,7 +291,31 @@
 ]
 
 // 
-// AutomaticCrossbow : Weapon 
+// AK47 : Weapon 
+// 
+@PointClass editormodel( "weapons/swb/css/ak47/css_w_rif_ak47.vmdl" ) = weapon_ak47 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// AUG : WeaponSniper 
+// 
+@PointClass editormodel( "weapons/css_ang/w_css_rif_aug.vmdl" ) = weapon_aug : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// AutomaticCrossbow : WeaponSniper 
 // 
 @PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_automaticcrossbow : ""
 [
@@ -303,7 +327,19 @@
 ]
 
 // 
-// Crossbow : Weapon 
+// AWP : WeaponSniper 
+// 
+@PointClass editormodel( "weapons/css_awp/css_w_awp.vmdl" ) = weapon_awp : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// Crossbow : WeaponSniper 
 // 
 @PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_crossbow : ""
 [
@@ -315,9 +351,9 @@
 ]
 
 // 
-// Crowbar : Weapon 
+// Crowbar : WeaponMelee 
 // 
-@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_crowbar : ""
+@PointClass editormodel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" ) = weapon_crowbar : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
@@ -339,6 +375,30 @@
 ]
 
 // 
+// Deagle : Weapon 
+// 
+@PointClass editormodel( "weapons/css_deagle/css_w_pist_deagle.vmdl" ) = weapon_deagle : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// FAMAS : Weapon 
+// 
+@PointClass editormodel( "weapons/css_famas/w_css_rif_famas.vmdl" ) = weapon_famas : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
 // Flashlight : Weapon 
 // 
 @PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flashlight : ""
@@ -351,9 +411,9 @@
 ]
 
 // 
-// Knife : Weapon 
+// GALIL : Weapon 
 // 
-@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_knife : ""
+@PointClass editormodel( "weapons/css_galil/w_css_rif_galil.vmdl" ) = weapon_galil : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
@@ -363,7 +423,79 @@
 ]
 
 // 
-// NiceGun : Weapon 
+// HL2Pistol : Weapon 
+// 
+@PointClass editormodel( "weapons/hl2_pistol/w_hl2_pistol.vmdl" ) = weapon_hl2_pistol : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// Knife : WeaponMelee 
+// 
+@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// M249 : Weapon 
+// 
+@PointClass editormodel( "weapons/css_m249/css_w_mach_m249para.vmdl" ) = weapon_m249 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// M3 : WeaponShotgun 
+// 
+@PointClass editormodel( "weapons/css_super90/css_w_shot_m3super90.vmdl" ) = weapon_m3 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// M4A1 : Weapon 
+// 
+@PointClass editormodel( "weapons/css_m4a1/css_w_m4a1.vmdl" ) = weapon_m4a1 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// MAC10 : Weapon 
+// 
+@PointClass editormodel( "weapons/swb/css/mac10/css_w_smg_mac10.vmdl" ) = weapon_mac10 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// NiceGun : WeaponShotgun 
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_nicegun : ""
 [
@@ -387,7 +519,7 @@
 ]
 
 // 
-// PumpShotgun : Weapon 
+// PumpShotgun : WeaponShotgun 
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_pumpshotgun : ""
 [
@@ -402,6 +534,18 @@
 // Python357 : Weapon 
 // 
 @PointClass editormodel( "models/weapons/w_357.vmdl" ) = weapon_357 : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// SG552 : WeaponSniper 
+// 
+@PointClass editormodel( "weapons/css_sg552/w_css_rif_sg552.vmdl" ) = weapon_sg552 : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
@@ -438,6 +582,18 @@
 // SMGShotgun : Weapon 
 // 
 @PointClass editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smgshotgun : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// USP : Weapon 
+// 
+@PointClass editormodel( "weapons/css_usp/w_css_pist_usp.vmdl" ) = weapon_usp : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."

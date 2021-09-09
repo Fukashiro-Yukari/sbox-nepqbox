@@ -113,22 +113,108 @@
 
 		.el0
 		{
-			right: 8px;
+			right: 5px;
 		}
 
 		.el1
 		{
-			left: 8px;
+			left: 5px;
 		}
 
 		.el2
 		{
-			bottom: 5px;
+			bottom: 3px;
 		}
 
 		.el3
 		{
-			top: 5px;
+			top: 3px;
+		}
+
+
+		&.fire
+		{
+			opacity: 0.9;
+			transition: opacity 0.01s ease-out;
+
+			.el0, .el1, .el2, .el3
+			{
+				transition: all 0.01s ease-in;
+				background-color: white;
+			}
+
+			.el0
+			{
+				right: 60px;
+				width: 3px;
+			}
+
+			.el1
+			{
+				left: 60px;
+				width: 3px;
+			}
+
+			.el2
+			{
+				bottom: 60px;
+				height: 3px;
+			}
+
+			.el3
+			{
+				top: 60px;
+				height: 3px;
+			}
+		}
+	}
+
+	&.Rifle
+	{
+		opacity: 0.2;
+		transition: opacity 0.3s ease-out;
+
+		.el0, .el1, .el2, .el3
+		{
+			background-color: white;
+			border-radius: 0;
+			transition: all 0.5s ease-out;
+		}
+
+		.el0, .el1
+		{
+			width: 10px;
+			top: -1px;
+			height: 3px;
+			border-radius: 2px;
+		}
+
+		.el2, .el3
+		{
+			width: 3px;
+			left: -1px;
+			height: 10px;
+			border-radius: 2px;
+		}
+
+		.el0
+		{
+			right: 12px;
+		}
+
+		.el1
+		{
+			left: 12px;
+		}
+
+		.el2
+		{
+			bottom: 9px;
+		}
+
+		.el3
+		{
+			top: 9px;
 		}
 
 
