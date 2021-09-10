@@ -339,6 +339,18 @@
 ]
 
 // 
+// BoneKnife : WeaponMelee 
+// 
+@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
 // Crossbow : WeaponSniper 
 // 
 @PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_crossbow : ""
@@ -387,9 +399,33 @@
 ]
 
 // 
+// Elites : WeaponDouble 
+// 
+@PointClass editormodel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" ) = weapon_elite : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
 // FAMAS : Weapon 
 // 
 @PointClass editormodel( "weapons/css_famas/w_css_rif_famas.vmdl" ) = weapon_famas : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// FiveSeven : Weapon 
+// 
+@PointClass editormodel( "weapons/css_fiveseven/w_css_pist_fiveseven.vmdl" ) = weapon_fiveseven : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
@@ -437,7 +473,7 @@
 // 
 // Knife : WeaponMelee 
 // 
-@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
+@PointClass editormodel( "weapons/css_knife/css_w_knife.vmdl" ) = weapon_knife : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."

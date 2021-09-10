@@ -16,7 +16,7 @@ public class NavSteer
 
 	public virtual void Tick( Vector3 currentPosition )
 	{
-		Path.Update( currentPosition, Target ); 
+		Path.Update( currentPosition, Target );
 
 		Output.Finished = Path.IsEmpty;
 
@@ -45,7 +45,7 @@ public class NavSteer
 		foreach ( var ent in Physics.GetEntitiesInSphere( center, radius ) )
 		{
 			if ( ent is not Npc ) continue;
-			if (DontAvoidance.Invoke(ent)) continue;
+			if ( DontAvoidance.Invoke( ent ) ) continue;
 			if ( ent.IsWorld ) continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );

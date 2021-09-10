@@ -6,6 +6,7 @@ public partial class Weapon : BaseWeapon, IUse
 {
 	public virtual string WorldModelPath => "";
 	public virtual string SilencerWorldModelPath => "";
+	public virtual string DroppedModelPath => "";
 	public virtual int ClipSize => 16;
 	public virtual int ClipTake => 1;
 	public virtual int AmmoMultiplier => 3;
@@ -53,7 +54,7 @@ public partial class Weapon : BaseWeapon, IUse
 	public TimeSince TimeSinceDeployed { get; set; }
 
 	[Net, Predicted]
-	private bool Silencer { get; set; }
+	public bool Silencer { get; set; }
 
 	private bool SilencerDelay;
 
@@ -76,7 +77,10 @@ public partial class Weapon : BaseWeapon, IUse
 		
 		if ( ClipSize <= -1 )
 		{
-			AmmoCount = AmmoMultiplier;
+			if ( UnlimitedAmmo )
+				AmmoCount = AmmoClip;
+			else
+				AmmoCount = AmmoMultiplier;
 		}
 		else
 		{
@@ -86,13 +90,18 @@ public partial class Weapon : BaseWeapon, IUse
 				AmmoCount = AmmoClip * AmmoMultiplier;
 		}
 
-		if ( !string.IsNullOrEmpty( WorldModelPath ) )
+		if ( !string.IsNullOrEmpty( DroppedModelPath ) )
+			SetModel( DroppedModelPath );
+		else if ( !string.IsNullOrEmpty( WorldModelPath ) )
 			SetModel( WorldModelPath );
 	}
 
 	public override void ActiveStart( Entity ent )
 	{
 		base.ActiveStart( ent );
+
+		if ( !string.IsNullOrEmpty( DroppedModelPath ) && !string.IsNullOrEmpty( WorldModelPath ) )
+			SetModel( WorldModelPath );
 
 		TimeSinceDeployed = 0;
 		IsReloading = false;
@@ -103,6 +112,17 @@ public partial class Weapon : BaseWeapon, IUse
 	public override void ActiveEnd( Entity ent, bool dropped )
 	{
 		base.ActiveEnd( ent, dropped );
+
+		if ( dropped )
+		{
+			var oldVelocity = Velocity;
+
+			if ( !string.IsNullOrEmpty( DroppedModelPath ) )
+				SetModel( DroppedModelPath );
+
+			if ( IsServer )
+				PhysicsGroup.ApplyImpulse( oldVelocity, true );
+		}
 
 		if ( SilencerDelay )
 			SilencerDelay = false;
@@ -127,6 +147,7 @@ public partial class Weapon : BaseWeapon, IUse
 			PlaySound( ReloadSound );
 
 		StartReloadEffects();
+		EmptyEffects( false );
 	}
 
 	public override bool CanPrimaryAttack()
@@ -136,7 +157,7 @@ public partial class Weapon : BaseWeapon, IUse
 
 	//public override bool CanSecondaryAttack()
 	//{
-	//	return base.CanSecondaryAttack() && Input.Pressed( InputButton.Attack2 );
+	//	return Input.Pressed( InputButton.Attack2 );
 	//}
 
 	public override void Simulate( Client owner )
@@ -194,6 +215,8 @@ public partial class Weapon : BaseWeapon, IUse
 			ShootBullets( NumBullets, Spread, Force, Damage, BulletSize );
 		else
 			ShootBullet( Spread, Force, Damage, BulletSize );
+
+		EmptyEffects( true );
 	}
 
 	public override void AttackSecondary()
@@ -387,6 +410,21 @@ public partial class Weapon : BaseWeapon, IUse
 
 		ViewModelEntity?.SetAnimBool( "fire", true );
 		CrosshairPanel?.CreateEvent( "fire" );
+	}
+
+	[ClientRpc]
+	protected virtual void EmptyEffects( bool isempty )
+	{
+		if ( isempty )
+		{
+			if ( AmmoClip > 0 ) return;
+
+			ViewModelEntity?.SetAnimBool( "empty", true );
+		}
+		else
+		{
+			ViewModelEntity?.SetAnimBool( "empty", false );
+		}
 	}
 
 	/// <summary>

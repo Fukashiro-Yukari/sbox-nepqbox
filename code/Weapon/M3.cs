@@ -26,10 +26,4 @@ partial class M3 : WeaponShotgun
 		Size = 1.0f,
 		Rotation = 0.5f
 	};
-
-	public override void SimulateAnimator( PawnAnimator anim )
-	{
-		anim.SetParam( "holdtype", 2 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
-	}
 }

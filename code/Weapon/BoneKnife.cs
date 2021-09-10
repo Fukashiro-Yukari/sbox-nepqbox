@@ -3,7 +3,7 @@ using System;
 
 [Library( "weapon_boneknife", Title = "Bone Knife", Spawnable = true )]
 [Hammer.EditorModel("weapons/rust_boneknife/rust_boneknife.vmdl")]
-partial class Knife : WeaponMelee
+partial class BoneKnife : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/rust_boneknife/v_rust_boneknife.vmdl";
 	public override string WorldModelPath => "weapons/rust_boneknife/rust_boneknife.vmdl";

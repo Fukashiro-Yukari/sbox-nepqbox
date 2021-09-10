@@ -9,9 +9,9 @@ partial class Npc
 
 	public void Dress()
 	{
-		if (true)
+		if ( true )
 		{
-			var model = Rand.FromArray(new[]
+			var model = Rand.FromArray( new[]
 			{
 				"models/citizen_clothes/trousers/trousers.jeans.vmdl",
 				"models/citizen_clothes/trousers/trousers.lab.vmdl",
@@ -21,64 +21,72 @@ partial class Npc
 				"models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl",
 				"models/citizen_clothes/trousers/trousers_tracksuit.vmdl",
 				"models/citizen_clothes/shoes/shorts.cargo.vmdl",
-			});
+				"models/citizen_clothes/dress/dress.kneelength.vmdl"
+			} );
 
 			pants = new ModelEntity();
-			pants.SetModel(model);
-			pants.SetParent(this, true);
+			pants.SetModel( model );
+			pants.SetParent( this, true );
 			pants.EnableShadowInFirstPerson = true;
 			pants.EnableHideInFirstPerson = true;
 
-			SetBodyGroup("Legs", 1);
+			SetBodyGroup( "Legs", 1 );
+
+			if ( model.Contains( "dress" ) )
+			{
+				SetBodyGroup( "Legs", 0 );
+
+				jacket = pants;
+			}
 		}
 
-		if (true)
+		if ( true && jacket == null )
 		{
-			var model = Rand.FromArray(new[]
+			var model = Rand.FromArray( new[]
 			{
 				"models/citizen_clothes/jacket/labcoat.vmdl",
 				"models/citizen_clothes/jacket/jacket.red.vmdl",
 				"models/citizen_clothes/jacket/jacket.tuxedo.vmdl",
 				"models/citizen_clothes/jacket/jacket_heavy.vmdl",
-			});
+			} );
 
 			jacket = new ModelEntity();
-			jacket.SetModel(model);
-			jacket.SetParent(this, true);
+			jacket.SetModel( model );
+			jacket.SetParent( this, true );
 			jacket.EnableShadowInFirstPerson = true;
 			jacket.EnableHideInFirstPerson = true;
 
 			var propInfo = jacket.GetModel().GetPropData();
-			if (propInfo.ParentBodyGroupName != null)
+			if ( propInfo.ParentBodyGroupName != null )
 			{
-				SetBodyGroup(propInfo.ParentBodyGroupName, propInfo.ParentBodyGroupValue);
+				SetBodyGroup( propInfo.ParentBodyGroupName, propInfo.ParentBodyGroupValue );
 			}
 			else
 			{
-				SetBodyGroup("Chest", 0);
+				SetBodyGroup( "Chest", 0 );
 			}
 		}
 
-		if (true)
+		if ( true )
 		{
-			var model = Rand.FromArray(new[]
+			var model = Rand.FromArray( new[]
 			{
 				"models/citizen_clothes/shoes/trainers.vmdl",
 				"models/citizen_clothes/shoes/shoes.workboots.vmdl"
-			});
+			} );
 
 			shoes = new ModelEntity();
-			shoes.SetModel(model);
-			shoes.SetParent(this, true);
+			shoes.SetModel( model );
+			shoes.SetParent( this, true );
 			shoes.EnableShadowInFirstPerson = true;
 			shoes.EnableHideInFirstPerson = true;
 
-			SetBodyGroup("Feet", 1);
+			SetBodyGroup( "Feet", 1 );
 		}
 
-		if (true)
+		if ( true )
 		{
-			var model = Rand.FromArray(new[]
+			var model = Rand.FromArray( new[]
 			{
 				"models/citizen_clothes/hat/hat_hardhat.vmdl",
 				"models/citizen_clothes/hat/hat_woolly.vmdl",
@@ -95,11 +103,11 @@ partial class Npc
 				"models/citizen_clothes/hat/hat_service.vmdl",
 				"models/citizen_clothes/hat/hat_uniform.police.vmdl",
 				"models/citizen_clothes/hat/hat_woollybobble.vmdl",
-			});
+			} );
 
 			hat = new ModelEntity();
-			hat.SetModel(model);
-			hat.SetParent(this, true);
+			hat.SetModel( model );
+			hat.SetParent( this, true );
 			hat.EnableShadowInFirstPerson = true;
 			hat.EnableHideInFirstPerson = true;
 		}

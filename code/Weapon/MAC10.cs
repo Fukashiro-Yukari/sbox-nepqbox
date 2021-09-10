@@ -28,8 +28,8 @@ partial class MAC10 : Weapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 2 ); // TODO this is shit
-		anim.SetParam( "holdtype_handedness", 1 );
+		anim.SetParam( "holdtype", 1 ); // TODO this is shit
+		anim.SetParam( "holdtype_handedness", 0 );
 		anim.SetParam( "aimat_weight", 1.0f );
 	}
 }

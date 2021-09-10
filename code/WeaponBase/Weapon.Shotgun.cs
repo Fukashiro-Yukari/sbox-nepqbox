@@ -39,6 +39,11 @@ public partial class WeaponShotgun : Weapon
 		ViewModelEntity?.SetAnimBool( "reload_finished", true );
 	}
 
+	[ClientRpc]
+	protected override void EmptyEffects( bool isempty )
+	{
+	}
+
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		anim.SetParam( "holdtype", 3 ); // TODO this is shit

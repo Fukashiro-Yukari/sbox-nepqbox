@@ -3,6 +3,7 @@ using Sandbox;
 public partial class WeaponMelee : Weapon
 {
 	public override int ClipSize => -1;
+	public override int AmmoMultiplier => -1;
 	public virtual float PrimaryDamage => 25f;
 	public virtual float PrimaryForce => 100;
 	public virtual float SecondaryDamage => 25f;
@@ -49,10 +50,10 @@ public partial class WeaponMelee : Weapon
 				{
 					screenShakeMiss = new ScreenShake
 					{
-						Length = 0f,
-						Speed = 0f,
-						Size = 0f,
-						Rotation = 0f
+						Length = -1f,
+						Speed = -1f,
+						Size = -1f,
+						Rotation = -1f
 					};
 				}
 
@@ -64,7 +65,7 @@ public partial class WeaponMelee : Weapon
 			tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
-			isFlesh = tr.Entity is SandboxPlayer || tr.Entity is Npc;
+			isFlesh = tr.Entity is Player || tr.Entity is Npc;
 
 			PlaySound( isFlesh ? swingSound : HitWorldSound );
 
@@ -72,10 +73,10 @@ public partial class WeaponMelee : Weapon
 			{
 				screenShakeHit = new ScreenShake
 				{
-					Length = 0f,
-					Speed = 0f,
-					Size = 0f,
-					Rotation = 0f
+					Length = -1f,
+					Speed = -1f,
+					Size = -1f,
+					Rotation = -1f
 				};
 			}
 
@@ -143,7 +144,8 @@ public partial class WeaponMelee : Weapon
 
 		if ( IsLocalPawn )
 		{
-			_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
+			if ( length != -1 )
+				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
 		}
 
 		ViewModelEntity?.SetAnimBool( animation, true );
@@ -156,7 +158,8 @@ public partial class WeaponMelee : Weapon
 
 		if ( IsLocalPawn )
 		{
-			_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
+			if ( length != -1 )
+				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
 		}
 
 		ViewModelEntity?.SetAnimBool( animation, true );
