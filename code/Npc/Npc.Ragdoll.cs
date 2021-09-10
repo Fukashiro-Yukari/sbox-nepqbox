@@ -1,9 +1,9 @@
-﻿using Sandbox;
+using Sandbox;
+using System.Collections.Generic;
 
-partial class SandboxPlayer
+public partial class Npc
 {
-	[ClientRpc]
-	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )
+	private void BecomeRagdoll( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )
 	{
 		var ent = new ModelEntity();
 		ent.Position = Position;
@@ -69,6 +69,8 @@ partial class SandboxPlayer
 		}
 
 		Corpse = ent;
+
+		Undo.ReplaceEntity( this, Corpse );
 
 		ent.DeleteAsync( 10.0f );
 	}

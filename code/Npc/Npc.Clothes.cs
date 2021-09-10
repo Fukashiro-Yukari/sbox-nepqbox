@@ -29,6 +29,7 @@ partial class Npc
 			pants.SetParent( this, true );
 			pants.EnableShadowInFirstPerson = true;
 			pants.EnableHideInFirstPerson = true;
+			pants.Tags.Add( "clothes" );
 
 			SetBodyGroup( "Legs", 1 );
 
@@ -55,6 +56,7 @@ partial class Npc
 			jacket.SetParent( this, true );
 			jacket.EnableShadowInFirstPerson = true;
 			jacket.EnableHideInFirstPerson = true;
+			jacket.Tags.Add( "clothes" );
 
 			var propInfo = jacket.GetModel().GetPropData();
 			if ( propInfo.ParentBodyGroupName != null )
@@ -80,6 +82,7 @@ partial class Npc
 			shoes.SetParent( this, true );
 			shoes.EnableShadowInFirstPerson = true;
 			shoes.EnableHideInFirstPerson = true;
+			shoes.Tags.Add( "clothes" );
 
 			SetBodyGroup( "Feet", 1 );
 		}
@@ -110,6 +113,7 @@ partial class Npc
 			hat.SetParent( this, true );
 			hat.EnableShadowInFirstPerson = true;
 			hat.EnableHideInFirstPerson = true;
+			hat.Tags.Add( "clothes" );
 		}
 	}
 }

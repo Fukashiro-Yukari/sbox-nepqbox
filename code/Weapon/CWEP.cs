@@ -22,8 +22,6 @@ public partial class CWEPW : Weapon
 	public int CurrentFireModeInt = 0;
 	private List<string> FireModes = new();
 
-	public TimeSince TimeSinceDischarge { get; set; }
-
 	private SpotLightEntity worldLight;
 	private SpotLightEntity viewLight;
 

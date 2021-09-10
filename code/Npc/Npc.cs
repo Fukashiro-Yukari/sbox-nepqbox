@@ -1,9 +1,7 @@
 ﻿using Sandbox;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 public partial class Npc : AnimEntity
 {
@@ -39,6 +37,8 @@ public partial class Npc : AnimEntity
 
 	public override void OnKilled()
 	{
+		BecomeRagdoll( Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone( lastDamage.HitboxIndex ) );
+
 		base.OnKilled();
 
 		Game.Current?.OnKilled( this );
@@ -49,8 +49,6 @@ public partial class Npc : AnimEntity
 			Particles.Create( "particles/impact.flesh-big.vpcf", lastDamage.Position );
 			PlaySound( "kersplat" );
 		}
-
-		BecomeRagdoll( Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone( lastDamage.HitboxIndex ) );
 	}
 
 	public override void TakeDamage(DamageInfo info)
@@ -141,78 +139,6 @@ public partial class Npc : AnimEntity
 				}
 			}
 		}
-	}
-
-	private void BecomeRagdoll(Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone)
-	{
-		var ent = new ModelEntity();
-		ent.Position = Position;
-		ent.Rotation = Rotation;
-		ent.Scale = Scale;
-		ent.MoveType = MoveType.Physics;
-		ent.UsePhysicsCollision = true;
-		ent.EnableAllCollisions = true;
-		ent.CollisionGroup = CollisionGroup.Debris;
-		ent.SetModel( GetModelName() );
-		ent.CopyBonesFrom( this );
-		ent.CopyBodyGroups( this );
-		ent.CopyMaterialGroup( this );
-		ent.TakeDecalsFrom( this );
-		ent.EnableHitboxes = true;
-		ent.EnableAllCollisions = true;
-		ent.SurroundingBoundsMode = SurroundingBoundsType.Physics;
-		ent.RenderColorAndAlpha = RenderColorAndAlpha;
-		ent.PhysicsGroup.Velocity = velocity;
-
-		ent.SetInteractsAs( CollisionLayer.Debris );
-		ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );
-		ent.SetInteractsExclude( CollisionLayer.Player | CollisionLayer.Debris );
-
-		foreach ( var child in Children )
-		{
-			if ( child is ModelEntity e )
-			{
-				var model = e.GetModelName();
-				if ( model != null && !model.Contains( "clothes" ) )
-					continue;
-
-				var clothing = new ModelEntity();
-				clothing.SetModel( model );
-				clothing.SetParent( ent, true );
-				clothing.RenderColorAndAlpha = e.RenderColorAndAlpha;
-			}
-		}
-
-		if ( damageFlags.HasFlag( DamageFlags.Bullet ) ||
-			 damageFlags.HasFlag( DamageFlags.PhysicsImpact ) )
-		{
-			PhysicsBody body = bone > 0 ? ent.GetBonePhysicsBody( bone ) : null;
-
-			if ( body != null )
-			{
-				body.ApplyImpulseAt( forcePos, force * body.Mass );
-			}
-			else
-			{
-				ent.PhysicsGroup.ApplyImpulse( force );
-			}
-		}
-
-		if ( damageFlags.HasFlag( DamageFlags.Blast ) )
-		{
-			if ( ent.PhysicsGroup != null )
-			{
-				ent.PhysicsGroup.AddVelocity( (Position - (forcePos + Vector3.Down * 100.0f)).Normal * (force.Length * 0.2f) );
-				var angularDir = (Rotation.FromYaw( 90 ) * force.WithZ( 0 ).Normal).Normal;
-				ent.PhysicsGroup.AddAngularVelocity( angularDir * (force.Length * 0.02f) );
-			}
-		}
-
-		Corpse = ent;
-
-		Undo.ReplaceEntity( this, Corpse );
-
-		ent.DeleteAsync( 10.0f );
 	}
 
 	private TraceResult StartTrace(Vector3 start, Vector3 end)
