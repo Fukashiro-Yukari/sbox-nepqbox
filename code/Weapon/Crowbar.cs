@@ -10,6 +10,7 @@ partial class Crowbar : WeaponMelee
 	public override int Bucket => 0;
 	public override float PrimaryDamage => 25f;
 	public override float PrimarySpeed => 0.4f;
+	public override float PrimaryMeleeDistance => 80f;
 	public override float ImpactSize => 5f;
 	public override CType Crosshair => CType.None;
 	public override string Icon => "ui/weapons/weapon_crowbar.png";

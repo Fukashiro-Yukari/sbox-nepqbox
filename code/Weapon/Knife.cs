@@ -15,7 +15,10 @@ partial class Knife : WeaponMelee
 	public override float PrimaryForce => 25f;
 	public override float SecondaryDamage => 65f;
 	public override float SecondaryForce => 50f;
-	public override float MeleeDistance => 35f;
+	public override float PrimaryMeleeDistance => 55f;
+	public override float SecondaryMeleeDistance => 35f;
+	public override float PrimaryBackDamage => 35f;
+	public override float SecondaryBackDamage => 150f;
 	public override float ImpactSize => 10f;
 	public override CType Crosshair => CType.None;
 	public override string Icon => "ui/weapons/weapon_knife.png";
@@ -24,9 +27,10 @@ partial class Knife : WeaponMelee
 	public override string SecondaryAnimationHit => "stab";
 	public override string SecondaryAnimationMiss => "stab_miss";
 	public override string PrimaryAttackSound => "css_knife.hit";
-	public override string SecondaryAttackSound => "css_knife.stab";
+	public override string SecondaryAttackSound => "css_knife.hit";
 	public override string HitWorldSound => "css_knife.hitwall";
 	public override string MissSound => "css_knife.slash";
+	public override string BackAttackSound => "css_knife.stab";
 	public override bool CanUseSecondary => true;
 
 	public override void SimulateAnimator( PawnAnimator anim )

@@ -160,6 +160,11 @@
 
         .cell {
             padding: 5px;
+            transition: all 0.1s ease-out;
+
+            &:hover{
+                padding: 8px;
+            }
         }
 
         .icon {
@@ -176,17 +181,28 @@
             background-image: url( /entity/spawnicon.png );
 
             label {
+                background-color: rgba( black, 0.5 );
+                border-radius: 5px;
                 font-size: 9px;
+                color: white;
                 position: absolute;
-                bottom: -14px;
-                left: 0;
+                bottom: 0px;
+                width: 85%;
+                left: 6.5px;
                 right: 0;
                 pointer-events: none;
+                transition: all 0.1s ease-out;
             }
 
             &:hover {
                 color: #fff;
                 background-color: rgba(black, 0.4);
+                font-size: 12px;
+
+                label {
+                    background-color: rgba( rgb(0, 153, 255), 0.5 );
+                    font-size: 11px;
+                }
             }
 
             &:active {

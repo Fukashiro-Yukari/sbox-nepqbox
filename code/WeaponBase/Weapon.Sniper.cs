@@ -27,6 +27,11 @@ public partial class WeaponSniper : Weapon
 		SniperScopePanel?.Delete();
 	}
 
+	public override bool CanSecondaryAttack()
+	{
+		return false;
+	}
+
 	public override void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;

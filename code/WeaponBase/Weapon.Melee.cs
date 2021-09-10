@@ -10,7 +10,10 @@ public partial class WeaponMelee : Weapon
 	public virtual float SecondaryForce => 100;
 	public virtual float PrimarySpeed => 1f;
 	public virtual float SecondarySpeed => 1f;
-	public virtual float MeleeDistance => 90f;
+	public virtual float PrimaryMeleeDistance => 100f;
+	public virtual float SecondaryMeleeDistance => 80f;
+	public virtual float PrimaryBackDamage => 35f;
+	public virtual float SecondaryBackDamage => 150f;
 	public virtual float ImpactSize => 10f;
 	public virtual string PrimaryAnimationHit => "";
 	public virtual string PrimaryAnimationMiss => "";
@@ -20,15 +23,17 @@ public partial class WeaponMelee : Weapon
 	public virtual string SecondaryAttackSound => "";
 	public virtual string HitWorldSound => "";
 	public virtual string MissSound => "";
+	public virtual string BackAttackSound => "";
 	public virtual bool CanUseSecondary => false;
 	public virtual ScreenShake PrimaryScreenShakeHit => null;
 	public virtual ScreenShake PrimaryScreenShakeMiss => null;
 	public virtual ScreenShake SecondaryScreenShakeHit => null;
 	public virtual ScreenShake SecondaryScreenShakeMiss => null;
 
-	bool isFlesh;
+	[Net, Predicted]
+	public bool IsBack { get; set; }
 
-	public virtual bool MeleeAttack( float damage, float force, string swingSound, string animationHit, string animationMiss, ScreenShake screenShakeHit, ScreenShake screenShakeMiss )
+	public virtual bool MeleeAttack( float damage, float force, string swingSound, string animationHit, string animationMiss, ScreenShake screenShakeHit, ScreenShake screenShakeMiss, float meleeDistance, float backDamage )
 	{
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
@@ -39,9 +44,14 @@ public partial class WeaponMelee : Weapon
 		forward = forward.Normal;
 
 		bool hit = false;
+		var isatt = false;
 
-		foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * MeleeDistance, ImpactSize ) )
+		foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * meleeDistance, ImpactSize ) )
 		{
+			if ( isatt ) break;
+
+			isatt = true;
+
 			if ( !tr.Entity.IsValid() )
 			{
 				PlaySound( MissSound );
@@ -65,9 +75,21 @@ public partial class WeaponMelee : Weapon
 			tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
-			isFlesh = tr.Entity is Player || tr.Entity is Npc;
+			var isFlesh = tr.Entity is Player || tr.Entity is Npc;
+			var newRot = Rotation.From( 0, Rotation.Angles().yaw, 0 );
+			var trenewRot = Rotation.From( 0, tr.Entity.Rotation.Angles().yaw, 0 );
+			var dif = newRot.Distance( trenewRot );
 
-			PlaySound( isFlesh ? swingSound : HitWorldSound );
+			IsBack = isFlesh && dif >= 100 && dif <= 145 && !string.IsNullOrEmpty( BackAttackSound );
+
+			if ( IsBack )
+			{
+				PlaySound( BackAttackSound );
+			}
+			else
+			{
+				PlaySound( isFlesh ? swingSound : HitWorldSound );
+			}
 
 			if ( screenShakeHit == null )
 			{
@@ -86,7 +108,7 @@ public partial class WeaponMelee : Weapon
 
 			using ( Prediction.Off() )
 			{
-				var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * force, damage )
+				var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * force, IsBack ? backDamage : damage )
 					.UsingTraceResult( tr )
 					.WithAttacker( Owner )
 					.WithWeapon( this );
@@ -129,12 +151,12 @@ public partial class WeaponMelee : Weapon
 
 	public override void AttackPrimary()
 	{
-		_ = MeleeAttack( PrimaryDamage, PrimaryForce, PrimaryAttackSound, PrimaryAnimationHit, PrimaryAnimationMiss, PrimaryScreenShakeHit, PrimaryScreenShakeMiss );
+		_ = MeleeAttack( PrimaryDamage, PrimaryForce, PrimaryAttackSound, PrimaryAnimationHit, PrimaryAnimationMiss, PrimaryScreenShakeHit, PrimaryScreenShakeMiss, PrimaryMeleeDistance, PrimaryBackDamage );
 	}
 
 	public override void AttackSecondary()
 	{
-		_ = MeleeAttack( SecondaryDamage, SecondaryForce, SecondaryAttackSound, SecondaryAnimationHit, SecondaryAnimationMiss, SecondaryScreenShakeHit, SecondaryScreenShakeMiss );
+		_ = MeleeAttack( SecondaryDamage, SecondaryForce, SecondaryAttackSound, SecondaryAnimationHit, SecondaryAnimationMiss, SecondaryScreenShakeHit, SecondaryScreenShakeMiss, SecondaryMeleeDistance, SecondaryBackDamage );
 	}
 
 	[ClientRpc]

@@ -51,7 +51,7 @@ public partial class Npc : AnimEntity
 		}
 	}
 
-	public override void TakeDamage(DamageInfo info)
+	public override void TakeDamage( DamageInfo info )
 	{
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
@@ -75,7 +75,7 @@ public partial class Npc : AnimEntity
 		}
 	}
 
-	public virtual IEnumerable<TraceResult> TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
+	public virtual IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
 	{
 		bool InWater = Physics.TestPointContents( start, CollisionLayer.Water );
 
@@ -94,7 +94,7 @@ public partial class Npc : AnimEntity
 		//
 	}
 
-	public void MeleeStrike(float damage, float force)
+	public void MeleeStrike( float damage, float force )
 	{
 		SetAnimInt( "holdtype", 4 );
 
@@ -141,7 +141,7 @@ public partial class Npc : AnimEntity
 		}
 	}
 
-	private TraceResult StartTrace(Vector3 start, Vector3 end)
+	private TraceResult StartTrace( Vector3 start, Vector3 end )
 	{
 		var tr = Sandbox.Trace.Ray( start, end )
 			.Ignore( this )

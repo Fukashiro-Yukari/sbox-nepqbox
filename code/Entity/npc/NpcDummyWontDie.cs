@@ -1,14 +1,15 @@
 using Sandbox;
 
-[Library( "npc_dummy", Title = "Dummy", Spawnable = true )]
-public partial class NpcDummy : Npc
+[Library( "npc_dummy_wontdie", Title = "Dummy Won't die", Spawnable = true )]
+public partial class NpcDummyWontDie : Npc
 {
-	public override float SpawnHealth => 100;
+	[Net]
+	private float lastDamage { get; set; }
 
 	[Event.Frame]
 	public void OnFrame()
 	{
-		DebugOverlay.Text( EyePos, Health.ToString() );
+		DebugOverlay.Text( EyePos, $"Last Damage: {lastDamage}" );
 	}
 
 	public override void TakeDamage( DamageInfo info )
@@ -21,6 +22,8 @@ public partial class NpcDummy : Npc
 		{
 			damage *= 2.0f;
 		}
+
+		lastDamage = damage;
 
 		Log.Info( $"Dummy Take Damage: {damage}" );
 	}

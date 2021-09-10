@@ -15,7 +15,7 @@ partial class BoneKnife : WeaponMelee
 	public override float PrimaryForce => 100f * 1.5f;
 	public override float SecondaryDamage => 35f * 3f;
 	public override float SecondaryForce => 100f * 1.5f;
-	public override float MeleeDistance => 80f;
+	public override float PrimaryMeleeDistance => 80f;
 	public override CType Crosshair => CType.None;
 	public override string Icon => "ui/weapons/weapon_boneknife.png";
 	public override string PrimaryAnimationHit => "fire";
