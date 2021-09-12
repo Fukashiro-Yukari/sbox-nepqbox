@@ -1,0 +1,95 @@
+InventoryBar
+{
+    position: absolute;
+	right: 10px;
+    bottom: 60px;
+    font-family: Roboto;
+	justify-content: center;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+InventoryColumn
+{
+    margin-bottom: 5px;
+	flex-direction: row-reverse;
+	align-items: flex-start; // align to the left, don't stretch
+    position: relative;
+    height: 80px;
+	padding: 0 0 0 200px;
+
+    .slot-number
+	{
+        color: white;
+		top: 5px;
+        right: 5px;
+		font-size: 15px;
+		font-weight: bolder;
+		width: 20px;
+	}
+
+    &.active
+	{
+		background: linear-gradient(to left, rgba(black, 0.5), rgba(black, 0.0));
+    }
+
+    &.empty
+    {
+        display: none;
+    }
+
+    inventoryicon
+	{
+		transition: all 0.1s ease-out;
+		display: flex;
+		width: 100px;
+		height: 80px;
+	}
+}
+
+inventoryicon
+{
+    mix-blend-mode: lighten;
+	padding: 10px;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+
+	.item-name
+	{
+		padding: 5px;
+		color: white;
+		text-align: center;
+		left: 0;
+		right: 0;
+		font-size: 12px;
+		font-weight: lighter;
+		position: absolute;
+		bottom: 0;
+		opacity: 0.2;
+		transition: all 0.2s ease-in-out;
+		text-shadow: 1px 1px 5px black;
+	}
+
+	.icon
+	{
+		width: 100px;
+		height: 100px;
+		background-size: 100%;
+        background-image-tint: #4b4b4b;
+		position: absolute;
+	}
+
+	&.active
+	{
+        .item-name
+        {
+            opacity: 1;
+        }
+
+		.icon
+		{
+            background-image-tint: white;
+		}
+	}
+}

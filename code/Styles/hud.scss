@@ -1,0 +1,29 @@
+﻿
+@import "_crosshair.scss";
+@import "_damageindicator.scss";
+@import "_hitindicator.scss";
+@import "_inventory.scss";
+@import "_killfeed.scss";
+@import "_ammo.scss";
+@import "_health.scss";
+@import "_current.scss";
+// @import "_pickupfeed.scss";
+// @import "_scoreboard.scss";
+
+rootpanel
+{
+	background-color: rgba( #333, 0 );
+	transition: background-color 0.2s ease-in;
+	transform-origin: 50% 50%;
+
+	&.spawnmenuopen
+	{
+		transition: background-color 0.3s ease-out;
+		background-color: rgba( #333, 0.9 );
+	}
+
+	&.devcamera
+	{
+		display: none;
+	}
+}
