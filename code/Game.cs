@@ -127,78 +127,6 @@ partial class SandboxGame : Game
 		//Log.Info( $"ent: {ent}" );
 	}
 
-	[ServerCmd("undo")]
-	public static void UndoCmd()
-	{
-		var owner = ConsoleSystem.Caller.Pawn;
-
-		if ( owner == null )
-			return;
-
-		var text = Undo.DoUndo( ConsoleSystem.Caller );
-
-		if ( text != null )
-		{
-			var game = Current as SandboxGame;
-
-			game.AddUndoText( To.Single( owner ), text );
-		}
-	}
-
-	[ServerCmd( "cleanup" )]
-	public static void CleanupCmd()
-	{
-		var owner = ConsoleSystem.Caller.Pawn;
-
-		if ( owner == null )
-			return;
-
-		var text = Undo.DoUndoAll( ConsoleSystem.Caller );
-
-		if ( text != null )
-		{
-			var game = Current as SandboxGame;
-
-			game.AddCustomUndoText( To.Single( owner ), text );
-		}
-	}
-
-	[AdminCmd( "admin_cleanup" )]
-	public static void AdminCleanupCmd()
-	{
-		var owner = ConsoleSystem.Caller.Pawn;
-
-		if ( owner == null )
-			return;
-
-		var text = Undo.DoUndoAllAdmin();
-
-		if ( text != null )
-		{
-			var game = Current as SandboxGame;
-
-			game.AddCustomUndoText( To.Single( owner ), text );
-		}
-	}
-
-	[ClientRpc]
-	public void AddUndoText(string text)
-	{
-		UndoUI.Current.AddUndoText( text );
-	}
-
-	[ClientRpc]
-	public void AddUndoText( Entity ent )
-	{
-		UndoUI.Current.AddUndoText( ent.ClassInfo.Title );
-	}
-
-	[ClientRpc]
-	public void AddCustomUndoText( string text )
-	{
-		UndoUI.Current.AddCustomUndoText( text );
-	}
-
 	public override void DoPlayerNoclip( Client player )
 	{
 		if ( player.Pawn is Player basePlayer )
@@ -214,6 +142,12 @@ partial class SandboxGame : Game
 				basePlayer.DevController = new NoclipController();
 			}
 		}
+	}
+
+	[ClientCmd( "debug_write" )]
+	public static void Write()
+	{
+		ConsoleSystem.Run( "quit" );
 	}
 
 	private EnvironmentLightEntity env;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sandbox
 {
-	public class Undo
+	public partial class Undo
     {
 		private static Dictionary<Client, List<UndoTable>> PlayerEntitys = new();
 
@@ -63,14 +63,14 @@ namespace Sandbox
 			new Undo( name ).SetClient( cl ).AddEntity( ent ).Finish();
 		}
 
-		public static string DoUndo( Client cl )
+		public static void DoUndo( Client cl )
 		{
-			if ( cl == null ) return null;
+			if ( cl == null ) return;
 
 			AddPlayer( cl );
 
 			var list = PlayerEntitys[cl];
-			if ( list == null || list.Count < 1 ) return null;
+			if ( list == null || list.Count < 1 ) return;
 
 			var undo = list[list.Count - 1];
 
@@ -78,17 +78,19 @@ namespace Sandbox
 
 			list.RemoveAt( list.Count - 1 );
 
-			return undo.GetText();
+			Event.Run( "OnUndo", undo.GetText(), cl );
+
+			AddUndoText( To.Single( cl ), undo.GetText() );
 		}
 
-		public static string DoUndoAll( Client cl )
+		public static void DoUndoAll( Client cl )
 		{
-			if ( cl == null ) return null;
+			if ( cl == null ) return;
 
 			AddPlayer( cl );
 
 			var list = PlayerEntitys[cl];
-			if ( list == null || list.Count < 1 ) return null;
+			if ( list == null || list.Count < 1 ) return;
 
 			foreach ( var undo in list )
 			{
@@ -97,10 +99,12 @@ namespace Sandbox
 
 			list.Clear();
 
-			return "Cleaned up everything!";
+			Event.Run( "OnUndo", "Cleaned up everything!", cl );
+
+			AddCustomUndoText( To.Single( cl ), "Cleaned up everything!" );
 		}
 
-		public static string DoUndoAllAdmin()
+		public static void DoUndoAllAdmin( Client cl )
 		{
 			foreach ( var list in PlayerEntitys.Values )
 			{
@@ -112,7 +116,9 @@ namespace Sandbox
 				list.Clear();
 			}
 
-			return "Cleaned up everything!";
+			Event.Run( "OnUndo", "Cleaned up everything!", cl );
+
+			AddCustomUndoText( To.Single( cl ), "Cleaned up everything!" );
 		}
 
 		public static void ReplaceEntity( object from, object to )
@@ -148,6 +154,63 @@ namespace Sandbox
 					}
 				}
 			}
+		}
+
+		[ClientRpc]
+		public static void AddUndoText( string text )
+		{
+			Event.Run( "OnUndo", $"Undone {text}" );
+
+			UndoUI.Current.AddUndoText( text );
+		}
+
+		[ClientRpc]
+		public static void AddUndoText( Entity ent )
+		{
+			Event.Run( "OnUndo", $"Undone {ent.ClassInfo.Title}" );
+
+			UndoUI.Current.AddUndoText( ent.ClassInfo.Title );
+		}
+
+		[ClientRpc]
+		public static void AddCustomUndoText( string text )
+		{
+			Event.Run( "OnUndo", text );
+
+			UndoUI.Current.AddCustomUndoText( text );
+		}
+
+		[ServerCmd( "undo" )]
+		public static void UndoCmd()
+		{
+			var owner = ConsoleSystem.Caller.Pawn;
+
+			if ( owner == null )
+				return;
+
+			DoUndo( ConsoleSystem.Caller );
+		}
+
+		[ServerCmd( "cleanup" )]
+		public static void CleanupCmd()
+		{
+			var owner = ConsoleSystem.Caller.Pawn;
+
+			if ( owner == null )
+				return;
+
+			DoUndoAll( ConsoleSystem.Caller );
+		}
+
+		[AdminCmd( "admin_cleanup" )]
+		public static void AdminCleanupCmd()
+		{
+			var owner = ConsoleSystem.Caller.Pawn;
+
+			if ( owner == null )
+				return;
+
+			DoUndoAllAdmin( ConsoleSystem.Caller );
 		}
 	}
 }

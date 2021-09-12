@@ -204,6 +204,8 @@ partial class SandboxPlayer : Player
 		return tr.Hit;
 	}
 
+	string oldavatar = ConsoleSystem.GetValue( "avatar" );
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
@@ -215,6 +217,16 @@ partial class SandboxPlayer : Player
 
 		if ( LifeState != LifeState.Alive )
 			return;
+
+		var newavatar = ConsoleSystem.GetValue( "avatar" );
+
+		if ( oldavatar != newavatar )
+		{
+			oldavatar = newavatar;
+
+			Clothing.LoadFromClient( GetClientOwner() );
+			Clothing.DressEntity( this );
+		}
 
 		if ( VehicleController != null && DevController is NoclipController )
 		{

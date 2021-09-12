@@ -4,7 +4,7 @@
 	public partial class BalloonTool : BaseTool
 	{
 		[Net]
-		public Color32 Tint { get; set; }
+		public Color Tint { get; set; }
 
 		PreviewEntity previewModel;
 
@@ -14,7 +14,7 @@
 
 			if ( Host.IsServer )
 			{
-				Tint = Color.Random.ToColor32();
+				Tint = Color.Random;
 			}
 		}
 
@@ -80,16 +80,11 @@
 				ent.PhysicsBody.GravityScale = -0.2f;
 				ent.RenderColor = Tint;
 
-				Tint = Color.Random.ToColor32();
+				Tint = Color.Random;
 
-				var undo = new Undo( "Balloon" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent );
+				new Undo( "Balloon" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent ).Finish();
 
-				if ( !useRope )
-				{
-					undo.Finish();
-
-					return;
-				}
+				if ( !useRope ) return;
 
 				var rope = Particles.Create( "particles/rope.vpcf" );
 				rope.SetEntity( 0, ent );
@@ -123,8 +118,6 @@
 					rope?.Destroy( true );
 					spring.Remove();
 				} );
-
-				undo.AddEntity( rope ).AddEntity( spring ).Finish();
 			}
 		}
 	}

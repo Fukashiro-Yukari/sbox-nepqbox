@@ -39,6 +39,7 @@ namespace Sandbox.Tools
 					return;
 
 				var scale = reset ? 1.0f : Math.Clamp( entity.Scale + ((0.5f * Time.Delta) * resizeDir), 0.4f, 4.0f );
+				var oldscale = entity.Scale;
 
 				if ( entity.Scale != scale )
 				{
@@ -62,6 +63,8 @@ namespace Sandbox.Tools
 				if ( Input.Pressed( InputButton.Attack1 ) || Input.Pressed( InputButton.Attack2 ) || reset )
 				{
 					CreateHitEffects( tr.EndPos );
+
+					new Undo( "Resizer" ).SetClient( Owner.GetClientOwner() ).Add( new ResizerUndo( entity, oldscale ) ).Finish();
 				}
 			}
 		}

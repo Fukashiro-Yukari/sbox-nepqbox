@@ -13,7 +13,6 @@ public partial class NpcZombie : Npc
     public override bool HaveDress => false;
 
 	SandboxPlayer Target;
-	
 
 	public override void Spawn()
 	{
@@ -21,7 +20,7 @@ public partial class NpcZombie : Npc
 
 		SetMaterialGroup(3);
 
-		RenderColor = new Color32((byte)(105 + Rand.Int(20)), (byte)(174 + Rand.Int(20)), (byte)(59 + Rand.Int(20)), 255);
+		RenderColor = new Color32((byte)(105 + Rand.Int(20)), (byte)(174 + Rand.Int(20)), (byte)(59 + Rand.Int(20)), 255).ToColor();
 
 		ZombieClothes();
 	}
@@ -36,7 +35,7 @@ public partial class NpcZombie : Npc
 				"models/citizen_clothes/trousers/trousers.lab.vmdl"
 			});
 
-			new ModelEntity(model, this);
+			AddClothing( model );
 		}
 
 		if (true)
@@ -49,13 +48,13 @@ public partial class NpcZombie : Npc
 			});
 
 			if (Rand.Int(3) == 1)
-				new ModelEntity(model, this);
+				AddClothing( model );
 		}
 
 		if (Rand.Int(3) == 1)
-			new ModelEntity("models/citizen_clothes/hair/hair_femalebun.black.vmdl", this);
+			AddClothing( "models/citizen_clothes/hair/hair_femalebun.black.vmdl" );
 		else if (Rand.Int(10) == 1)
-			new ModelEntity("models/citizen_clothes/hat/hat_hardhat.vmdl", this);
+			AddClothing( "models/citizen_clothes/hat/hat_hardhat.vmdl" );
 
 		SetBodyGroup(1, 0);
 	}

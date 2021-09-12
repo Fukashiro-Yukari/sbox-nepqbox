@@ -108,6 +108,7 @@
 
                     &:hover {
                         //border-left: 3px solid #3273eb;
+                        font-size: 13px;
                         color: white;
                     }
 
@@ -160,7 +161,7 @@
 
         .cell {
             padding: 5px;
-            transition: all 0.1s ease-out;
+            transition: all 0.2s ease-out;
 
             &:hover{
                 padding: 8px;
@@ -191,7 +192,7 @@
                 left: 6.5px;
                 right: 0;
                 pointer-events: none;
-                transition: all 0.1s ease-out;
+                transition: all 0.2s ease-out;
             }
 
             &:hover {

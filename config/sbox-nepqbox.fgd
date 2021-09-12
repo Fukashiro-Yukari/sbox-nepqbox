@@ -1,5 +1,5 @@
 // 
-// SandboxGame : Sandbox.Game 
+// SandboxGame
 // 
 @PointClass = nepqbox : ""
 [
@@ -9,7 +9,7 @@
 ]
 
 // 
-// Tool : Carriable 
+// Tool
 // 
 @PointClass = weapon_tool : ""
 [
@@ -21,7 +21,7 @@
 ]
 
 // 
-// BalloonEntity : Sandbox.Prop 
+// BalloonEntity
 // 
 @PointClass model() = ent_balloon : ""
 [
@@ -49,7 +49,7 @@
 ]
 
 // 
-// BouncyBallEntity : Sandbox.Prop 
+// BouncyBallEntity
 // 
 @PointClass model() = ent_bouncyball : ""
 [
@@ -77,7 +77,7 @@
 ]
 
 // 
-// DirectionalGravity : Sandbox.Prop 
+// DirectionalGravity
 // 
 @PointClass model() = directional_gravity : ""
 [
@@ -105,7 +105,7 @@
 ]
 
 // 
-// DroneEntity : Sandbox.Prop 
+// DroneEntity
 // 
 @PointClass model() = ent_drone : ""
 [
@@ -133,7 +133,7 @@
 ]
 
 // 
-// LampEntity : Sandbox.SpotLightEntity 
+// LampEntity
 // 
 @PointClass = ent_lamp : ""
 [
@@ -152,7 +152,7 @@
 ]
 
 // 
-// LightEntity : Sandbox.PointLightEntity 
+// LightEntity
 // 
 @PointClass = ent_light : ""
 [
@@ -171,7 +171,7 @@
 ]
 
 // 
-// NoiseTest : Sandbox.Prop 
+// NoiseTest
 // 
 @PointClass model() = noise_test : ""
 [
@@ -199,7 +199,7 @@
 ]
 
 // 
-// ThrusterEntity : Sandbox.Prop 
+// ThrusterEntity
 // 
 @PointClass model() = ent_thruster : ""
 [
@@ -227,7 +227,7 @@
 ]
 
 // 
-// UnlimitedBouncyBallEntity : Sandbox.Prop 
+// UnlimitedBouncyBallEntity
 // 
 @PointClass model() = ent_unlimited_bouncyball : ""
 [
@@ -255,7 +255,7 @@
 ]
 
 // 
-// WheelEntity : Sandbox.Prop 
+// WheelEntity
 // 
 @PointClass model() = ent_wheel : ""
 [
@@ -283,7 +283,7 @@
 ]
 
 // 
-// Flying : Carriable 
+// Flying
 // 
 @PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flying : ""
 [
@@ -295,7 +295,7 @@
 ]
 
 // 
-// GravGun : Carriable 
+// GravGun
 // 
 @PointClass = gravgun : ""
 [
@@ -307,7 +307,7 @@
 ]
 
 // 
-// PhysGun : Carriable 
+// PhysGun
 // 
 @PointClass = physgun : ""
 [
@@ -319,7 +319,7 @@
 ]
 
 // 
-// AK47 : Weapon 
+// AK47
 // 
 @PointClass editormodel( "weapons/swb/css/ak47/css_w_rif_ak47.vmdl" ) = weapon_ak47 : ""
 [
@@ -331,7 +331,7 @@
 ]
 
 // 
-// AUG : WeaponSniper 
+// AUG
 // 
 @PointClass editormodel( "weapons/css_ang/w_css_rif_aug.vmdl" ) = weapon_aug : ""
 [
@@ -343,7 +343,7 @@
 ]
 
 // 
-// AutomaticCrossbow : WeaponSniper 
+// AutomaticCrossbow
 // 
 @PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_automaticcrossbow : ""
 [
@@ -355,7 +355,7 @@
 ]
 
 // 
-// AWP : WeaponSniper 
+// AWP
 // 
 @PointClass editormodel( "weapons/css_awp/css_w_awp.vmdl" ) = weapon_awp : ""
 [
@@ -367,7 +367,7 @@
 ]
 
 // 
-// BoneKnife : WeaponMelee 
+// BoneKnife
 // 
 @PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
 [
@@ -379,7 +379,7 @@
 ]
 
 // 
-// Crossbow : WeaponSniper 
+// Crossbow
 // 
 @PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_crossbow : ""
 [
@@ -391,7 +391,7 @@
 ]
 
 // 
-// Crowbar : WeaponMelee 
+// Crowbar
 // 
 @PointClass editormodel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" ) = weapon_crowbar : ""
 [
@@ -403,7 +403,7 @@
 ]
 
 // 
-// CWEPW : Weapon 
+// CWEPW
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_cwep : ""
 [
@@ -415,7 +415,7 @@
 ]
 
 // 
-// Deagle : Weapon 
+// Deagle
 // 
 @PointClass editormodel( "weapons/css_deagle/css_w_pist_deagle.vmdl" ) = weapon_deagle : ""
 [
@@ -427,7 +427,7 @@
 ]
 
 // 
-// Elites : WeaponDouble 
+// Elites
 // 
 @PointClass editormodel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" ) = weapon_elite : ""
 [
@@ -439,7 +439,7 @@
 ]
 
 // 
-// FAMAS : Weapon 
+// FAMAS
 // 
 @PointClass editormodel( "weapons/css_famas/w_css_rif_famas.vmdl" ) = weapon_famas : ""
 [
@@ -451,7 +451,7 @@
 ]
 
 // 
-// FiveSeven : Weapon 
+// FiveSeven
 // 
 @PointClass editormodel( "weapons/css_fiveseven/w_css_pist_fiveseven.vmdl" ) = weapon_fiveseven : ""
 [
@@ -463,7 +463,7 @@
 ]
 
 // 
-// Flashlight : Weapon 
+// Flashlight
 // 
 @PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flashlight : ""
 [
@@ -475,7 +475,7 @@
 ]
 
 // 
-// GALIL : Weapon 
+// GALIL
 // 
 @PointClass editormodel( "weapons/css_galil/w_css_rif_galil.vmdl" ) = weapon_galil : ""
 [
@@ -487,7 +487,7 @@
 ]
 
 // 
-// HL2Pistol : Weapon 
+// HL2Pistol
 // 
 @PointClass editormodel( "weapons/hl2_pistol/w_hl2_pistol.vmdl" ) = weapon_hl2_pistol : ""
 [
@@ -499,7 +499,7 @@
 ]
 
 // 
-// Knife : WeaponMelee 
+// Knife
 // 
 @PointClass editormodel( "weapons/css_knife/css_w_knife.vmdl" ) = weapon_knife : ""
 [
@@ -511,7 +511,7 @@
 ]
 
 // 
-// M249 : Weapon 
+// M249
 // 
 @PointClass editormodel( "weapons/css_m249/css_w_mach_m249para.vmdl" ) = weapon_m249 : ""
 [
@@ -523,7 +523,7 @@
 ]
 
 // 
-// M3 : WeaponShotgun 
+// M3
 // 
 @PointClass editormodel( "weapons/css_super90/css_w_shot_m3super90.vmdl" ) = weapon_m3 : ""
 [
@@ -535,7 +535,7 @@
 ]
 
 // 
-// M4A1 : Weapon 
+// M4A1
 // 
 @PointClass editormodel( "weapons/css_m4a1/css_w_m4a1.vmdl" ) = weapon_m4a1 : ""
 [
@@ -547,7 +547,7 @@
 ]
 
 // 
-// MAC10 : Weapon 
+// MAC10
 // 
 @PointClass editormodel( "weapons/swb/css/mac10/css_w_smg_mac10.vmdl" ) = weapon_mac10 : ""
 [
@@ -559,7 +559,7 @@
 ]
 
 // 
-// NiceGun : WeaponShotgun 
+// NiceGun
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_nicegun : ""
 [
@@ -571,7 +571,7 @@
 ]
 
 // 
-// Pistol : Weapon 
+// Pistol
 // 
 @PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_pistol : ""
 [
@@ -583,7 +583,7 @@
 ]
 
 // 
-// PumpShotgun : WeaponShotgun 
+// PumpShotgun
 // 
 @PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_pumpshotgun : ""
 [
@@ -595,7 +595,7 @@
 ]
 
 // 
-// Python357 : Weapon 
+// Python357
 // 
 @PointClass editormodel( "models/weapons/w_357.vmdl" ) = weapon_357 : ""
 [
@@ -607,7 +607,7 @@
 ]
 
 // 
-// SG552 : WeaponSniper 
+// SG552
 // 
 @PointClass editormodel( "weapons/css_sg552/w_css_rif_sg552.vmdl" ) = weapon_sg552 : ""
 [
@@ -619,7 +619,7 @@
 ]
 
 // 
-// Shotgun : Weapon 
+// Shotgun
 // 
 @PointClass editormodel( "weapons/rust_shotgun/rust_shotgun.vmdl" ) = weapon_shotgun : ""
 [
@@ -631,7 +631,7 @@
 ]
 
 // 
-// SMG : Weapon 
+// SMG
 // 
 @PointClass editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smg : ""
 [
@@ -643,7 +643,7 @@
 ]
 
 // 
-// SMGShotgun : Weapon 
+// SMGShotgun
 // 
 @PointClass editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smgshotgun : ""
 [
@@ -655,7 +655,7 @@
 ]
 
 // 
-// USP : Weapon 
+// USP
 // 
 @PointClass editormodel( "weapons/css_usp/w_css_pist_usp.vmdl" ) = weapon_usp : ""
 [
@@ -667,7 +667,7 @@
 ]
 
 // 
-// CarEntity : Sandbox.Prop 
+// CarEntity
 // 
 @PointClass model() = ent_car : ""
 [
@@ -695,7 +695,7 @@
 ]
 
 // 
-// MelonCar : CarEntity 
+// MelonCar
 // 
 @PointClass model() = ent_meloncar : ""
 [
@@ -723,7 +723,7 @@
 ]
 
 // 
-// NpcDummy : Npc 
+// NpcDummy
 // 
 @PointClass = npc_dummy : ""
 [
@@ -735,7 +735,7 @@
 ]
 
 // 
-// NpcDummyWontDie : Npc 
+// NpcDummyWontDie
 // 
 @PointClass = npc_dummy_wontdie : ""
 [
@@ -747,7 +747,7 @@
 ]
 
 // 
-// NpcFollow : Npc 
+// NpcFollow
 // 
 @PointClass = npc_follow : ""
 [
@@ -759,7 +759,7 @@
 ]
 
 // 
-// NpcZombie : Npc 
+// NpcZombie
 // 
 @PointClass = npc_zombie : ""
 [
@@ -771,7 +771,7 @@
 ]
 
 // 
-// NpcZombieSpeed : NpcZombie 
+// NpcZombieSpeed
 // 
 @PointClass = npc_zombie_speed : ""
 [
@@ -783,7 +783,7 @@
 ]
 
 // 
-// Gamelib.DayNight.DayNightAmbience : Sandbox.Entity 
+// Gamelib.DayNight.DayNightAmbience
 // 
 @PointClass iconsprite( "editor/snd_daynight.vmat" ) 
 metadata
@@ -803,7 +803,7 @@ metadata
 ]
 
 // 
-// Gamelib.DayNight.DayNightController : Sandbox.ModelEntity 
+// Gamelib.DayNight.DayNightController
 // 
 @PointClass iconsprite( "editor/daynight_controller.vmat" ) 
 metadata
@@ -834,7 +834,7 @@ metadata
 ]
 
 // 
-// Gamelib.DayNight.DayNightProp : Sandbox.ModelEntity 
+// Gamelib.DayNight.DayNightProp
 // 
 @PointClass model() 
 metadata
@@ -857,7 +857,7 @@ metadata
 ]
 
 // 
-// Gamelib.DayNight.DayNightSound : Sandbox.Entity 
+// Gamelib.DayNight.DayNightSound
 // 
 @PointClass iconsprite( "editor/daynight_sound.vmat" ) 
 metadata
@@ -877,7 +877,7 @@ metadata
 ]
 
 // 
-// Gamelib.DayNight.DayNightWindow : Sandbox.FuncBrush 
+// Gamelib.DayNight.DayNightWindow
 // 
 @SolidClass 
 metadata

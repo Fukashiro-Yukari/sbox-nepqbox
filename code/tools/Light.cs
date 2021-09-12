@@ -76,14 +76,9 @@
 				light.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
 				light.Position = tr.EndPos + -light.CollisionBounds.Center + tr.Normal * light.CollisionBounds.Size * 0.5f;
 
-				var undo = new Undo( "Light" ).SetClient( Owner.GetClientOwner() ).AddEntity( light );
+				new Undo( "Light" ).SetClient( Owner.GetClientOwner() ).AddEntity( light ).Finish();
 
-				if ( !useRope )
-				{
-					undo.Finish();
-
-					return;
-				}
+				if ( !useRope ) return;
 
 				var rope = Particles.Create( "particles/rope.vpcf" );
 				rope.SetEntity( 0, light, Vector3.Down * 6.5f ); // Should be an attachment point
@@ -117,8 +112,6 @@
 					rope?.Destroy( true );
 					spring.Remove();
 				} );
-
-				undo.AddEntity( rope ).AddEntity( spring ).Finish();
 			}
 		}
 	}

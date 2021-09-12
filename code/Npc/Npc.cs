@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 public partial class Npc : AnimEntity

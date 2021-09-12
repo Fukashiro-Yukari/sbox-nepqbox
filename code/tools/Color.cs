@@ -29,7 +29,11 @@ namespace Sandbox.Tools
 				if ( tr.Entity is not ModelEntity modelEnt )
 					return;
 
-				modelEnt.RenderColor = Color.Random.ToColor32();
+				var oldcolor = modelEnt.RenderColor;
+
+				modelEnt.RenderColor = Color.Random;
+
+				new Undo( "Color" ).SetClient( Owner.GetClientOwner() ).Add( new ColorUndo( modelEnt, oldcolor ) ).Finish( $"Color ({modelEnt.RenderColor.ToColor32()})" );
 
 				CreateHitEffects( tr.EndPos );
 			}
