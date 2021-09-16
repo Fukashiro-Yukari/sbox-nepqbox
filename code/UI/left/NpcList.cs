@@ -5,11 +5,11 @@ using Sandbox.UI.Tests;
 using System.Linq;
 
 [Library]
-public partial class NpcList : Panel
+public partial class NPCList : Panel
 {
 	VirtualScrollPanel Canvas;
 
-	public NpcList()
+	public NPCList()
 	{
 		AddClass( "spawnpage" );
 		AddChild( out Canvas, "canvas" );
@@ -36,7 +36,7 @@ public partial class NpcList : Panel
 		if (isreload)
 			Canvas.Data.Clear();
 
-		var ents = Library.GetAllAttributes<Npc>().Where(x => x.Spawnable).OrderBy(x => x.Title).ToArray();
+		var ents = Library.GetAllAttributes<NPC>().Where(x => x.Spawnable).OrderBy(x => x.Title).ToArray();
 
 		foreach (var entry in ents)
 		{
