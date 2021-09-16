@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Npc : AnimEntity
+public partial class NPC : AnimEntity
 {
 	public virtual float Speed => Rand.Float(100, 500);
 	public virtual string ModelPath => "models/citizen/citizen.vmdl";

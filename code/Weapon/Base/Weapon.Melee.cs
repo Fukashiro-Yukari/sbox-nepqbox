@@ -75,7 +75,7 @@ public partial class WeaponMelee : Weapon
 			tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
-			var isFlesh = tr.Entity is Player || tr.Entity is Npc;
+			var isFlesh = tr.Entity is Player || tr.Entity is NPC;
 			var newRot = Rotation.From( 0, Rotation.Angles().yaw, 0 );
 			var trenewRot = Rotation.From( 0, tr.Entity.Rotation.Angles().yaw, 0 );
 			var dif = newRot.Distance( trenewRot );

@@ -1,6 +1,6 @@
 using Sandbox;
 
-partial class Npc
+partial class NPC
 {
 	ModelEntity pants;
 	ModelEntity jacket;

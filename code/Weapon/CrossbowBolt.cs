@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 
-
 [Library( "crossbow_bolt" )]
 [Hammer.Skip]
 partial class CrossbowBolt : ModelEntity
@@ -60,7 +59,7 @@ partial class CrossbowBolt : ModelEntity
 				tr.Entity.TakeDamage( damageInfo );
             }
 
-			var npc = tr.Entity as Npc;
+			var npc = tr.Entity as NPC;
 			var prop = tr.Entity as Prop;
 
 			// TODO: Parent to bone so this will stick in the meaty heads

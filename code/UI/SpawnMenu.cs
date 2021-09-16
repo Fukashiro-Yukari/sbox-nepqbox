@@ -20,7 +20,7 @@ public partial class SpawnMenu : Panel
 	{
 		Instance = this;
 
-		StyleSheet.Load( "/ui/SpawnMenu.scss" );
+		StyleSheet.Load( "/UI/SpawnMenu.scss" );
 
 		var left = Add.Panel( "left" );
 		{
@@ -39,7 +39,7 @@ public partial class SpawnMenu : Panel
 				var weps = body.AddChild<WeaponList>();
 				tabs.AddButtonActive("Weapons", (b) => weps.SetClass("active", b));
 
-				var npcs = body.AddChild<NpcList>();
+				var npcs = body.AddChild<NPCList>();
 				tabs.AddButtonActive("NPCs", (b) => npcs.SetClass("active", b));
 			}
 		}

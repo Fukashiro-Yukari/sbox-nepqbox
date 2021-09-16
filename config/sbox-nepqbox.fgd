@@ -9,18 +9,6 @@
 ]
 
 // 
-// Tool
-// 
-@PointClass = weapon_tool : ""
-[
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
-
-	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
-]
-
-// 
 // BalloonEntity
 // 
 @PointClass model() = ent_balloon : ""
@@ -723,7 +711,7 @@
 ]
 
 // 
-// NpcDummy
+// NPCDummy
 // 
 @PointClass = npc_dummy : ""
 [
@@ -735,7 +723,7 @@
 ]
 
 // 
-// NpcDummyWontDie
+// NPCDummyWontDie
 // 
 @PointClass = npc_dummy_wontdie : ""
 [
@@ -747,7 +735,7 @@
 ]
 
 // 
-// NpcFollow
+// NPCFollow
 // 
 @PointClass = npc_follow : ""
 [
@@ -759,7 +747,7 @@
 ]
 
 // 
-// NpcZombie
+// NPCZombie
 // 
 @PointClass = npc_zombie : ""
 [
@@ -771,9 +759,21 @@
 ]
 
 // 
-// NpcZombieSpeed
+// NPCZombieSpeed
 // 
 @PointClass = npc_zombie_speed : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// Tool
+// 
+@PointClass = weapon_tool : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."

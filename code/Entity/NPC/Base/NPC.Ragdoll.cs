@@ -1,7 +1,7 @@
 using Sandbox;
 using System.Collections.Generic;
 
-public partial class Npc
+public partial class NPC
 {
 	private void BecomeRagdoll( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )
 	{
