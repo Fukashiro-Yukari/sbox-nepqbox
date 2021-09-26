@@ -456,7 +456,7 @@ public partial class CarEntity : Prop, IUse
 		wheel3.LocalRotation = wheelRotBackLeft;
 	}
 
-	[Event.Frame]
+	[Event( "postview" )]
 	public void OnFrame()
 	{
 		OnCarFrame();
