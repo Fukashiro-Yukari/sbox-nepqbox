@@ -14,10 +14,12 @@ partial class FAMAS : Weapon
 	public override CType Crosshair => CType.Rifle;
 	public override string Icon => "ui/weapons/weapon_famas.png";
 	public override string ShootSound => "css_famas.fire";
+	public override bool UseBursts => true;
 	public override float Spread => 0.15f;
 	public override float Force => 3f;
 	public override float Damage => 35f;
 	public override float BulletSize => 4f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

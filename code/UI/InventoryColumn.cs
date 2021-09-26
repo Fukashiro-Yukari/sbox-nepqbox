@@ -12,48 +12,32 @@ public class InventoryColumn : Panel
 
 	internal List<InventoryIcon> Icons = new();
 
-	public InventoryColumn(int i, Panel parent)
+	public InventoryColumn( int i, Panel parent )
 	{
 		Parent = parent;
 		Column = i;
-		Header = Add.Label($"{i + 1}", "slot-number");
+		Header = Add.Label( $"{i + 1}", "slot-number" );
 	}
 
-	internal void UpdateWeapon(Entity weapon)
+	internal void UpdateWeapon( Carriable weapon )
 	{
-		var icon = ChildrenOfType<InventoryIcon>().FirstOrDefault(x => x.Weapon == weapon);
-		if (icon == null)
+		var icon = ChildrenOfType<InventoryIcon>().FirstOrDefault( x => x.Weapon == weapon );
+		if ( icon == null )
 		{
-			icon = new InventoryIcon(weapon);
+			icon = new InventoryIcon( weapon );
 			icon.Parent = this;
-			Icons.Add(icon);
+			Icons.Add( icon );
 		}
 	}
 
-	internal void TickSelection(List<Entity> weapons)
+	internal void TickSelection( List<Carriable> weapons )
 	{
-		var wep = Local.Pawn.ActiveChild as Weapon;
-		var car = Local.Pawn.ActiveChild as Carriable;
-		var somecol = false;
+		var wep = Local.Pawn.ActiveChild as Carriable;
 
-		if (wep != null) somecol = wep?.Bucket == Column;
-		else if (car != null) somecol = car?.Bucket == Column;
+		SetClass( "active", wep?.Bucket == Column );
+		SetClass( "empty", weapons.Where( x => x.Bucket == Column ).Count() <= 0 );
 
-		SetClass("active", somecol);
-		SetClass("empty", weapons.Where(x => 
-		{
-			Weapon wep = x as Weapon;
-			Carriable car = x as Carriable;
-
-			if (wep != null)
-				return wep.Bucket == Column;
-			else if (car != null)
-				return car.Bucket == Column;
-
-			return false;
-		}).Count() <= 0);
-
-		for (int i = 0; i < Icons.Count; i++)
+		for ( int i = 0; i < Icons.Count; i++ )
 		{
 			Icons[i].TickSelection();
 		}

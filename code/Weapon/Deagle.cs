@@ -20,6 +20,7 @@ partial class Deagle : Weapon
 	public override float Force => 5f;
 	public override float Damage => 50f;
 	public override float BulletSize => 6f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

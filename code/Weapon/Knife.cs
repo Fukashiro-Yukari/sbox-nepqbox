@@ -20,6 +20,7 @@ partial class Knife : WeaponMelee
 	public override float PrimaryBackDamage => 35f;
 	public override float SecondaryBackDamage => 150f;
 	public override float ImpactSize => 10f;
+	public override float FOV => 75;
 	public override CType Crosshair => CType.None;
 	public override string Icon => "ui/weapons/weapon_knife.png";
 	public override string PrimaryAnimationHit => "swing";

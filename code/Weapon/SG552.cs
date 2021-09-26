@@ -16,10 +16,11 @@ partial class SG552 : WeaponSniper
 	public override string Icon => "ui/weapons/weapon_sg552.png";
 	public override string ShootSound => "css_sg552.fire";
 	public override float Spread => 0.16f;
-	public override float ScopedSpread => 0.006f;
+	public override float ScopedSpread => 0.06f;
 	public override float Force => 3f;
 	public override float Damage => 35f;
 	public override float BulletSize => 4f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

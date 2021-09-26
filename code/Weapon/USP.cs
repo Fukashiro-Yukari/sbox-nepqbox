@@ -25,6 +25,7 @@ partial class USP : Weapon
 	public override float BulletSize => 4f;
 	public override float OnSilencerDuration => 3f;
 	public override float OffSilencerDuration => 3f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

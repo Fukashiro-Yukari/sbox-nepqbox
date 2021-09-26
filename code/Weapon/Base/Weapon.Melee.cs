@@ -44,13 +44,13 @@ public partial class WeaponMelee : Weapon
 		forward = forward.Normal;
 
 		bool hit = false;
-		var isatt = false;
 
+		int index = 0;
 		foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * meleeDistance, ImpactSize ) )
 		{
-			if ( isatt ) break;
+			if ( index > 0 ) break;
 
-			isatt = true;
+			index++;
 
 			if ( !tr.Entity.IsValid() )
 			{
@@ -72,7 +72,8 @@ public partial class WeaponMelee : Weapon
 				continue;
 			}
 
-			tr.Surface.DoBulletImpact( tr );
+			if ( IsServer )
+				tr.Surface.DoBulletImpactServer( tr );
 
 			hit = true;
 			var isFlesh = tr.Entity is Player || tr.Entity is NPC;

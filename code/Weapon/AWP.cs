@@ -17,10 +17,11 @@ partial class AWP : WeaponSniper
 	public override string Icon => "ui/weapons/weapon_awp.png";
 	public override string ShootSound => "css_awp.fire";
 	public override float Spread => 0.75f;
-	public override float ScopedSpread => 0.001f;
+	public override float ScopedSpread => 0.01f;
 	public override float Force => 7f;
 	public override float Damage => 150f;
 	public override float BulletSize => 5f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

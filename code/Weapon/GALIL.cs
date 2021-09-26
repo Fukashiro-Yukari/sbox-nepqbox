@@ -18,6 +18,7 @@ partial class GALIL : Weapon
 	public override float Force => 3f;
 	public override float Damage => 35f;
 	public override float BulletSize => 4f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

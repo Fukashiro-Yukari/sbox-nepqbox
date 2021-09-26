@@ -4,24 +4,18 @@ using Sandbox.UI.Construct;
 
 class InventoryIcon : Panel
 {
-	public Entity Weapon;
+	public Carriable Weapon;
 	public Image Icon;
 	public Label Label;
 
-	public InventoryIcon( Entity weapon )
+	public InventoryIcon( Carriable weapon )
 	{
 		Weapon = weapon;
 		Label = Add.Label( "", "item-name" );
 
 		AddChild( out Icon, "icon" );
 
-		Weapon wep = weapon as Weapon;
-		Carriable car = weapon as Carriable;
-
-		if ( wep != null )
-			Icon.SetTexture( wep.Icon );
-		else if ( car != null )
-			Icon.SetTexture( car.Icon );
+		Icon.SetTexture( weapon.Icon );
 	}
 
 	internal void TickSelection()
@@ -36,6 +30,6 @@ class InventoryIcon : Panel
 		base.Tick();
 
 		if ( !Weapon.IsValid() || Weapon.Owner != Local.Pawn )
-            Delete();
-    }
+			Delete();
+	}
 }

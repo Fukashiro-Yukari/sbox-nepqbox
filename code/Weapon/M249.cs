@@ -18,6 +18,7 @@ partial class M249 : Weapon
 	public override float Force => 4f;
 	public override float Damage => 15f;
 	public override float BulletSize => 5f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

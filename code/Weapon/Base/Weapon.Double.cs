@@ -18,10 +18,10 @@ public partial class WeaponDouble : Weapon
 
 		if ( !Silencer )
 		{
-			if ( !string.IsNullOrEmpty( MuzzleFlashParticle ) )
+			if ( !string.IsNullOrEmpty( MuzzleFlashParticle ) && EffectEntity.GetAttachment( IsSecondary ? MuzzleLeftAttachment : MuzzleRightAttachment ) != null )
 				Particles.Create( MuzzleFlashParticle, EffectEntity, IsSecondary ? MuzzleLeftAttachment : MuzzleRightAttachment );
 
-			if ( !string.IsNullOrEmpty( BulletEjectParticle ) )
+			if ( !string.IsNullOrEmpty( BulletEjectParticle ) && EffectEntity.GetAttachment( IsSecondary ? EjectionPointLeftAttachment : EjectionPointRightAttachment ) != null )
 				Particles.Create( BulletEjectParticle, EffectEntity, IsSecondary ? EjectionPointLeftAttachment : EjectionPointRightAttachment );
 		}
 
@@ -50,6 +50,18 @@ public partial class WeaponDouble : Weapon
 		{
 			ViewModelEntity?.SetAnimBool( "empty", false );
 		}
+	}
+
+	[ClientRpc]
+	protected override void BulletTracer( Vector3 to )
+	{
+		var tr = EffectEntity.GetAttachment( IsSecondary ? MuzzleLeftAttachment : MuzzleRightAttachment );
+
+		if ( tr == null ) return;
+
+		var ps = Particles.Create( "particles/sd_bullet_trail.vpcf", to );
+		ps.SetPosition( 0, tr.Value.Position );
+		ps.SetPosition( 1, to );
 	}
 
 	public override void OnReloadFinish()

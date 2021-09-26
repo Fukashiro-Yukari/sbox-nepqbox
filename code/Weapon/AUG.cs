@@ -16,10 +16,11 @@ partial class AUG : WeaponSniper
 	public override string Icon => "ui/weapons/weapon_aug.png";
 	public override string ShootSound => "css_aug.fire";
 	public override float Spread => 0.18f;
-	public override float ScopedSpread => 0.008f;
+	public override float ScopedSpread => 0.08f;
 	public override float Force => 3f;
 	public override float Damage => 35f;
 	public override float BulletSize => 4f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

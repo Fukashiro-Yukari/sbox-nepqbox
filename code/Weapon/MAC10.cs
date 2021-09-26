@@ -18,6 +18,7 @@ partial class MAC10 : Weapon
 	public override float Force => 3f;
 	public override float Damage => 12f;
 	public override float BulletSize => 2f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

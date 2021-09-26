@@ -1,19 +1,21 @@
 ﻿using Sandbox;
+using System;
 
 public class ViewModel : BaseViewModel
 {
 	protected float SwingInfluence => 0.05f;
 	protected float ReturnSpeed => 5.0f;
 	protected float MaxOffsetLength => 10.0f;
-	protected float BobCycleTime => 7;
-	protected Vector3 BobDirection => new Vector3( 0.0f, 1.0f, 0.5f );
+	protected float BobCycleSpeed => 11f;
 
 	private Vector3 swingOffset;
 	private float lastPitch;
 	private float lastYaw;
-	private float bobAnim;
 
 	private bool activated = false;
+	private float walkBob = 0;
+
+	Angles Bobang;
 
 	public override void PostCameraSetup( ref CameraSetup camSetup )
 	{
@@ -32,6 +34,11 @@ public class ViewModel : BaseViewModel
 
 		Position = camSetup.Position;
 		Rotation = camSetup.Rotation;
+
+		if ( Local.Pawn.ActiveChild is Weapon wep )
+		{
+			FieldOfView = wep.FOV;
+		}
 
 		camSetup.ViewModel.FieldOfView = FieldOfView;
 
@@ -58,12 +65,13 @@ public class ViewModel : BaseViewModel
 		pitchDelta -= verticalDelta * 1;
 
 		var offset = CalcSwingOffset( pitchDelta, yawDelta );
-		offset += CalcBobbingOffset( playerVelocity );
 
 		Position += Rotation * offset;
 
 		lastPitch = newPitch;
 		lastYaw = newYaw;
+
+		CalcBobbingOffset( ref camSetup );
 	}
 
 	protected Vector3 CalcSwingOffset( float pitchDelta, float yawDelta )
@@ -81,22 +89,23 @@ public class ViewModel : BaseViewModel
 		return swingOffset;
 	}
 
-	protected Vector3 CalcBobbingOffset( Vector3 velocity )
+	protected void CalcBobbingOffset( ref CameraSetup camSetup )
 	{
-		bobAnim += Time.Delta * BobCycleTime;
+		var vel = Owner.Velocity;
+		var speed = Math.Clamp( vel.LengthSquared / MathF.Pow( 320, 2 ), 0, 2 );
+		var size = speed / 4;
+		var dist = Owner.Velocity.Length.LerpInverse( 0, 320 );
 
-		var twoPI = System.MathF.PI * 2.0f;
+		walkBob += Time.Delta * BobCycleSpeed * dist;
 
-		if ( bobAnim > twoPI )
-		{
-			bobAnim -= twoPI;
-		}
+		Bobang = Bobang.WithPitch( MathF.Sin( walkBob ) * size );
+		Bobang = Bobang.WithYaw( MathF.Sin( walkBob * 2 ) * size );
+		Bobang = Bobang.WithRoll( -MathF.Cos( walkBob ) * size );
 
-		var speed = new Vector2( velocity.x, velocity.y ).Length;
-		speed = speed > 10.0 ? speed : 0.0f;
-		var offset = BobDirection * (speed * 0.005f) * System.MathF.Cos( bobAnim );
-		offset = offset.WithZ( -System.MathF.Abs( offset.z ) );
+		Rotation = Rotation.From( Rotation.Angles() + Bobang );
 
-		return offset;
+		Position = Position + MathF.Sin( walkBob ) * size * Rotation.Right;
+		Position = Position + MathF.Sin( walkBob * 2 ) * size * Rotation.Up;
+		Position = Position + -(4 * (size / 2)) * Rotation.Forward;
 	}
 }

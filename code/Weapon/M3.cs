@@ -19,6 +19,7 @@ partial class M3 : WeaponShotgun
 	public override float Force => 5f;
 	public override float Damage => 15f;
 	public override float BulletSize => 2f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,

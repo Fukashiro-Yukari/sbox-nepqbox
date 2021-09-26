@@ -21,6 +21,7 @@ partial class M4A1 : Weapon
 	public override float Force => 2.5f;
 	public override float Damage => 13f;
 	public override float BulletSize => 3.5f;
+	public override float FOV => 75;
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,
