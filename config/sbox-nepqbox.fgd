@@ -1,25 +1,28 @@
-// 
-// SandboxGame
-// 
-@PointClass = nepqbox : ""
+
+@BaseClass = BaseProperties_sbox_nepqbox
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	parentAttachmentName(parentAttachment) [ group="Hierarchy" ] : "Parent Model Bone/Attachment Name" : : "The name of the bone or attachment to attach to on the entity's parent in the movement hierarchy. Use !bonemerge to use bone-merge style attachment."
+
+	useLocalOffset(boolean) [ group="Hierarchy" ] : "Use Model Attachment offsets" : 0 : "Whether to respect the specified local offset when doing the initial hierarchical attachment to its parent."
+	local.origin(vector) [ group="Hierarchy" ] : "Model Attachment position offset" : : "Offset in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+	local.angles(angle) [ group="Hierarchy" ] : "Model Attachment angular offset" : : "Angular offset in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+	local.scales(vector) [ group="Hierarchy" ] : "Model Attachment scale" : : "Scale in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	tags(tags) : "Tags" : "" : "A list of general purpose tags for this entity, for interactions with other entities such as triggers."
 ]
 
-// 
+//
 // BalloonEntity
-// 
-@PointClass model() = ent_balloon : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_balloon : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -36,18 +39,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // BouncyBallEntity
-// 
-@PointClass model() = ent_bouncyball : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_bouncyball : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -64,18 +65,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // DirectionalGravity
-// 
-@PointClass model() = directional_gravity : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = directional_gravity : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -92,18 +91,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // DroneEntity
-// 
-@PointClass model() = ent_drone : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_drone : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -120,13 +117,11 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // LampEntity
-// 
-@PointClass = ent_lamp : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = ent_lamp : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input TurnOn(void) : ""
@@ -139,13 +134,11 @@
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // LightEntity
-// 
-@PointClass = ent_light : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = ent_light : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input TurnOn(void) : ""
@@ -158,18 +151,16 @@
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // NoiseTest
-// 
-@PointClass model() = noise_test : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = noise_test : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -186,18 +177,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // ThrusterEntity
-// 
-@PointClass model() = ent_thruster : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_thruster : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -214,18 +203,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // UnlimitedBouncyBallEntity
-// 
-@PointClass model() = ent_unlimited_bouncyball : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_unlimited_bouncyball : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -242,18 +229,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // WheelEntity
-// 
-@PointClass model() = ent_wheel : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_wheel : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -270,402 +255,446 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // Flying
-// 
-@PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flying : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flying : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // GravGun
-// 
-@PointClass = gravgun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = gravgun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // PhysGun
-// 
-@PointClass = physgun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = physgun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // AK47
-// 
-@PointClass editormodel( "weapons/swb/css/ak47/css_w_rif_ak47.vmdl" ) = weapon_ak47 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/swb/css/ak47/css_w_rif_ak47.vmdl" ) = weapon_ak47 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // AUG
-// 
-@PointClass editormodel( "weapons/css_ang/w_css_rif_aug.vmdl" ) = weapon_aug : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_ang/w_css_rif_aug.vmdl" ) = weapon_aug : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // AutomaticCrossbow
-// 
-@PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_automaticcrossbow : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_automaticcrossbow : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // AWP
-// 
-@PointClass editormodel( "weapons/css_awp/css_w_awp.vmdl" ) = weapon_awp : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_awp/css_w_awp.vmdl" ) = weapon_awp : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // BoneKnife
-// 
-@PointClass editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_boneknife/rust_boneknife.vmdl" ) = weapon_boneknife : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Crossbow
-// 
-@PointClass editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_crossbow : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_crossbow/rust_crossbow.vmdl" ) = weapon_crossbow : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Crowbar
-// 
-@PointClass editormodel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" ) = weapon_crowbar : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" ) = weapon_crowbar : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // CWEPW
-// 
-@PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_cwep : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_cwep : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Deagle
-// 
-@PointClass editormodel( "weapons/css_deagle/css_w_pist_deagle.vmdl" ) = weapon_deagle : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_deagle/css_w_pist_deagle.vmdl" ) = weapon_deagle : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Elites
-// 
-@PointClass editormodel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" ) = weapon_elite : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" ) = weapon_elite : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // FAMAS
-// 
-@PointClass editormodel( "weapons/css_famas/w_css_rif_famas.vmdl" ) = weapon_famas : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_famas/w_css_rif_famas.vmdl" ) = weapon_famas : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // FiveSeven
-// 
-@PointClass editormodel( "weapons/css_fiveseven/w_css_pist_fiveseven.vmdl" ) = weapon_fiveseven : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_fiveseven/w_css_pist_fiveseven.vmdl" ) = weapon_fiveseven : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Flashlight
-// 
-@PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flashlight : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_flashlight : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// G3SG1
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_g3sg1/w_css_snip_g3sg1.vmdl" ) = weapon_g3sg1 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // GALIL
-// 
-@PointClass editormodel( "weapons/css_galil/w_css_rif_galil.vmdl" ) = weapon_galil : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_galil/w_css_rif_galil.vmdl" ) = weapon_galil : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// Glock18
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_glock18/w_css_pist_glock18.vmdl" ) = weapon_glock : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // HL2Pistol
-// 
-@PointClass editormodel( "weapons/hl2_pistol/w_hl2_pistol.vmdl" ) = weapon_hl2_pistol : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/hl2_pistol/w_hl2_pistol.vmdl" ) = weapon_hl2_pistol : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Knife
-// 
-@PointClass editormodel( "weapons/css_knife/css_w_knife.vmdl" ) = weapon_knife : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_knife/css_w_knife.vmdl" ) = weapon_knife : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // M249
-// 
-@PointClass editormodel( "weapons/css_m249/css_w_mach_m249para.vmdl" ) = weapon_m249 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_m249/css_w_mach_m249para.vmdl" ) = weapon_m249 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // M3
-// 
-@PointClass editormodel( "weapons/css_super90/css_w_shot_m3super90.vmdl" ) = weapon_m3 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_super90/css_w_shot_m3super90.vmdl" ) = weapon_m3 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // M4A1
-// 
-@PointClass editormodel( "weapons/css_m4a1/css_w_m4a1.vmdl" ) = weapon_m4a1 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_m4a1/css_w_m4a1.vmdl" ) = weapon_m4a1 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // MAC10
-// 
-@PointClass editormodel( "weapons/swb/css/mac10/css_w_smg_mac10.vmdl" ) = weapon_mac10 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/swb/css/mac10/css_w_smg_mac10.vmdl" ) = weapon_mac10 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// MP5
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_mp5/w_css_smg_mp5.vmdl" ) = weapon_mp5navy : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // NiceGun
-// 
-@PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_nicegun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_nicegun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// P228
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_p228/w_css_pist_p228.vmdl" ) = weapon_p228 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// P90
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_p90/w_css_smg_p90.vmdl" ) = weapon_p90 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // Pistol
-// 
-@PointClass editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_pistol : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pistol/rust_pistol.vmdl" ) = weapon_pistol : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // PumpShotgun
-// 
-@PointClass editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_pumpshotgun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" ) = weapon_pumpshotgun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Python357
-// 
-@PointClass editormodel( "models/weapons/w_357.vmdl" ) = weapon_357 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "models/weapons/w_357.vmdl" ) = weapon_357 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// RPG
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl" ) = weapon_rpg : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// Scout
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_scout/w_css_snip_scout.vmdl" ) = weapon_scout : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// SG550
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_sg550/w_css_snip_sg550.vmdl" ) = weapon_sg550 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // SG552
-// 
-@PointClass editormodel( "weapons/css_sg552/w_css_rif_sg552.vmdl" ) = weapon_sg552 : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_sg552/w_css_rif_sg552.vmdl" ) = weapon_sg552 : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Shotgun
-// 
-@PointClass editormodel( "weapons/rust_shotgun/rust_shotgun.vmdl" ) = weapon_shotgun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_shotgun/rust_shotgun.vmdl" ) = weapon_shotgun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // SMG
-// 
-@PointClass editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smg : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smg : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // SMGShotgun
-// 
-@PointClass editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smgshotgun : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/rust_smg/rust_smg.vmdl" ) = weapon_smgshotgun : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// TMP
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_tmp/w_css_smg_tmp.vmdl" ) = weapon_tmp : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// UMP45
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_ump45/w_css_smg_ump45.vmdl" ) = weapon_ump45 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // USP
-// 
-@PointClass editormodel( "weapons/css_usp/w_css_pist_usp.vmdl" ) = weapon_usp : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_usp/w_css_pist_usp.vmdl" ) = weapon_usp : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
+// XM1014
+//
+@PointClass base(BaseProperties_sbox_nepqbox) editormodel( "weapons/css_xm1014/w_css_shot_xm1014.vmdl" ) = weapon_xm1014 : ""
+[
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // CarEntity
-// 
-@PointClass model() = ent_car : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_car : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -682,18 +711,16 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // MelonCar
-// 
-@PointClass model() = ent_meloncar : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_meloncar : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
 	[
 		-1 : "UNUSED"
@@ -710,91 +737,77 @@
 	output OnDamaged(void) : "Fired when the entity gets damaged"
 ]
 
-// 
+//
 // NPCDummy
-// 
-@PointClass = npc_dummy : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_dummy : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // NPCDummyWontDie
-// 
-@PointClass = npc_dummy_wontdie : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_dummy_wontdie : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // NPCFollow
-// 
-@PointClass = npc_follow : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_follow : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // NPCZombie
-// 
-@PointClass = npc_zombie : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_zombie : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // NPCZombieSpeed
-// 
-@PointClass = npc_zombie_speed : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_zombie_speed : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Tool
-// 
-@PointClass = weapon_tool : ""
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = weapon_tool : ""
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Gamelib.DayNight.DayNightAmbience
-// 
-@PointClass iconsprite( "editor/snd_daynight.vmat" ) 
+//
+@PointClass base(BaseProperties_sbox_nepqbox) iconsprite( "editor/snd_daynight.vmat" ) 
 metadata
 {
-	entity_tool_name = "Day Night Ambience"
-	entity_tool_group = "Day Night System"
+	entity_tool_name = "Ambience"
+	entity_tool_group = "Day and Night"
 }
-= daynight_ambience : "An audio controller for when a looping sound should play at each point in the day."
+= daynight_ambience : "An audio controller for when a looping sound should play at each point in the day"
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	dawnambience(sound) : "Dawn Ambient Sound" :  : ""
 	dayambience(sound) : "Day Ambient Sound" :  : ""
 	duskambience(sound) : "Dusk Ambient Sound" :  : ""
@@ -802,19 +815,17 @@ metadata
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 ]
 
-// 
+//
 // Gamelib.DayNight.DayNightController
-// 
-@PointClass iconsprite( "editor/daynight_controller.vmat" ) 
+//
+@PointClass base(BaseProperties_sbox_nepqbox) iconsprite( "editor/daynight_controller.vmat" ) 
 metadata
 {
-	entity_tool_name = "Day Night Controller"
+	entity_tool_name = "Controller"
 	entity_tool_group = "Day Night System"
 }
 = daynight_controller : "A way to set the colour based on the time of day, it will smoothly blend between each colour when the time has changed. Also enables the day night cycle using a \"light_environment\"."
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	dawncolor(color255) : "Dawn Color" :  : ""
 	dawnskycolor(color255) : "Dawn Sky Color" :  : ""
 	daycolor(color255) : "Day Color" :  : ""
@@ -833,22 +844,20 @@ metadata
 	output OnBecomeDay(void) : ""
 ]
 
-// 
+//
 // Gamelib.DayNight.DayNightProp
-// 
-@PointClass model() 
+//
+@PointClass base(BaseProperties_sbox_nepqbox) model() 
 metadata
 {
-	entity_tool_name = "Day Night Prop"
-	entity_tool_group = "Day Night System"
+	entity_tool_name = "Material Prop"
+	entity_tool_group = "Day and Night"
 }
-= daynight_prop : "Sets the skin of a model depending on if it's day time or night time, example: A street lamp turning on and night time then turning off in the morning."
+= daynight_prop : "Sets the skin of a model depending on if it's day time or night time, example: A street lamp turning on and night time then turning off in the morning"
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
 	bodygroups(bodygroupchoices) [ group="Render Properties" ] : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	daymaterialgroup(integer) : "Day Material Group" : 0 : ""
 	nightmaterialgroup(integer) : "Night Material Group" : 1 : ""
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
@@ -856,19 +865,17 @@ metadata
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 ]
 
-// 
+//
 // Gamelib.DayNight.DayNightSound
-// 
-@PointClass iconsprite( "editor/daynight_sound.vmat" ) 
+//
+@PointClass base(BaseProperties_sbox_nepqbox) iconsprite( "editor/daynight_sound.vmat" ) 
 metadata
 {
-	entity_tool_name = "Day Night Sound"
-	entity_tool_group = "Day Night System"
+	entity_tool_name = "Sound"
+	entity_tool_group = "Day and Night"
 }
 = daynight_sound : "A way to play sounds during the day night cycle, this also allows you to play a looping sound between 2 time periods e.g. 5pm to 6pm. You can also set the sound to only place once."
 [
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	soundtoplay(sound) : "Sound To Play" :  : ""
 	timetoplay(integer) : "Time To Play" : 12 : ""
 	timetostop(integer) : "Time To Stop" : -1 : ""
@@ -876,21 +883,19 @@ metadata
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 ]
 
-// 
+//
 // Gamelib.DayNight.DayNightWindow
-// 
-@SolidClass 
+//
+@SolidClass base(BaseProperties_sbox_nepqbox) 
 metadata
 {
-	entity_tool_name = "Day Night Window Brush"
-	entity_tool_group = "Day Night System"
+	entity_tool_name = "Window Brush"
+	entity_tool_group = "Day and Night"
 }
-= daynight_window : "A brush entity that will enable and disable at random times during the morning and night time."
+= daynight_window : "A brush entity that will enable and disable at random times during the morning and night time"
 [
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	renderamt(integer) [ group="Render Properties" ] : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
-	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
-	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	enabledelay(float) : "Enable Delay Time" : 3 : ""
 	disabledelay(float) : "Disable Delay Time" : 3 : ""
 	enabled(boolean) : "Enabled" : 1 : "Whether this func_brush is visible/active at all"

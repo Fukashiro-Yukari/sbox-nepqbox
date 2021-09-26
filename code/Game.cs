@@ -2,8 +2,7 @@
 using Gamelib.DayNight;
 using System.Linq;
 
-[Library( "nepqbox", Title = "NepQ Box" )]
-partial class SandboxGame : Game
+partial class NepQBoxGame : Game
 {
 	[ConVar.Replicated("sv_day_night_cycle")]
 	public static bool DayNightCycle { get;set; } = true;
@@ -19,7 +18,7 @@ partial class SandboxGame : Game
 	private bool HaveEnv = false;
 	private DayNightController dnc = null;
 
-	public SandboxGame()
+	public NepQBoxGame()
 	{
 		if ( IsServer )
 		{
@@ -331,5 +330,18 @@ partial class SandboxGame : Game
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
 		kf?.AddEntry(left, right, method);
+	}
+
+	public static void AddHint( string text )
+	{
+		if ( Host.IsClient ) return;
+
+		AddHintMessage( text );
+	}
+
+	[ClientRpc]
+	public static void AddHintMessage( string text )
+	{
+		Hint.Current?.AddHint( text );
 	}
 }
