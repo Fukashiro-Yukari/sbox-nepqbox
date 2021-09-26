@@ -8,11 +8,11 @@ partial class SandboxPlayer : Player
 
 	private DamageInfo lastDamage;
 
-	[Net] public PawnController VehicleController { get; set; }
+	[Net] public PawnController VehicleController { get; set; } = null;
 	[Net] public PawnAnimator VehicleAnimator { get; set; }
-	[Net, Predicted] public ICamera VehicleCamera { get; set; }
-	[Net, Predicted] public Entity Vehicle { get; set; }
-	[Net, Predicted] public ICamera MainCamera { get; set; }
+	[Net, Predicted] public ICamera VehicleCamera { get; set; } = null;
+	[Net, Predicted] public Entity Vehicle { get; set; } = null;
+	[Net, Predicted] public ICamera MainCamera { get; set; } = null;
 
 	[ConVar.Replicated("sv_fall_damage")]
 	public static bool HavaFallDamage { get; set; } = false;
