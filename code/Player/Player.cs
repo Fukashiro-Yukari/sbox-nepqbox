@@ -291,6 +291,8 @@ partial class SandboxPlayer : Player
 			PlaySound( "dm.ui_attacker" );
 			TakeDamage( dmg );
 		}
+
+		CanUseEntityGlow();
 	}
 
 	public override void StartTouch( Entity other )

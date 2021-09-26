@@ -1,4 +1,6 @@
 ﻿using Sandbox;
+using Sandbox.Component;
+using System.Linq;
 
 partial class SandboxPlayer
 {
@@ -40,5 +42,56 @@ partial class SandboxPlayer
 			return;
 
 		base.UseFail();
+	}
+
+	ModelEntity lastGlowEntity;
+
+	public virtual void CanUseEntityGlow()
+	{
+		if ( lastGlowEntity.IsValid() )
+		{
+			foreach ( var child in lastGlowEntity.Children.OfType<ModelEntity>() )
+			{
+				if ( child is Player )
+					continue;
+
+				if ( child.Components.TryGet<Glow>( out var childglow ) )
+				{
+					childglow.Active = false;
+				}
+			}
+
+			if ( lastGlowEntity.Components.TryGet<Glow>( out var glow ) )
+			{
+				glow.Active = false;
+			}
+
+			lastGlowEntity = null;
+		}
+
+		var entity = FindUsable();
+
+		if ( entity != null && entity.IsValid && entity is ModelEntity ent )
+		{
+			lastGlowEntity = ent;
+
+			var glow = ent.Components.GetOrCreate<Glow>();
+			glow.Active = true;
+			glow.RangeMin = 0;
+			glow.RangeMax = 1000;
+			glow.Color = new Color( 0.1f, 1.0f, 1.0f, 1.0f );
+
+			foreach ( var child in lastGlowEntity.Children.OfType<ModelEntity>() )
+			{
+				if ( child is Player )
+					continue;
+
+				glow = child.Components.GetOrCreate<Glow>();
+				glow.Active = true;
+				glow.RangeMin = 0;
+				glow.RangeMax = 1000;
+				glow.Color = new Color( 0.1f, 1.0f, 1.0f, 1.0f );
+			}
+		}
 	}
 }
