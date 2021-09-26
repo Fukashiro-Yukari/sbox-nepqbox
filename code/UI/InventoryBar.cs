@@ -64,6 +64,8 @@ public partial class InventoryBar : Panel
 		if ( SelectedWeapon == null )
 			SelectedWeapon = Local.Pawn.ActiveChild as Weapon;
 
+		if ( ply.ActiveChild is PhysGun physgun && physgun.BeamActive ) return;
+
 		var oldSelectedWeapon = SelectedWeapon;
 		int SelectedIndex = Weapons.IndexOf( SelectedWeapon );
 
