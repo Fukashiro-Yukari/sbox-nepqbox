@@ -60,10 +60,8 @@ namespace Gamelib.DayNight
 	/// <summary>
 	/// A way to set the colour based on the time of day, it will smoothly blend between each colour when the time has changed. Also enables the day night cycle using a "light_environment".
 	/// </summary>
-
-
 	[Library( "daynight_controller" )]
-	[Hammer.EntityTool( "Day Night Controller", "Day Night System" )]
+	[Hammer.EntityTool( "Controller", "Day Night System" )]
 	[Hammer.EditorSprite( "editor/daynight_controller.vmat" )]
 	public partial class DayNightController : ModelEntity
 	{
@@ -179,13 +177,13 @@ namespace Gamelib.DayNight
 			environment.Position = Vector3.Zero + Rotation.From( 0, 0, sunmoonAngle + 60f ) * (radius * Vector3.Right);
 			environment.Position += Rotation.From( 0, sunmoonAngle, 0 ) * (radius * Vector3.Forward);
 
-			if ( SandboxGame.DayNightCycleDebug )
+			if ( NepQBoxGame.DayNightCycleDebug )
 				DebugOverlay.Sphere( environment.Position, 2000f, Color.Yellow );
 
 			var direction = (Vector3.Zero - environment.Position).Normal;
 			environment.Rotation = Rotation.LookAt( direction, Vector3.Up );
 
-			if ( SandboxGame.DayNightCycleDebug )
+			if ( NepQBoxGame.DayNightCycleDebug )
 				DebugOverlay.Line( environment.Position, environment.Position + environment.Rotation.Forward * 10000f, Color.Blue );
 
 			//environment.SkyIntensity = -1f;
