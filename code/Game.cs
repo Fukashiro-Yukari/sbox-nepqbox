@@ -58,15 +58,6 @@ partial class NepQBoxGame : Game
 		base.OnDestroy();
 	}
 
-	public override CameraSetup BuildCamera( CameraSetup camSetup )
-	{
-		camSetup = base.BuildCamera( camSetup );
-
-		Event.Run( "postview" );
-
-		return camSetup;
-	}
-
 	[ConVar.ClientData]
 	public static bool cl_print_modelname { get; set; } = false;
 
