@@ -347,7 +347,7 @@ public partial class CWEPW : Weapon
 
 namespace Sandbox.CWEP
 {
-	public partial class CWEPFireMode : NetworkComponent
+	public partial class CWEPFireMode : BaseNetworkable
 	{
 		public CWEPW Parent { get; set; }
 		public Player Owner { get; set; }
