@@ -37,10 +37,10 @@ public partial class SpawnMenu : Panel
 				tabs.AddButtonActive( "Entities", ( b ) => ents.SetClass( "active", b ) );
 
 				var weps = body.AddChild<WeaponList>();
-				tabs.AddButtonActive("Weapons", (b) => weps.SetClass("active", b));
+				tabs.AddButtonActive( "Weapons", ( b ) => weps.SetClass( "active", b ) );
 
 				var npcs = body.AddChild<NPCList>();
-				tabs.AddButtonActive("NPCs", (b) => npcs.SetClass("active", b));
+				tabs.AddButtonActive( "NPCs", ( b ) => npcs.SetClass( "active", b ) );
 			}
 		}
 
@@ -80,24 +80,24 @@ public partial class SpawnMenu : Panel
 
 	void RebuildToolList()
 	{
-		toollist.DeleteChildren(true);
+		toollist.DeleteChildren( true );
 
-		foreach (var entry in Library.GetAllAttributes<Sandbox.Tools.BaseTool>())
+		foreach ( var entry in Library.GetAllAttributes<Sandbox.Tools.BaseTool>() )
 		{
-			if (entry.Title == "BaseTool")
+			if ( entry.Title == "BaseTool" )
 				continue;
 
-			var button = toollist.Add.Button(entry.Title);
-			button.SetClass("active", entry.Name == ConsoleSystem.GetValue("tool_current"));
+			var button = toollist.Add.Button( entry.Title );
+			button.SetClass( "active", entry.Name == ConsoleSystem.GetValue( "tool_current" ) );
 
-			button.AddEventListener("onclick", () =>
+			button.AddEventListener( "onclick", () =>
 			{
-				ConsoleSystem.Run("tool_current", entry.Name);
-				ConsoleSystem.Run("inventory_current", "weapon_tool");
+				ConsoleSystem.Run( "tool_current", entry.Name );
+				ConsoleSystem.Run( "inventory_current", "weapon_tool" );
 
-				foreach (var child in toollist.Children)
-					child.SetClass("active", child == button);
-			});
+				foreach ( var child in toollist.Children )
+					child.SetClass( "active", child == button );
+			} );
 		}
 
 		toolPanel = toollist.Add.Panel( "toolpanel" );
