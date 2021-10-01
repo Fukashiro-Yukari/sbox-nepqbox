@@ -6,12 +6,12 @@ namespace Sandbox.CWEP
 		public override bool SecondaryCanUse => true;
 		public override CType Crosshair => CType.ShotGun;
 
-		private void Spawn(int amount = 1)
+		private void Spawn( int amount = 1 )
 		{
 			if ( Parent.IsServer )
 				using ( Prediction.Off() )
 				{
-					for (int i = 0;i < amount; i++ )
+					for ( int i = 0; i < amount; i++ )
 					{
 						var ent = new Prop();
 						ent.SetModel( "models/rust_props/barrels/fuel_barrel" );
@@ -33,7 +33,7 @@ namespace Sandbox.CWEP
 
 		public override void AttackSecondary()
 		{
-			Spawn(5);
+			Spawn( 5 );
 		}
 	}
 }

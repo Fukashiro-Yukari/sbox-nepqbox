@@ -4,59 +4,59 @@ using Sandbox.UI.Construct;
 
 public partial class Ammo : Panel
 {
-    public Label Clip;
-    public Label Slash;
-    public Label AmmoText;
+	public Label Clip;
+	public Label Slash;
+	public Label AmmoText;
 
-    public Ammo()
-    {
-        Clip = Add.Label("0", "Clip");
-        Slash = Clip.Add.Label("/");
-        AmmoText = Slash.Add.Label("0", "AmmoText");
-    }
+	public Ammo()
+	{
+		Clip = Add.Label( "0", "Clip" );
+		Slash = Clip.Add.Label( "/" );
+		AmmoText = Slash.Add.Label( "0", "AmmoText" );
+	}
 
-    private void Clear()
-    {
-        Clip.Text = "";
-        Slash.Text = "";
-        AmmoText.Text = "";
-    }
+	private void Clear()
+	{
+		Clip.Text = "";
+		Slash.Text = "";
+		AmmoText.Text = "";
+	}
 
-    public override void Tick()
-    {
-        base.Tick();
+	public override void Tick()
+	{
+		base.Tick();
 
-        var player = Local.Pawn;
+		var player = Local.Pawn;
 
-        if (player == null)
-        {
-            Clear();
-            return;
-        }
+		if ( player == null )
+		{
+			Clear();
+			return;
+		}
 
-        var wep = player.ActiveChild as Weapon;
+		var wep = player.ActiveChild as Weapon;
 
-        if (wep == null)
-        {
-            Clear();
-            return;
-        }
+		if ( wep == null )
+		{
+			Clear();
+			return;
+		}
 
-        var clipsize = wep.ClipSize;
-        var clipammo = wep.AmmoClip;
+		var clipsize = wep.ClipSize;
+		var clipammo = wep.AmmoClip;
 
-        if (clipsize < 0)
-        {
-            Clear();
-            return;
-        }
+		if ( clipsize < 0 )
+		{
+			Clear();
+			return;
+		}
 
-        if (clipammo > clipsize)
-            Clip.Text = $"{clipammo - (clipammo - clipsize)} + {clipammo - clipsize}";
-        else
-            Clip.Text = $"{clipammo}";
+		if ( clipammo > clipsize )
+			Clip.Text = $"{clipammo - (clipammo - clipsize)} + {clipammo - clipsize}";
+		else
+			Clip.Text = $"{clipammo}";
 
-        Slash.Text = "/";
-        AmmoText.Text = $"{clipsize}";
-    }
+		Slash.Text = "/";
+		AmmoText.Text = $"{clipsize}";
+	}
 }

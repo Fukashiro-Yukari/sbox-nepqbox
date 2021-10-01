@@ -5,9 +5,9 @@
 		Vector3 lastPos;
 		Player viewPlayer;
 
-		public SpectateFirstPersonCamera(Player viewply)
-        {
-			if (!(viewply is Player)) return;
+		public SpectateFirstPersonCamera( Player viewply )
+		{
+			if ( !(viewply is Player) ) return;
 
 			viewPlayer = viewply;
 		}

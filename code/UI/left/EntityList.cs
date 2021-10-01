@@ -28,19 +28,19 @@ public partial class EntityList : Panel
 			};
 		};
 
-		LoadAllItem(false);
+		LoadAllItem( false );
 	}
 
-	private void LoadAllItem(bool isreload)
+	private void LoadAllItem( bool isreload )
 	{
-		if (isreload)
+		if ( isreload )
 			Canvas.Data.Clear();
 
-		var ents = Library.GetAllAttributes<Entity>().Where(x => x.Spawnable && !x.Name.StartsWith("weapon_") && !x.Name.StartsWith("npc_")).OrderBy(x => x.Title).ToArray();
+		var ents = Library.GetAllAttributes<Entity>().Where( x => x.Spawnable && !x.Name.StartsWith( "weapon_" ) && !x.Name.StartsWith( "npc_" ) ).OrderBy( x => x.Title ).ToArray();
 
-		foreach (var entry in ents)
+		foreach ( var entry in ents )
 		{
-			Canvas.AddItem(entry);
+			Canvas.AddItem( entry );
 		}
 	}
 
@@ -48,6 +48,6 @@ public partial class EntityList : Panel
 	{
 		base.OnHotloaded();
 
-		LoadAllItem(true);
+		LoadAllItem( true );
 	}
 }

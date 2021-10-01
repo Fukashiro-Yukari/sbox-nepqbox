@@ -39,5 +39,4 @@ namespace Sandbox.UI
 			panel.Style.Dirty();
 		}
 	}
-	
 }

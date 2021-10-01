@@ -4,41 +4,41 @@ using Sandbox.UI.Construct;
 
 public partial class Health : Panel
 {
-    public Label Healthn;
-    public Label PlayerName;
-    public Panel HealthBar;
-    public Image Avatar;
+	public Label Healthn;
+	public Label PlayerName;
+	public Panel HealthBar;
+	public Image Avatar;
 
-    public Health()
-    {
-        var HealthBarBG = Add.Panel("HealthBarBG");
+	public Health()
+	{
+		var HealthBarBG = Add.Panel( "HealthBarBG" );
 
-        HealthBar = HealthBarBG.Add.Panel("HealthBar");
-        Healthn = Add.Label("0", "HealthText");
-        PlayerName = Add.Label("", "PlayerName");
-    }
+		HealthBar = HealthBarBG.Add.Panel( "HealthBar" );
+		Healthn = Add.Label( "0", "HealthText" );
+		PlayerName = Add.Label( "", "PlayerName" );
+	}
 
-    bool setAvatar;
+	bool setAvatar;
 
-    public override void Tick()
-    {
-        base.Tick();
+	public override void Tick()
+	{
+		base.Tick();
 
-        var ply = Local.Pawn;
+		var ply = Local.Pawn;
 
-        if (ply == null) return;
+		if ( ply == null ) return;
 
-        if (!setAvatar)
-        {
-            setAvatar = true;
+		if ( !setAvatar )
+		{
+			setAvatar = true;
 
-            Avatar = Add.Image($"avatar:{Local.Client.SteamId}");
-            PlayerName.Text = Local.Client.Name;
-        }
+			Avatar = Add.Image( $"avatar:{Local.Client.SteamId}" );
+			PlayerName.Text = Local.Client.Name;
+		}
 
-        Healthn.Text = ply.Health.CeilToInt().ToString();
+		Healthn.Text = ply.Health.CeilToInt().ToString();
 
-        HealthBar.Style.Dirty();
-        HealthBar.Style.Width = Length.Percent(ply.Health);
-    }
+		HealthBar.Style.Dirty();
+		HealthBar.Style.Width = Length.Percent( ply.Health );
+	}
 }

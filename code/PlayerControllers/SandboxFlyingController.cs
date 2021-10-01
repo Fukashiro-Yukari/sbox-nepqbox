@@ -19,7 +19,7 @@ namespace Sandbox
 
 			var vel = (Input.Rotation.Forward * Input.Forward) + (Input.Rotation.Left * Input.Left);
 
-			if (Input.Down(InputButton.Jump))
+			if ( Input.Down( InputButton.Jump ) )
 			{
 				vel += Vector3.Up * 1;
 			}

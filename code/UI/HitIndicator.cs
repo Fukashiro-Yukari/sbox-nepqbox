@@ -42,5 +42,3 @@ public partial class HitIndicator : Panel
 		}
 	}
 }
-
-

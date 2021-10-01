@@ -47,7 +47,6 @@ public partial class DamageIndicator : Panel
 
 			Style.Transform = pt;
 			Style.Dirty();
-			
 		}
 
 		async Task Lifetime()
@@ -57,9 +56,5 @@ public partial class DamageIndicator : Panel
 			await Task.Delay( 500 );
 			Delete();
 		}
-
-
 	}
 }
-
-

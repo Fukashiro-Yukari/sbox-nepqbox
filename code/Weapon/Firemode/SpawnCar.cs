@@ -8,7 +8,7 @@ namespace Sandbox.CWEP
 		public override bool SecondaryCanUse => true;
 		public override CType Crosshair => CType.Pistol;
 
-		private void Spawn(bool super = false)
+		private void Spawn( bool super = false )
 		{
 			if ( Parent.IsServer )
 				using ( Prediction.Off() )
@@ -50,7 +50,7 @@ namespace Sandbox.CWEP
 
 		public override void AttackSecondary()
 		{
-			Spawn(true);
+			Spawn( true );
 		}
 	}
 }
