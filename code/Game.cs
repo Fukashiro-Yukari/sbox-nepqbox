@@ -126,6 +126,44 @@ partial class NepQBoxGame : Game
 		//Log.Info( $"ent: {ent}" );
 	}
 
+	[ServerCmd( "give_weapon" )]
+	public static void GiveWeapon( string entName )
+	{
+		var target = ConsoleSystem.Caller.Pawn;
+		if ( target == null ) return;
+
+		var inventory = target.Inventory;
+		if ( inventory == null )
+			return;
+
+		var wep = Library.Create<Weapon>( entName );
+
+		if ( wep.IsValid() )
+			inventory.Add( wep );
+	}
+
+	[ServerCmd( "give_all_weapons" )]
+	public static void GiveAllWeapon()
+	{
+		var target = ConsoleSystem.Caller.Pawn;
+		if ( target == null ) return;
+
+		var inventory = target.Inventory;
+		if ( inventory == null )
+			return;
+
+		foreach (var wep in Library.GetAllAttributes<Weapon>() )
+		{
+			if ( wep.Title.StartsWith( "Weapon" ) )
+				continue;
+
+			var w = Library.Create<Weapon>( wep.Name );
+
+			if ( w.IsValid() )
+				inventory.Add( w );
+		}
+	}
+
 	public override void DoPlayerNoclip( Client player )
 	{
 		if ( player.Pawn is Player basePlayer )
