@@ -9,7 +9,7 @@ partial class G3SG1 : WeaponSniper
 	public override string WorldModelPath => "weapons/css_g3sg1/w_css_snip_g3sg1.vmdl";
 
 	public override int ClipSize => 20;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override int AmmoMultiplier => 5;
 	public override float PrimaryRate => 4f;
 	public override float ReloadTime => 4.67f;

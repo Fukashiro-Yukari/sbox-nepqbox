@@ -8,7 +8,7 @@ partial class MAC10 : Weapon
 	public override string WorldModelPath => "weapons/swb/css/mac10/css_w_smg_mac10.vmdl";
 
 	public override int ClipSize => 32;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 11f;
 	public override float ReloadTime => 3.14f;
 	public override CType Crosshair => CType.SMG;

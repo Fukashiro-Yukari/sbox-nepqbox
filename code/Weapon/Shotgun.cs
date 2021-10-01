@@ -11,7 +11,7 @@ partial class Shotgun : Weapon
 	public override float PrimaryRate => 1f;
 	public override float SecondaryRate => 1f;
 	public override float ReloadTime => 5f;
-	public override int Bucket => 2;
+	public override int Bucket => 3;
 	public override CType Crosshair => CType.ShotGun;
 	public override bool RealReload => false;
 	public override string Icon => "ui/weapons/weapon_shotgun.png";

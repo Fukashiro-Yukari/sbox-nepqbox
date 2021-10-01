@@ -8,7 +8,7 @@ partial class FAMAS : Weapon
 	public override string WorldModelPath => "weapons/css_famas/w_css_rif_famas.vmdl";
 
 	public override int ClipSize => 25;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 10f;
 	public override float ReloadTime => 3.33f;
 	public override CType Crosshair => CType.Rifle;

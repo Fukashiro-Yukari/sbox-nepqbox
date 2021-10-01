@@ -8,7 +8,7 @@ partial class M3 : WeaponShotgun
 	public override string WorldModelPath => "weapons/css_super90/css_w_shot_m3super90.vmdl";
 
 	public override int ClipSize => 8;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override float PrimaryRate => 1f;
 	public override float ReloadTime => 0.49f;
 	public override CType Crosshair => CType.ShotGun;

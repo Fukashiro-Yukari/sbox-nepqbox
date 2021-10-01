@@ -8,7 +8,7 @@ partial class XM1014 : WeaponShotgun
 	public override string WorldModelPath => "weapons/css_xm1014/w_css_shot_xm1014.vmdl";
 
 	public override int ClipSize => 7;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override bool Automatic => false;
 	public override float PrimaryRate => 5f;
 	public override float ReloadTime => 0.39f;

@@ -9,7 +9,7 @@ partial class AUG : WeaponSniper
 	public override string WorldModelPath => "weapons/css_ang/w_css_rif_aug.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 10f;
 	public override float ReloadTime => 3.77f;
 	public override CType Crosshair => CType.Rifle;

@@ -8,7 +8,7 @@ partial class NiceGun : WeaponShotgun
 	public override string WorldModelPath => "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl";
 
 	public override int ClipSize => 2;
-	public override int Bucket => 2;
+	public override int Bucket => 3;
 	public override float PrimaryRate => 15.0f;
 	public override float SecondaryRate => 10.0f;
 	public override float ReloadTime => 0.3f;

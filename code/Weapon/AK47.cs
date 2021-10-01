@@ -8,7 +8,7 @@ partial class AK47 : Weapon
 	public override string WorldModelPath => "weapons/swb/css/ak47/css_w_rif_ak47.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 10f;
 	public override float ReloadTime => 2.17f;
 	public override CType Crosshair => CType.Rifle;

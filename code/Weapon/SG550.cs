@@ -9,7 +9,7 @@ partial class SG550 : WeaponSniper
 	public override string WorldModelPath => "weapons/css_sg550/w_css_snip_sg550.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override int AmmoMultiplier => 5;
 	public override float PrimaryRate => 5f;
 	public override float ReloadTime => 3.75f;

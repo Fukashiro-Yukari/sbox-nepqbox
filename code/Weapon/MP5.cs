@@ -8,7 +8,7 @@ partial class MP5 : Weapon
 	public override string WorldModelPath => "weapons/css_mp5/w_css_smg_mp5.vmdl";
 
 	public override int ClipSize => 32;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 12.5f;
 	public override float ReloadTime => 3.05f;
 	public override CType Crosshair => CType.SMG;

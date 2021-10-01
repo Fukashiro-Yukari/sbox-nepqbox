@@ -9,7 +9,7 @@ partial class M4A1 : Weapon
 	public override string SilencerWorldModelPath => "weapons/css_m4a1/css_w_m4a1_silencer.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override bool UseSilencer => true;
 	public override float PrimaryRate => 10f;
 	public override float ReloadTime => 3.05f;

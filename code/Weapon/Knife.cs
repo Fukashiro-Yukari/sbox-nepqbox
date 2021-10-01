@@ -8,7 +8,7 @@ partial class Knife : WeaponMelee
 	public override string ViewModelPath => "weapons/css_knife/css_v_knife.vmdl";
 	public override string WorldModelPath => "weapons/css_knife/css_w_knife.vmdl";
 
-	public override int Bucket => 2;
+	public override int Bucket => 0;
 	public override float PrimarySpeed => 0.6f;
 	public override float SecondarySpeed => 1.29f;
 	public override float PrimaryDamage => 35f;

@@ -2,14 +2,30 @@
 
 [Library( "weapon_flashlight", Title = "Flashlight", Spawnable = true )]
 [Hammer.EditorModel("weapons/rust_pistol/rust_pistol.vmdl")]
-partial class Flashlight : Weapon
+partial class Flashlight : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/rust_flashlight/v_rust_flashlight.vmdl";
 	public override string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
-	public override int ClipSize => -1;
-	public override float SecondaryRate => 2.0f;
+	public override int Bucket => 0;
+	public override float SecondarySpeed => 0.5f;
+	public override float SecondaryDamage => 25f;
+	public override float SecondaryForce => 100f;
+	public override float SecondaryMeleeDistance => 80f;
+	public override float ImpactSize => 20f;
 	public override CType Crosshair => CType.None;
 	public override string Icon => "ui/weapons/weapon_pistol.png";
+	public override string SecondaryAnimationHit => "attack_hit";
+	public override string SecondaryAnimationMiss => "attack";
+	public override string SecondaryAttackSound => "rust_flashlight.attack";
+	public override string HitWorldSound => "rust_flashlight.attack";
+	public override string MissSound => "rust_flashlight.attack";
+	public override bool CanUseSecondary => true;
+	public override ScreenShake SecondaryScreenShakeHit => new ScreenShake
+	{
+		Length = 1.0f,
+		Speed = 1.0f,
+		Rotation = 3.0f
+	};
 
 	protected virtual Vector3 LightOffset => Vector3.Forward * 10;
 
@@ -100,77 +116,6 @@ partial class Flashlight : Weapon
 	public override bool CanReload()
 	{
 		return false;
-	}
-
-	public override void AttackSecondary()
-	{
-		if ( MeleeAttack() )
-		{
-			OnMeleeHit();
-		}
-		else
-		{
-			OnMeleeMiss();
-		}
-
-		PlaySound( "rust_flashlight.attack" );
-	}
-
-	private bool MeleeAttack()
-	{
-		var forward = Owner.EyeRot.Forward;
-		forward = forward.Normal;
-
-		bool hit = false;
-
-		foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * 80, 20.0f ) )
-		{
-			if ( !tr.Entity.IsValid() ) continue;
-
-			tr.Surface.DoBulletImpact( tr );
-
-			hit = true;
-
-			if ( !IsServer ) continue;
-
-			using ( Prediction.Off() )
-			{
-				var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * 100, 25 )
-					.UsingTraceResult( tr )
-					.WithAttacker( Owner )
-					.WithWeapon( this );
-
-				tr.Entity.TakeDamage( damageInfo );
-			}
-		}
-
-		return hit;
-	}
-
-	[ClientRpc]
-	private void OnMeleeMiss()
-	{
-		Host.AssertClient();
-
-		if ( IsLocalPawn )
-		{
-			_ = new Sandbox.ScreenShake.Perlin();
-		}
-
-		ViewModelEntity?.SetAnimBool( "attack", true );
-	}
-
-	[ClientRpc]
-	private void OnMeleeHit()
-	{
-		Host.AssertClient();
-
-		if ( IsLocalPawn )
-		{
-			_ = new Sandbox.ScreenShake.Perlin( 1.0f, 1.0f, 3.0f );
-		}
-
-		ViewModelEntity?.SetAnimBool( "attack_hit", true );
 	}
 
 	private void Activate()

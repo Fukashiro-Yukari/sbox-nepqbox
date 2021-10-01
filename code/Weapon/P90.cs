@@ -9,7 +9,7 @@ partial class P90 : WeaponSniper
 	public override string WorldModelPath => "weapons/css_p90/w_css_smg_p90.vmdl";
 
 	public override int ClipSize => 50;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 12.5f;
 	public override float ReloadTime => 3.38f;
 	public override CType Crosshair => CType.SMG;

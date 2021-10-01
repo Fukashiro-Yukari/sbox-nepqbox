@@ -12,7 +12,7 @@ partial class SMGShotgun : Weapon
 	public override float PrimaryRate => 8.0f;
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 4.0f;
-	public override int Bucket => 2;
+	public override int Bucket => 3;
 	public override CType Crosshair => CType.ShotGun;
 	public override string Icon => "ui/weapons/weapon_smg.png";
 	public override string ShootSound => "rust_pumpshotgun.shoot";

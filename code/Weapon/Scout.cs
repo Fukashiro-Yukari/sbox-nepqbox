@@ -9,7 +9,7 @@ partial class Scout : WeaponSniper
 	public override string WorldModelPath => "weapons/css_scout/w_css_snip_scout.vmdl";
 
 	public override int ClipSize => 10;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override int AmmoMultiplier => 5;
 	public override float PrimaryRate => 0.83f;
 	public override float ReloadTime => 2.9f;

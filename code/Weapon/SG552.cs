@@ -9,7 +9,7 @@ partial class SG552 : WeaponSniper
 	public override string WorldModelPath => "weapons/css_sg552/w_css_rif_sg552.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override float PrimaryRate => 10f;
 	public override float ReloadTime => 2.76f;
 	public override CType Crosshair => CType.Rifle;

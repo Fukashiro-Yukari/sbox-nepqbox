@@ -10,7 +10,7 @@ partial class RPG : Weapon
 	public override string WorldModelPath => "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl";
 
 	public override int ClipSize => 1;
-	public override int Bucket => 0;
+	public override int Bucket => 4;
 	public override int AmmoMultiplier => 10;
 	public override bool RealReload => false;
 	public override float PrimaryRate => 1f;

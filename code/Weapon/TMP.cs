@@ -8,7 +8,7 @@ partial class TMP : Weapon
 	public override string WorldModelPath => "weapons/css_tmp/w_css_smg_tmp.vmdl";
 
 	public override int ClipSize => 30;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 12.5f;
 	public override float ReloadTime => 2.12f;
 	public override CType Crosshair => CType.SMG;

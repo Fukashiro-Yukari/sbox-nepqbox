@@ -9,7 +9,7 @@ partial class AWP : WeaponSniper
 	public override string WorldModelPath => "weapons/css_awp/css_w_awp.vmdl";
 
 	public override int ClipSize => 10;
-	public override int Bucket => 0;
+	public override int Bucket => 3;
 	public override int AmmoMultiplier => 5;
 	public override float PrimaryRate => 0.83f;
 	public override float ReloadTime => 3.67f;

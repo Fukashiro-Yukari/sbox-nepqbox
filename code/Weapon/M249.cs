@@ -8,7 +8,7 @@ partial class M249 : Weapon
 	public override string WorldModelPath => "weapons/css_m249/css_w_mach_m249para.vmdl";
 
 	public override int ClipSize => 100;
-	public override int Bucket => 0;
+	public override int Bucket => 2;
 	public override float PrimaryRate => 12.5f;
 	public override float ReloadTime => 5.7f;
 	public override CType Crosshair => CType.Rifle;
