@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 public partial class Weapon : Carriable, IUse
 {
-	public virtual string WorldModelPath => "";
 	public virtual string SilencerWorldModelPath => "";
 	public virtual string DroppedModelPath => "";
 	public virtual string ReloadSound => "";

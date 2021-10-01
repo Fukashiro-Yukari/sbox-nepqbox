@@ -33,7 +33,7 @@ public partial class WeaponMelee : Weapon
 	[Net, Predicted]
 	public bool IsBack { get; set; }
 
-	public virtual bool MeleeAttack( float damage, float force, string swingSound, string animationHit, string animationMiss, ScreenShake screenShakeHit, ScreenShake screenShakeMiss, float meleeDistance, float backDamage )
+	public virtual bool MeleeAttack( float damage, float force, string swingSound, string animationHit, string animationMiss, ScreenShake screenShakeHit, ScreenShake screenShakeMiss, float meleeDistance, float backDamage, bool leftHand )
 	{
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
@@ -67,7 +67,7 @@ public partial class WeaponMelee : Weapon
 					};
 				}
 
-				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Speed, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss );
+				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Speed, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
 
 				continue;
 			}
@@ -103,7 +103,7 @@ public partial class WeaponMelee : Weapon
 				};
 			}
 
-			OnMeleeHit( screenShakeHit.Length, screenShakeHit.Speed, screenShakeHit.Size, screenShakeHit.Rotation, animationHit );
+			OnMeleeHit( screenShakeHit.Length, screenShakeHit.Speed, screenShakeHit.Size, screenShakeHit.Rotation, animationHit, leftHand );
 
 			if ( !IsServer ) continue;
 
@@ -152,16 +152,16 @@ public partial class WeaponMelee : Weapon
 
 	public override void AttackPrimary()
 	{
-		_ = MeleeAttack( PrimaryDamage, PrimaryForce, PrimaryAttackSound, PrimaryAnimationHit, PrimaryAnimationMiss, PrimaryScreenShakeHit, PrimaryScreenShakeMiss, PrimaryMeleeDistance, PrimaryBackDamage );
+		_ = MeleeAttack( PrimaryDamage, PrimaryForce, PrimaryAttackSound, PrimaryAnimationHit, PrimaryAnimationMiss, PrimaryScreenShakeHit, PrimaryScreenShakeMiss, PrimaryMeleeDistance, PrimaryBackDamage, true );
 	}
 
 	public override void AttackSecondary()
 	{
-		_ = MeleeAttack( SecondaryDamage, SecondaryForce, SecondaryAttackSound, SecondaryAnimationHit, SecondaryAnimationMiss, SecondaryScreenShakeHit, SecondaryScreenShakeMiss, SecondaryMeleeDistance, SecondaryBackDamage );
+		_ = MeleeAttack( SecondaryDamage, SecondaryForce, SecondaryAttackSound, SecondaryAnimationHit, SecondaryAnimationMiss, SecondaryScreenShakeHit, SecondaryScreenShakeMiss, SecondaryMeleeDistance, SecondaryBackDamage, false );
 	}
 
 	[ClientRpc]
-	public virtual void OnMeleeMiss( float length, float speed, float size, float rotation, string animation )
+	public virtual void OnMeleeMiss( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
 		Host.AssertClient();
 
@@ -175,7 +175,7 @@ public partial class WeaponMelee : Weapon
 	}
 
 	[ClientRpc]
-	public virtual void OnMeleeHit( float length, float speed, float size, float rotation, string animation )
+	public virtual void OnMeleeHit( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
 		Host.AssertClient();
 

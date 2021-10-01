@@ -6,21 +6,15 @@
 partial class Flying : Carriable
 { 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
+	public override string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 	public override int Bucket => 8;
 	public override string Icon => "ui/weapons/weapon_pistol.png";
-	private PawnController LastController;
-	private bool isFlying;
-
-	public override void Spawn()
-	{
-		base.Spawn();
-
-		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
-	}
+	private PawnController LastController { get; set; }
+	private bool isFlying { get; set; }
 
 	private void Activate()
-    {
-		if (Owner is not Player owner) return;
+	{
+		if ( !IsServer || Owner is not Player owner ) return;
 
 		LastController = owner.Controller;
 		owner.Controller = new SandboxFlyingController();
@@ -29,17 +23,17 @@ partial class Flying : Carriable
 	}
 
 	private void Deactivate()
-    {
-		if ( Owner is not Player owner || LastController == null ) return;
+	{
+		if ( !IsServer || Owner is not Player owner || LastController == null ) return;
 
 		owner.Controller = LastController;
 
 		isFlying = false;
 	}
 
-	public override void ActiveEnd(Entity ent, bool dropped)
+	public override void ActiveEnd( Entity ent, bool dropped )
 	{
-		base.ActiveEnd(ent, dropped);
+		base.ActiveEnd( ent, dropped );
 
 		Deactivate();
 	}
@@ -47,6 +41,8 @@ partial class Flying : Carriable
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+
+		if ( !IsServer ) return;
 
 		var ply = Owner as Player;
 		if ( ply == null ) return;
@@ -75,10 +71,10 @@ partial class Flying : Carriable
 		base.OnDestroy();
 	}
 
-	public override void OnCarryDrop(Entity dropper)
+	public override void OnCarryDrop( Entity dropper )
 	{
 		Deactivate();
 
-		base.OnCarryDrop(dropper);
+		base.OnCarryDrop( dropper );
 	}
 }

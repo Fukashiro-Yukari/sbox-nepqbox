@@ -7,6 +7,7 @@ using System.Linq;
 public partial class GravGun : Carriable
 {
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
+	public override string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 
 	private PhysicsBody holdBody;
 	private WeldJoint holdJoint;
@@ -38,8 +39,6 @@ public partial class GravGun : Carriable
 	public override void Spawn()
 	{
 		base.Spawn();
-
-		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
 
 		CollisionGroup = CollisionGroup.Weapon;
 		SetInteractsAs( CollisionLayer.Debris );

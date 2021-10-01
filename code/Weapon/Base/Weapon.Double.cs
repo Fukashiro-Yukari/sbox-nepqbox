@@ -55,13 +55,13 @@ public partial class WeaponDouble : Weapon
 	[ClientRpc]
 	protected override void BulletTracer( Vector3 to )
 	{
-		var tr = EffectEntity.GetAttachment( IsSecondary ? MuzzleLeftAttachment : MuzzleRightAttachment );
+		//var tr = EffectEntity.GetAttachment( IsSecondary ? MuzzleLeftAttachment : MuzzleRightAttachment );
 
-		if ( tr == null ) return;
+		//if ( tr == null ) return;
 
-		var ps = Particles.Create( "particles/sd_bullet_trail.vpcf", to );
-		ps.SetPosition( 0, tr.Value.Position );
-		ps.SetPosition( 1, to );
+		//var ps = Particles.Create( "particles/sd_bullet_trail.vpcf", to );
+		//ps.SetPosition( 0, tr.Value.Position );
+		//ps.SetPosition( 1, to );
 	}
 
 	public override void OnReloadFinish()

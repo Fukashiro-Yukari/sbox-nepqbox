@@ -8,19 +8,13 @@ partial class Tool : Carriable
 	public static string UserToolCurrent { get; set; } = "tool_boxgun";
 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
+	public override string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 
 	[Net, Predicted]
 	public BaseTool CurrentTool { get; set; }
 
 	public override int Bucket => 8;
 	public override string Icon => "ui/weapons/weapon_pistol.png";
-
-	public override void Spawn()
-	{
-		base.Spawn();
-
-		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
-	}
 
 	public override void Simulate( Client owner )
 	{

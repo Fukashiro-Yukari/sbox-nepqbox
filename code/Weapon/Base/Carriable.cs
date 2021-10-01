@@ -4,9 +4,18 @@ public partial class Carriable : BaseCarriable, IUse
 {
 	public virtual int Bucket => 1;
 	public virtual int BucketWeight => 100;
+	public virtual string WorldModelPath => "";
 	public virtual string Icon => "";
 	public virtual string DrawAnim => "deploy";
 	public virtual string DrawEmptyAnim => null;
+
+	public override void Spawn()
+	{
+		base.Spawn();
+
+		if ( !string.IsNullOrEmpty( WorldModelPath ) )
+			SetModel( WorldModelPath );
+	}
 
 	/// <summary>
 	/// This entity has become the active entity. This most likely
