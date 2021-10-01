@@ -73,6 +73,7 @@ partial class SandboxPlayer : Player
 
 		Inventory.Add( new PhysGun(), true );
 		Inventory.Add( new GravGun() );
+		Inventory.Add( new Tool() );
 		Inventory.Add( new Flying() );
 		Inventory.Add( new Crowbar() );
 		Inventory.Add( new Knife() );
@@ -80,8 +81,9 @@ partial class SandboxPlayer : Player
 		Inventory.Add( new HL2Pistol() );
 		Inventory.Add( new Python357() );
 		Inventory.Add( new Flashlight() );
+		Inventory.Add( new Fists() );
 
-        base.Respawn();
+		base.Respawn();
 	}
 
 	public override void OnKilled()
