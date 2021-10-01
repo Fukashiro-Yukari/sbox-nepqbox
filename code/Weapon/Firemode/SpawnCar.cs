@@ -8,39 +8,30 @@ namespace Sandbox.CWEP
 		public override bool SecondaryCanUse => true;
 		public override CType Crosshair => CType.Pistol;
 
+		[Net,Predicted]
+		private CarEntity LastCar { get; set; }
+
 		private void Spawn( bool super = false )
 		{
 			if ( Parent.IsServer )
+			{
 				using ( Prediction.Off() )
 				{
-					var ent = new CarEntity();
-					ent.Position = Owner.EyePos + Owner.EyeRot.Forward * 80;
-					ent.Rotation = Owner.EyeRot;
-					ent.Owner = Owner;
-					ent.Velocity = Owner.EyeRot.Forward * (super ? 50000 : 1000);
-					ent.DeleteAsync( 5 );
-
-					// BUG: Unable to use weapons
-					//if (ent.IsValid() && incar )
-					//{
-					//ent.ForcedDriver( Owner );
-
-					//if ( Owner is SandboxPlayer player && player.Vehicle == null)
-					//{
-					//	player.Vehicle = ent;
-					//	player.VehicleController = new CarController();
-					//	player.VehicleAnimator = new CarAnimator();
-					//	player.VehicleCamera = new CarCamera();
-					//	player.Parent = ent;
-					//	player.LocalPosition = Vector3.Up * 10;
-					//	player.LocalRotation = Rotation.Identity;
-					//	player.LocalScale = 1;
-					//	player.PhysicsBody.Enabled = false;
-
-					//	ent.driver = player;
-					//}
-					//}
+					LastCar = new CarEntity();
+					LastCar.Position = Owner.EyePos + Owner.EyeRot.Forward * 80;
+					LastCar.Rotation = Owner.EyeRot;
+					LastCar.Owner = Owner;
+					LastCar.Velocity = Owner.EyeRot.Forward * (super ? 50000 : 1000);
+					LastCar.DeleteAsync( 5 );
 				}
+
+				// BUG: Unable to use weapons
+				//if ( LastCar.IsValid() && super )
+				//{
+				//	LastCar.OnUse( Owner );
+				//	SpawnCarRpc.FUCKRPC( Owner, LastCar );
+				//}
+			}
 		}
 
 		public override void AttackPrimary()
@@ -51,6 +42,18 @@ namespace Sandbox.CWEP
 		public override void AttackSecondary()
 		{
 			Spawn( true );
+		}
+	}
+
+	public partial class SpawnCarRpc
+	{
+		[ClientRpc]
+		public static void FUCKRPC( Entity Owner, CarEntity LastCar )
+		{
+			if ( LastCar.IsValid() )
+			{
+				LastCar.OnUse( Owner );
+			}
 		}
 	}
 }
