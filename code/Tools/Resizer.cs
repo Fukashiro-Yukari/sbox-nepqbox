@@ -64,7 +64,7 @@ namespace Sandbox.Tools
 				{
 					CreateHitEffects( tr.EndPos );
 
-					new Undo( "Resizer" ).SetClient( Owner.GetClientOwner() ).Add( new ResizerUndo( entity, oldscale ) ).Finish();
+					new Undo( "Resizer" ).SetClient( Owner.Client ).Add( new ResizerUndo( entity, oldscale ) ).Finish();
 				}
 			}
 		}

@@ -219,7 +219,7 @@ partial class SandboxPlayer : Player
 		{
 			oldavatar = newavatar;
 
-			Clothing.LoadFromClient( GetClientOwner() );
+			Clothing.LoadFromClient( Client );
 			Clothing.DressEntity( this );
 		}
 

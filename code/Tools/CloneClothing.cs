@@ -32,14 +32,14 @@ namespace Sandbox.Tools
 				{
 					var Clothing = new Clothing.Container();
 
-					Clothing.LoadFromClient( Owner.GetClientOwner() );
+					Clothing.LoadFromClient( Owner.Client );
 					Clothing.DressEntity( ent );
 				}
 				else
 				{
 					var Clothing = new Clothing.Container();
 
-					Clothing.LoadFromClient( Owner.GetClientOwner() );
+					Clothing.LoadFromClient( Owner.Client );
 					Clothing.DressEntity( e, ClothingModels );
 				}
 			}

@@ -82,7 +82,7 @@
 
 				Tint = Color.Random;
 
-				new Undo( "Balloon" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent ).Finish();
+				new Undo( "Balloon" ).SetClient( Owner.Client ).AddEntity( ent ).Finish();
 
 				if ( !useRope ) return;
 

@@ -84,7 +84,7 @@
 
 				ent.SetModel( "models/thruster/thrusterprojector.vmdl" );
 
-				new Undo( "Thruster" ).SetClient( Owner.GetClientOwner() ).AddEntity( ent ).Finish();
+				new Undo( "Thruster" ).SetClient( Owner.Client ).AddEntity( ent ).Finish();
 			}
 		}
 	}

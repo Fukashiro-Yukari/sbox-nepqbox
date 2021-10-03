@@ -200,11 +200,7 @@ public partial class PhysGun : Carriable
 		GrabbedPos = body.Transform.PointToLocal( tr.EndPos );
 		GrabbedBone = tr.Entity.PhysicsGroup.GetBodyIndex( body );
 
-		var client = GetClientOwner();
-		if ( client != null )
-		{
-			client.Pvs.Add( GrabbedEntity );
-		}
+		Client?.Pvs.Add( GrabbedEntity );
 	}
 
 	private void UpdateGrab( Vector3 eyePos, Rotation eyeRot, Vector3 eyeDir, bool wantsToFreeze )
@@ -353,11 +349,7 @@ public partial class PhysGun : Carriable
 			heldBody.EnableAutoSleeping = true;
 		}
 
-		var client = GetClientOwner();
-		if ( client != null && GrabbedEntity.IsValid() )
-		{
-			client.Pvs.Remove( GrabbedEntity );
-		}
+		Client?.Pvs.Remove( GrabbedEntity );
 
 		heldBody = null;
 		GrabbedEntity = null;

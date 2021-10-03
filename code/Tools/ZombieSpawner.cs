@@ -53,7 +53,7 @@ namespace Sandbox.Tools
 
 					zombie.Position = tr.EndPos;
 
-					new Undo( "Zombie" ).SetClient( Owner.GetClientOwner() ).AddEntity( zombie ).Finish( isSpeedZombie ? "Speed Zombie" : "Zombie" );
+					new Undo( "Zombie" ).SetClient( Owner.Client ).AddEntity( zombie ).Finish( isSpeedZombie ? "Speed Zombie" : "Zombie" );
 				}
 			}
 		}

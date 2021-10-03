@@ -33,7 +33,7 @@ namespace Sandbox.Tools
 
 				modelEnt.RenderColor = Color.Random;
 
-				new Undo( "Color" ).SetClient( Owner.GetClientOwner() ).Add( new ColorUndo( modelEnt, oldcolor ) ).Finish( $"Color ({modelEnt.RenderColor.ToColor32()})" );
+				new Undo( "Color" ).SetClient( Owner.Client ).Add( new ColorUndo( modelEnt, oldcolor ) ).Finish( $"Color ({modelEnt.RenderColor.ToColor32()})" );
 
 				CreateHitEffects( tr.EndPos );
 			}

@@ -4,8 +4,8 @@ using System.Linq;
 
 partial class NepQBoxGame : Game
 {
-	[ConVar.Replicated("sv_day_night_cycle")]
-	public static bool DayNightCycle { get;set; } = true;
+	[ConVar.Replicated( "sv_day_night_cycle" )]
+	public static bool DayNightCycle { get; set; } = true;
 
 	[ConVar.Replicated( "sv_day_night_cycle_debug" )]
 	public static bool DayNightCycleDebug { get; set; } = false;
@@ -27,8 +27,8 @@ partial class NepQBoxGame : Game
 
 			LastDayNightCycle = DayNightCycle;
 
-			if (All.OfType<EnvironmentLightEntity>().Count() < 1)
-            {
+			if ( All.OfType<EnvironmentLightEntity>().Count() < 1 )
+			{
 				dnc = new DayNightController();
 				dnc.DawnColor = new Color32( 226, 79, 33 ).ToColor();
 				dnc.DawnSkyColor = new Color32( 226, 79, 33 ).ToColor();
@@ -80,17 +80,17 @@ partial class NepQBoxGame : Game
 		ent.SetModel( modelname );
 		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
 
-		if (ConsoleSystem.Caller.GetClientData<bool>("cl_print_modelname"))
-			PrintModelPath(To.Single(owner), modelname);
+		if ( ConsoleSystem.Caller.GetClientData<bool>( "cl_print_modelname" ) )
+			PrintModelPath( To.Single( owner ), modelname );
 
 		new Undo( "Prop" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Prop ({ent.GetModelName()})" );
 	}
 
 	[ClientRpc]
-	public static void PrintModelPath(string modelname)
-    {
-		Log.Info($"Spawn Prop: {modelname}");
-    }
+	public static void PrintModelPath( string modelname )
+	{
+		Log.Info( $"Spawn Prop: {modelname}" );
+	}
 
 	[ServerCmd( "spawn_entity" )]
 	public static void SpawnEntity( string entName )
@@ -114,7 +114,7 @@ partial class NepQBoxGame : Game
 		var ent = Library.Create<Entity>( entName );
 		if ( ent is BaseCarriable && owner.Inventory != null )
 		{
-			if ( owner.Inventory.Add( ent, true ))
+			if ( owner.Inventory.Add( ent, true ) )
 				return;
 		}
 
@@ -152,7 +152,7 @@ partial class NepQBoxGame : Game
 		if ( inventory == null )
 			return;
 
-		foreach (var wep in Library.GetAllAttributes<Weapon>() )
+		foreach ( var wep in Library.GetAllAttributes<Weapon>() )
 		{
 			if ( wep.Title.StartsWith( "Weapon" ) )
 				continue;
@@ -263,75 +263,75 @@ partial class NepQBoxGame : Game
 	/// <summary>
 	/// An entity has been killed. This is usually a pawn but anything can call it.
 	/// </summary>
-	public override void OnKilled(Entity pawn)
+	public override void OnKilled( Entity pawn )
 	{
 		Host.AssertServer();
 
-		var client = pawn.GetClientOwner();
-		if (client != null)
+		var client = pawn.Client;
+		if ( client != null )
 		{
-			OnKilled(client, pawn);
+			OnKilled( client, pawn );
 		}
 		else
-        {
-			OnEntKilled(pawn);
+		{
+			OnEntKilled( pawn );
 		}
 	}
 
 	/// <summary>
 	/// An entity, which is a pawn, and has a client, has been killed.
 	/// </summary>
-	public override void OnKilled(Client client, Entity pawn)
+	public override void OnKilled( Client client, Entity pawn )
 	{
 		Host.AssertServer();
 
-		Log.Info($"{client.Name} was killed");
+		Log.Info( $"{client.Name} was killed" );
 
-		if (pawn.LastAttacker != null)
+		if ( pawn.LastAttacker != null )
 		{
-			var attackerClient = pawn.LastAttacker.GetClientOwner();
+			var attackerClient = pawn.LastAttacker.Client;
 
-			if (attackerClient != null)
+			if ( attackerClient != null )
 			{
-				if (pawn.LastAttackerWeapon != null)
-					OnKilledMessage(attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name);
-                else
-                    OnKilledMessage(attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttacker.ClassInfo?.Name);
+				if ( pawn.LastAttackerWeapon != null )
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name );
+				else
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttacker.ClassInfo?.Name );
 			}
 			else
 			{
-				OnKilledMessage((ulong)pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.SteamId, client.Name, "killed");
+				OnKilledMessage( (ulong)pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.SteamId, client.Name, "killed" );
 			}
 		}
 		else
 		{
-			OnKilledMessage(0, "", client.SteamId, client.Name, "died");
+			OnKilledMessage( 0, "", client.SteamId, client.Name, "died" );
 		}
 	}
 
-	public void OnEntKilled(Entity ent)
+	public void OnEntKilled( Entity ent )
 	{
 		Host.AssertServer();
 
-		if (ent.LastAttacker != null)
+		if ( ent.LastAttacker != null )
 		{
-			var attackerClient = ent.LastAttacker.GetClientOwner();
+			var attackerClient = ent.LastAttacker.Client;
 
-			if (attackerClient != null)
+			if ( attackerClient != null )
 			{
-				if (ent.LastAttackerWeapon != null)
-					OnKilledMessage(attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name);
+				if ( ent.LastAttackerWeapon != null )
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name );
 				else
-					OnKilledMessage(attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name);
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name );
 			}
 			else
 			{
-				OnKilledMessage((ulong)ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed");
+				OnKilledMessage( (ulong)ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed" );
 			}
 		}
 		else
 		{
-			OnKilledMessage(0, "", ent.ClassInfo.Title, "died");
+			OnKilledMessage( 0, "", ent.ClassInfo.Title, "died" );
 		}
 	}
 
@@ -339,35 +339,35 @@ partial class NepQBoxGame : Game
 	/// Called clientside from OnKilled on the server to add kill messages to the killfeed. 
 	/// </summary>
 	[ClientRpc]
-	public override void OnKilledMessage(ulong leftid, string left, ulong rightid, string right, string method)
+	public override void OnKilledMessage( ulong leftid, string left, ulong rightid, string right, string method )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry(leftid, left, rightid, right, method);
+		kf?.AddEntry( leftid, left, rightid, right, method );
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage(ulong leftid, string left, string right, string method)
+	public virtual void OnKilledMessage( ulong leftid, string left, string right, string method )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry(leftid, left, right, method);
+		kf?.AddEntry( leftid, left, right, method );
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage(string left, ulong rightid, string right, string method)
+	public virtual void OnKilledMessage( string left, ulong rightid, string right, string method )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry(left, rightid, right, method);
+		kf?.AddEntry( left, rightid, right, method );
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage(string left, string right, string method)
+	public virtual void OnKilledMessage( string left, string right, string method )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry(left, right, method);
+		kf?.AddEntry( left, right, method );
 	}
 
 	public static void AddHint( string text )
