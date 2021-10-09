@@ -4,17 +4,17 @@ using Sandbox.UI;
 
 public class SniperScope : Panel
 {
-	Image Lens;
-	Image Scope;
+    Image Lens;
+    Image Scope;
 
-	Panel LeftBar;
-	Panel RightBar;
-	Panel TopBar;
-	Panel BottomBar;
+    Panel LeftBar;
+    Panel RightBar;
+    Panel TopBar;
+    Panel BottomBar;
 
 	public SniperScope( string lensTexture, string scopeTexture )
 	{
-		StyleSheet.Load( "UI/SniperScope.scss" );
+		StyleSheet.Load( "/UI/SniperScope.scss" );
 
 		LeftBar = Add.Panel( "leftBar" );
 		RightBar = Add.Panel( "rightBar" );
@@ -36,7 +36,10 @@ public class SniperScope : Panel
 		if ( player == null ) return;
 
 		var weapon = player.ActiveChild as WeaponSniper;
-		SetClass( "hideSniperScope", weapon != null ? weapon.ZoomLevel <= -1 : true );
+
+		// Show when zooming
+		Style.Opacity = (weapon == null || weapon.ZoomLevel <= -1) ? 0 : 1;
+		Style.Dirty();
 
 		Lens.PositionAtCrosshair();
 		Scope.PositionAtCrosshair();
