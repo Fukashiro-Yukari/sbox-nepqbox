@@ -163,7 +163,7 @@ public partial class PhysGun : Carriable
 			.HitLayer( CollisionLayer.Debris )
 			.Run();
 
-		if ( !tr.Hit || !tr.Entity.IsValid() || !tr.Body.IsValid() || tr.Entity.IsWorld ) return;
+		if ( !tr.Hit || !tr.Entity.IsValid() || !tr.Body.IsValid() || tr.Entity.IsWorld || tr.StartedSolid ) return;
 
 		var rootEnt = tr.Entity.Root;
 		var body = tr.Body;
