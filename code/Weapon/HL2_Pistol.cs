@@ -28,6 +28,6 @@ partial class HL2Pistol : Weapon
 	{
 		anim.SetParam( "holdtype", 1 );
 		anim.SetParam( "aimat_weight", 1.0f );
-		anim.SetParam( "holdtype_handedness", 0 );
+		anim.SetParam( "holdtype_handedness", 1 );
 	}
 }
