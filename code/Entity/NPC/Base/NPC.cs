@@ -9,6 +9,8 @@ public partial class NPC : AnimEntity
 	public virtual float SpawnHealth => 0;
 	public virtual bool HaveDress => true;
 	public virtual float MeleeStrikeTime => 1f;
+	public virtual bool UseWeapon => false;
+
 	public NavSteer Steer;
 	public ModelEntity Corpse;
 
@@ -17,10 +19,14 @@ public partial class NPC : AnimEntity
 	TimeSince timeSinceFall;
 	TimeSince timeSinceMeleeStrike;
 
+	[Predicted]
+	Entity LastActiveChild { get; set; }
+
 	public override void Spawn()
 	{
 		base.Spawn();
 
+		Inventory = new NPCInventory( this );
 		Health = SpawnHealth;
 		SetModel( ModelPath );
 		EyePos = Position + Vector3.Up * 64;
@@ -74,6 +80,29 @@ public partial class NPC : AnimEntity
 		}
 	}
 
+	public virtual void SimulateActiveChild( Entity child )
+	{
+		if ( LastActiveChild != child )
+		{
+			OnActiveChildChanged( LastActiveChild, child );
+			LastActiveChild = child;
+		}
+
+		if ( !LastActiveChild.IsValid() )
+			return;
+
+		if ( LastActiveChild.IsAuthority )
+		{
+			LastActiveChild.Simulate( Client );
+		}
+	}
+
+	public virtual void OnActiveChildChanged( Entity previous, Entity next )
+	{
+		previous?.ActiveEnd( this, previous.Owner != this );
+		next?.ActiveStart( this );
+	}
+
 	public virtual IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
 	{
 		bool InWater = Physics.TestPointContents( start, CollisionLayer.Water );
@@ -95,23 +124,23 @@ public partial class NPC : AnimEntity
 
 	public void MeleeStrike( float damage, float force )
 	{
-		SetAnimInt( "holdtype", 4 );
+		SetParam( "holdtype", 4 );
 
 		// random swing attack
 		if ( Rand.Int( 1 ) == 1 )
-			SetAnimFloat( "holdtype_attack", 2.0f );
+			SetParam( "holdtype_attack", 2.0f );
 		else
-			SetAnimFloat( "holdtype_attack", 1.0f );
+			SetParam( "holdtype_attack", 1.0f );
 
 		// random hand
 		if ( Rand.Int( 1 ) == 1 )
-			SetAnimInt( "holdtype_handedness", 1 );
+			SetParam( "holdtype_handedness", 1 );
 		else if ( Rand.Int( 2 ) == 1 )
-			SetAnimInt( "holdtype_handedness", 2 );
+			SetParam( "holdtype_handedness", 2 );
 		else
-			SetAnimInt( "holdtype_handedness", 0 );
+			SetParam( "holdtype_handedness", 0 );
 
-		SetAnimBool( "b_attack", true );
+		SetParam( "b_attack", true );
 		Velocity = 0;
 		var forward = EyeRot.Forward;
 		forward = forward.Normal;
@@ -208,7 +237,7 @@ public partial class NPC : AnimEntity
 									Position += Vector3.Up * 5;
 									Velocity = Velocity.WithZ( startz + flMul * flGroundFactor );
 
-									SetAnimBool( "b_jump", true );
+									SetParam( "b_jump", true );
 								}
 							}
 						}
@@ -230,6 +259,8 @@ public partial class NPC : AnimEntity
 		var animHelper = new CitizenAnimationHelper( this );
 
 		LookDir = Vector3.Lerp( LookDir, InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
+		EyeRot = Rotation;
+
 		animHelper.WithLookAt( EyePos + LookDir );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
@@ -255,8 +286,22 @@ public partial class NPC : AnimEntity
 		{
 			timeSinceMeleeStrike = 0f;
 
-			SetAnimInt( "holdtype", 0 );
+			SetParam( "holdtype", 0 );
 			DoMeleeStrike();
+		}
+	}
+
+	public virtual void NPCAnimator()
+	{
+		if ( ActiveChild is Carriable carry )
+		{
+			carry.NPCAnimator( this );
+		}
+		else
+		{
+			SetParam( "holdtype", 0 );
+			SetParam( "aimat_weight", 0.5f ); // old
+			SetParam( "aim_body_weight", 0.5f );
 		}
 	}
 
@@ -275,6 +320,8 @@ public partial class NPC : AnimEntity
 	{
 		MoveTick();
 		OnTick();
+		SimulateActiveChild( ActiveChild );
+		NPCAnimator();
 	}
 
 	protected virtual void Move( float timeDelta )
@@ -322,5 +369,25 @@ public partial class NPC : AnimEntity
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	public virtual void SetParam( string name, Vector3 val )
+	{
+		SetAnimVector( name, val );
+	}
+
+	public virtual void SetParam( string name, float val )
+	{
+		SetAnimFloat( name, val );
+	}
+
+	public virtual void SetParam( string name, bool val )
+	{
+		SetAnimBool( name, val );
+	}
+
+	public virtual void SetParam( string name, int val )
+	{
+		SetAnimInt( name, val );
 	}
 }

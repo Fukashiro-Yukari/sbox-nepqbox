@@ -768,6 +768,26 @@
 ]
 
 //
+// NPCWeaponTest
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_weapon_test : ""
+[
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// NPCWeaponTest2
+//
+@PointClass base(BaseProperties_sbox_nepqbox) = npc_weapon_test2 : ""
+[
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
 // NPCZombie
 //
 @PointClass base(BaseProperties_sbox_nepqbox) = npc_zombie : ""

@@ -305,6 +305,18 @@ public partial class Weapon : Carriable, IUse
 		return TimeSincePrimaryAttack > (1 / rate);
 	}
 
+	public virtual bool CanNPCPrimaryAttack()
+	{
+		var rate = PrimaryRate;
+
+		if ( !Automatic )
+			rate /= 3;
+
+		if ( rate <= 0 ) return true;
+
+		return TimeSincePrimaryAttack > (1 / rate);
+	}
+
 	public virtual bool CanSecondaryAttack()
 	{
 		if ( !Owner.IsValid() || !Input.Down( InputButton.Attack2 ) ) return false;
@@ -364,6 +376,39 @@ public partial class Weapon : Carriable, IUse
 		EmptyEffects( true );
 	}
 
+	public void DoNPCAttack()
+	{
+		if ( !TakeAmmo( ClipTake ) )
+		{
+			Reload();
+
+			return;
+		}
+
+		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+
+		NPCShootEffects();
+
+		if ( Silencer )
+		{
+			if ( !string.IsNullOrEmpty( SilencerShootSound ) )
+				PlaySound( SilencerShootSound );
+		}
+		else
+		{
+			if ( !string.IsNullOrEmpty( ShootSound ) )
+				PlaySound( ShootSound );
+		}
+
+		//
+		// Shoot the bullets
+		//
+		if ( NumBullets > 1 )
+			ShootBullets( NumBullets, Spread, Force, Damage, BulletSize );
+		else
+			ShootBullet( Spread, Force, Damage, BulletSize );
+	}
+
 	public virtual void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
@@ -376,6 +421,14 @@ public partial class Weapon : Carriable, IUse
 
 			return;
 		}
+
+		DoAttack();
+	}
+
+	public virtual void NPCAttackPrimary()
+	{
+		TimeSincePrimaryAttack = 0;
+		TimeSinceSecondaryAttack = 0;
 
 		DoAttack();
 	}
@@ -530,6 +583,21 @@ public partial class Weapon : Carriable, IUse
 			ViewModelEntity?.SetAnimBool( "fire", true );
 
 		CrosshairPanel?.CreateEvent( "fire" );
+	}
+
+	[ClientRpc]
+	protected virtual void NPCShootEffects()
+	{
+		Host.AssertClient();
+
+		if ( !Silencer )
+		{
+			if ( !string.IsNullOrEmpty( MuzzleFlashParticle ) && EffectEntity.GetAttachment( "muzzle" ) != null )
+				Particles.Create( MuzzleFlashParticle, EffectEntity, "muzzle" );
+
+			if ( !string.IsNullOrEmpty( BulletEjectParticle ) && EffectEntity.GetAttachment( "ejection_point" ) != null )
+				Particles.Create( BulletEjectParticle, EffectEntity, "ejection_point" );
+		}
 	}
 
 	[ClientRpc]

@@ -37,6 +37,11 @@ public partial class Carriable : BaseCarriable, IUse
 			}
 		}
 
+		if ( ent is NPC npc )
+		{
+			NPCAnimator( npc );
+		}
+
 		//
 		// If we're the local player (clientside) create viewmodel
 		// and any HUD elements that this weapon wants
@@ -76,6 +81,13 @@ public partial class Carriable : BaseCarriable, IUse
 		};
 
 		ViewModelEntity.SetModel( ViewModelPath );
+	}
+
+	public virtual void NPCAnimator( NPC npc )
+	{
+		npc.SetParam( "holdtype", 1 );
+		npc.SetParam( "aimat_weight", 1.0f );
+		npc.SetParam( "holdtype_handedness", 0 );
 	}
 
 	public virtual bool OnUse( Entity user )
