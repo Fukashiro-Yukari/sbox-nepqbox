@@ -16,7 +16,7 @@
 //
 // BalloonEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_balloon : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_balloon : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -33,15 +33,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // BouncyBallEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_bouncyball : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_bouncyball : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -58,15 +60,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // DirectionalGravity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = directional_gravity : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = directional_gravity : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -83,15 +87,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // DroneEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_drone : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_drone : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -108,9 +114,11 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
@@ -150,7 +158,7 @@
 //
 // NoiseTest
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = noise_test : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = noise_test : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -167,15 +175,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // ThrusterEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_thruster : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_thruster : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -192,15 +202,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // UnlimitedBouncyBallEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_unlimited_bouncyball : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_unlimited_bouncyball : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -217,15 +229,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // WheelEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_wheel : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_wheel : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -242,9 +256,11 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
@@ -690,7 +706,7 @@
 //
 // CarEntity
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_car : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_car : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -707,15 +723,17 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
 // MelonCar
 //
-@PointClass base(BaseProperties_sbox_nepqbox) model() = ent_meloncar : ""
+@PointClass base(BaseProperties_sbox_nepqbox) tags( Physics ) model() = ent_meloncar : ""
 [
 	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -732,9 +750,11 @@
 	]
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
 
-	output OnDamaged(void) : "Fired when the entity gets damaged"
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
 ]
 
 //
@@ -906,7 +926,7 @@ metadata
 //
 // Gamelib.DayNight.DayNightWindow
 //
-@SolidClass base(BaseProperties_sbox_nepqbox) 
+@SolidClass base(BaseProperties_sbox_nepqbox) tags( Dynamic ) 
 metadata
 {
 	entity_tool_name = "Window Brush"

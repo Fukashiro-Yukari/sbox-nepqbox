@@ -13,43 +13,22 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			{
 				var killWeapon = Library.Create<Entity>( method );
 
-				Weapon wep = killWeapon as Weapon;
-				Carriable car = killWeapon as Carriable;
-				CrossbowBolt cb = killWeapon as CrossbowBolt;
-
-				if ( wep != null )
-				{
-					if ( !string.IsNullOrEmpty( wep.Icon ) )
-					{
-						var panelBackground = new PanelBackground();
-						panelBackground.Texture = Texture.Load( wep.Icon );
-						e.Icon.Style.Background = panelBackground;
-						e.Icon.SetClass( "close", false );
-						killWeapon.Delete();
-
-						return true;
-					}
-				}
-				else if ( car != null )
+				if ( killWeapon is Carriable car )
 				{
 					if ( !string.IsNullOrEmpty( car.Icon ) )
 					{
-						var panelBackground = new PanelBackground();
-						panelBackground.Texture = Texture.Load( car.Icon );
-						e.Icon.Style.Background = panelBackground;
+						e.Icon.Style.BackgroundImage = Texture.Load( car.Icon );
 						e.Icon.SetClass( "close", false );
 						killWeapon.Delete();
 
 						return true;
 					}
 				}
-				else if ( cb != null )
+				else if ( killWeapon is CrossbowBolt cb )
 				{
 					if ( !string.IsNullOrEmpty( cb.Icon ) )
 					{
-						var panelBackground = new PanelBackground();
-						panelBackground.Texture = Texture.Load( cb.Icon );
-						e.Icon.Style.Background = panelBackground;
+						e.Icon.Style.BackgroundImage = Texture.Load( cb.Icon ); ;
 						e.Icon.SetClass( "close", false );
 						killWeapon.Delete();
 
