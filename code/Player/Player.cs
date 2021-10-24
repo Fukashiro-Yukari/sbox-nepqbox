@@ -24,6 +24,8 @@ partial class SandboxPlayer : Player
 	/// </summary>
 	public Clothing.Container Clothing = new();
 
+	public bool IsHeadShot { get; private set; }
+
 	/// <summary>
 	/// Default init
 	/// </summary>
@@ -88,6 +90,8 @@ partial class SandboxPlayer : Player
 
 	public override void OnKilled()
 	{
+		IsHeadShot = GetHitboxGroup( lastDamage.HitboxIndex ) == 1;
+
 		base.OnKilled();
 
 		if ( lastDamage.Flags.HasFlag( DamageFlags.Vehicle ) )

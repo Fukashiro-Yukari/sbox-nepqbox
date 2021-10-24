@@ -42,7 +42,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 		return false;
 	}
 
-	public override Panel AddEntry( ulong lsteamid, string left, ulong rsteamid, string right, string method )
+	public virtual Panel AddEntry( ulong lsteamid, string left, ulong rsteamid, string right, string method, bool isHeadShot = false )
 	{
 		Log.Info( $"{left} killed {right} using {method}" );
 
@@ -56,6 +56,9 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Method.Text = method;
 			e.Icon.SetClass( "close", true );
 		}
+
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
 		e.Right.SetClass( "me", rsteamid == (Local.SteamId) );

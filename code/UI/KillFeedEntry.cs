@@ -2,7 +2,6 @@
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System.Threading.Tasks;
 
 public partial class KillFeedEntry : Panel
 {
@@ -10,6 +9,7 @@ public partial class KillFeedEntry : Panel
 	public Label Right { get; internal set; }
 	public Label Method { get; internal set; }
 	public Panel Icon { get; internal set; }
+	public Panel HeadShotIcon { get; internal set; }
 
 	public RealTimeSince TimeSinceBorn = 0;
 
@@ -18,6 +18,7 @@ public partial class KillFeedEntry : Panel
 		Left = Add.Label( "", "left" );
 		Method = Add.Label( "", "method" );
 		Icon = Add.Panel( "icon" );
+		HeadShotIcon = Add.Panel( "icon" );
 		Right = Add.Label( "", "right" );
 	}
 

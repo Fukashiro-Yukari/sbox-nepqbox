@@ -285,7 +285,12 @@ partial class NepQBoxGame : Game
 	{
 		Host.AssertServer();
 
+		var isHeadShot = false;
+
 		Log.Info( $"{client.Name} was killed" );
+
+		if ( pawn is SandboxPlayer ply )
+			isHeadShot = ply.IsHeadShot;
 
 		if ( pawn.LastAttacker != null )
 		{
@@ -294,18 +299,18 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( pawn.LastAttackerWeapon != null )
-					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name );
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name, isHeadShot );
 				else
-					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttacker.ClassInfo?.Name );
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, client.SteamId, client.Name, pawn.LastAttacker.ClassInfo?.Name, isHeadShot );
 			}
 			else
 			{
-				OnKilledMessage( (ulong)pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.SteamId, client.Name, "killed" );
+				OnKilledMessage( (ulong)pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.SteamId, client.Name, "killed", isHeadShot );
 			}
 		}
 		else
 		{
-			OnKilledMessage( 0, "", client.SteamId, client.Name, "died" );
+			OnKilledMessage( 0, "", client.SteamId, client.Name, "died", isHeadShot );
 		}
 	}
 
@@ -339,11 +344,11 @@ partial class NepQBoxGame : Game
 	/// Called clientside from OnKilled on the server to add kill messages to the killfeed. 
 	/// </summary>
 	[ClientRpc]
-	public override void OnKilledMessage( ulong leftid, string left, ulong rightid, string right, string method )
+	public virtual void OnKilledMessage( ulong leftid, string left, ulong rightid, string right, string method, bool isHeadShot )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry( leftid, left, rightid, right, method );
+		kf?.AddEntry( leftid, left, rightid, right, method, isHeadShot );
 	}
 
 	[ClientRpc]
