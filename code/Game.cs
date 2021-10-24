@@ -390,6 +390,13 @@ partial class NepQBoxGame : Game
 		AddHintMessage( text );
 	}
 
+	public static void AddHint( Entity ent, string text )
+	{
+		if ( Host.IsClient ) return;
+
+		AddHintMessage( To.Single( ent ), text );
+	}
+
 	[ClientRpc]
 	public static void AddHintMessage( string text )
 	{

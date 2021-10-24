@@ -236,13 +236,13 @@ public partial class Weapon : Carriable, IUse
 			BurstsMode = !BurstsMode;
 
 			if ( BurstsMode )
-				NepQBoxGame.AddHint( "Switched to burst-fire mode" );
+				NepQBoxGame.AddHint( Owner, "Switched to burst-fire mode" );
 			else
 			{
 				if ( Automatic )
-					NepQBoxGame.AddHint( "Switched to automatic" );
+					NepQBoxGame.AddHint( Owner, "Switched to automatic" );
 				else
-					NepQBoxGame.AddHint( "Switched to semi-automatic" );
+					NepQBoxGame.AddHint( Owner, "Switched to semi-automatic" );
 			}
 		}
 
