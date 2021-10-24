@@ -66,7 +66,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 		return e;
 	}
 
-	public virtual Panel AddEntry( string left, ulong rsteamid, string right, string method )
+	public virtual Panel AddEntry( string left, ulong rsteamid, string right, string method, bool isHeadShot = false )
 	{
 		var e = Current.AddChild<KillFeedEntry>();
 
@@ -79,13 +79,16 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.SetClass( "close", !isHeadShot );
+
 		e.Right.Text = right;
 		e.Right.SetClass( "me", rsteamid == (Local.Client?.SteamId) );
 
 		return e;
 	}
 
-	public virtual Panel AddEntry( ulong lsteamid, string left, string right, string method )
+	public virtual Panel AddEntry( ulong lsteamid, string left, string right, string method, bool isHeadShot = false )
 	{
 		var e = Current.AddChild<KillFeedEntry>();
 
@@ -98,13 +101,16 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.SetClass( "close", !isHeadShot );
+
 		e.Right.Text = right;
 		e.Right.SetClass( "me", false );
 
 		return e;
 	}
 
-	public virtual Panel AddEntry( string left, string right, string method )
+	public virtual Panel AddEntry( string left, string right, string method, bool isHeadShot = false )
 	{
 		var e = Current.AddChild<KillFeedEntry>();
 
@@ -116,6 +122,9 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Method.Text = method;
 			e.Icon.SetClass( "close", true );
 		}
+
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
 		e.Right.SetClass( "me", false );

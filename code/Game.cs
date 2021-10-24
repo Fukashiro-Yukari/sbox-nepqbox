@@ -292,6 +292,9 @@ partial class NepQBoxGame : Game
 		if ( pawn is SandboxPlayer ply )
 			isHeadShot = ply.IsHeadShot;
 
+		if ( pawn is NPC npc )
+			isHeadShot = npc.IsHeadShot;
+
 		if ( pawn.LastAttacker != null )
 		{
 			var attackerClient = pawn.LastAttacker.Client;
@@ -318,6 +321,11 @@ partial class NepQBoxGame : Game
 	{
 		Host.AssertServer();
 
+		var isHeadShot = false;
+
+		if ( ent is NPC npc )
+			isHeadShot = npc.IsHeadShot;
+
 		if ( ent.LastAttacker != null )
 		{
 			var attackerClient = ent.LastAttacker.Client;
@@ -325,18 +333,18 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( ent.LastAttackerWeapon != null )
-					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name );
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name, isHeadShot );
 				else
-					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name );
+					OnKilledMessage( attackerClient.SteamId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name, isHeadShot );
 			}
 			else
 			{
-				OnKilledMessage( (ulong)ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed" );
+				OnKilledMessage( (ulong)ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed", isHeadShot );
 			}
 		}
 		else
 		{
-			OnKilledMessage( 0, "", ent.ClassInfo.Title, "died" );
+			OnKilledMessage( 0, "", ent.ClassInfo.Title, "died", isHeadShot );
 		}
 	}
 
@@ -352,27 +360,27 @@ partial class NepQBoxGame : Game
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage( ulong leftid, string left, string right, string method )
+	public virtual void OnKilledMessage( ulong leftid, string left, string right, string method, bool isHeadShot )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry( leftid, left, right, method );
+		kf?.AddEntry( leftid, left, right, method, isHeadShot );
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage( string left, ulong rightid, string right, string method )
+	public virtual void OnKilledMessage( string left, ulong rightid, string right, string method, bool isHeadShot )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry( left, rightid, right, method );
+		kf?.AddEntry( left, rightid, right, method, isHeadShot );
 	}
 
 	[ClientRpc]
-	public virtual void OnKilledMessage( string left, string right, string method )
+	public virtual void OnKilledMessage( string left, string right, string method, bool isHeadShot )
 	{
 		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
 
-		kf?.AddEntry( left, right, method );
+		kf?.AddEntry( left, right, method, isHeadShot );
 	}
 
 	public static void AddHint( string text )

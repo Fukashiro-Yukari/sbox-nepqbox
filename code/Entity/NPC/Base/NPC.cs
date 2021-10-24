@@ -13,6 +13,7 @@ public partial class NPC : AnimEntity
 
 	public NavSteer Steer;
 	public ModelEntity Corpse;
+	public bool IsHeadShot { get; private set; }
 
 	DamageInfo lastDamage;
 	TimeSince timeSinceJump;
@@ -42,6 +43,8 @@ public partial class NPC : AnimEntity
 
 	public override void OnKilled()
 	{
+		IsHeadShot = GetHitboxGroup( lastDamage.HitboxIndex ) == 1;
+
 		BecomeRagdoll( Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone( lastDamage.HitboxIndex ) );
 
 		base.OnKilled();
