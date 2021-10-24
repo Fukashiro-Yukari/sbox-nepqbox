@@ -202,7 +202,7 @@ namespace Sandbox
 			DoUndoAll( ConsoleSystem.Caller );
 		}
 
-		[AdminCmd( "admin_cleanup" )]
+		[ServerCmd( "admin_cleanup" )]
 		public static void AdminCleanupCmd()
 		{
 			var owner = ConsoleSystem.Caller.Pawn;
