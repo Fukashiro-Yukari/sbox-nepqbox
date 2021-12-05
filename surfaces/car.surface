@@ -2,7 +2,6 @@
 {
 	data = 
 	{
-		Base = ""
 		Friction = 0.075
 		Elasticity = 0.0
 		Density = 2000.0
@@ -34,5 +33,7 @@
 			FootLaunch = "footstep-metal"
 			FootLand = "footstep-metal"
 		}
+		basesurface = "surfaces/default.surface"
+		description = ""
 	}
 }
