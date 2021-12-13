@@ -42,14 +42,14 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 		return false;
 	}
 
-	public virtual Panel AddEntry( ulong lsteamid, string left, ulong rsteamid, string right, string method, bool isHeadShot = false )
+	public virtual Panel AddEntry( long lsteamid, string left, long rsteamid, string right, string method, bool isHeadShot = false )
 	{
 		Log.Info( $"{left} killed {right} using {method}" );
 
 		var e = Current.AddChild<KillFeedEntry>();
 
 		e.Left.Text = left;
-		e.Left.SetClass( "me", lsteamid == (Local.SteamId) );
+		e.Left.SetClass( "me", lsteamid == (Local.PlayerId) );
 
 		if ( !GetIcon( method, e ) )
 		{
@@ -61,12 +61,12 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
-		e.Right.SetClass( "me", rsteamid == (Local.SteamId) );
+		e.Right.SetClass( "me", rsteamid == (Local.PlayerId) );
 
 		return e;
 	}
 
-	public virtual Panel AddEntry( string left, ulong rsteamid, string right, string method, bool isHeadShot = false )
+	public virtual Panel AddEntry( string left, long rsteamid, string right, string method, bool isHeadShot = false )
 	{
 		var e = Current.AddChild<KillFeedEntry>();
 
@@ -83,17 +83,17 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
-		e.Right.SetClass( "me", rsteamid == (Local.Client?.SteamId) );
+		e.Right.SetClass( "me", rsteamid == (Local.Client?.PlayerId) );
 
 		return e;
 	}
 
-	public virtual Panel AddEntry( ulong lsteamid, string left, string right, string method, bool isHeadShot = false )
+	public virtual Panel AddEntry( long lsteamid, string left, string right, string method, bool isHeadShot = false )
 	{
 		var e = Current.AddChild<KillFeedEntry>();
 
 		e.Left.Text = left;
-		e.Left.SetClass( "me", lsteamid == (Local.Client?.SteamId) );
+		e.Left.SetClass( "me", lsteamid == (Local.Client?.PlayerId) );
 
 		if ( !GetIcon( method, e ) )
 		{

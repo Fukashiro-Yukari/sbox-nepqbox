@@ -32,7 +32,7 @@ public partial class Health : Panel
 		{
 			setAvatar = true;
 
-			Avatar = Add.Image( $"avatar:{Local.Client.SteamId}" );
+			Avatar = Add.Image( $"avatar:{Local.Client.PlayerId}" );
 			PlayerName.Text = Local.Client.Name;
 		}
 

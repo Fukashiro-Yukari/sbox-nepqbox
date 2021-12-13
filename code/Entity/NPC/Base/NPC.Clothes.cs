@@ -59,9 +59,10 @@ partial class NPC
 			jacket.Tags.Add( "clothes" );
 
 			var propInfo = jacket.GetModel().GetPropData();
-			if ( propInfo.ParentBodyGroupName != null )
+
+			if ( propInfo.ParentBodygroupName != null )
 			{
-				SetBodyGroup( propInfo.ParentBodyGroupName, propInfo.ParentBodyGroupValue );
+				SetBodyGroup( propInfo.ParentBodygroupName, propInfo.ParentBodygroupValue );
 			}
 			else
 			{
