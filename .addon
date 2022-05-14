@@ -9,7 +9,7 @@
   "ResourcePaths": null,
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "NepQBoxGame",
+  "RootNamespace": "",
   "Metadata": {
     "MapList": [],
     "PerMapRanking": false,
