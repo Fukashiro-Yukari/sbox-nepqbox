@@ -23,7 +23,8 @@ partial class NepQBoxGame : Game
 		if ( IsServer )
 		{
 			// Create the HUD
-			_ = new SandboxHud();
+			var hud = new SandboxHud();
+			hud.Parent = this; // Do not delete me on map cleanup
 
 			LastDayNightCycle = DayNightCycle;
 
@@ -181,10 +182,10 @@ partial class NepQBoxGame : Game
 		}
 	}
 
-	[ClientCmd( "debug_write" )]
-	public static void Write()
+	[AdminCmd( "respawn_entities" )]
+	public static void RespawnEntities()
 	{
-		ConsoleSystem.Run( "quit" );
+		EntityManager.CleanUpMap( EntityManager.DefaultCleanupFilter );
 	}
 
 	private EnvironmentLightEntity env;
