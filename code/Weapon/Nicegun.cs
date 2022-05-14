@@ -80,8 +80,8 @@ partial class NiceGun : WeaponShotgun
 		SandboxPlayer ply = Owner as SandboxPlayer;
 
 		if (IsClient) return;
-		if (ply.Vehicle != null)
-			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRotation.Backward * 5000.0f);
+		//if (ply.Vehicle != null)
+		//	ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRotation.Backward * 5000.0f);
 
 		Owner.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 5000.0f );
 	}

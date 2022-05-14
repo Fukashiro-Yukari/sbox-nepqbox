@@ -13,8 +13,8 @@ namespace Sandbox.CWEP
 			SandboxPlayer ply = Owner as SandboxPlayer;
 
 			if ( Parent.IsClient ) return;
-			if ( ply.Vehicle != null )
-				ply.Vehicle.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 1000.0f );
+			//if ( ply.Vehicle != null )
+			//	ply.Vehicle.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 1000.0f );
 
 			Owner.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 1000.0f );
 		}

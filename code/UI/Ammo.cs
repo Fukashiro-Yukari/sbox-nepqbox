@@ -26,7 +26,7 @@ public partial class Ammo : Panel
 	{
 		base.Tick();
 
-		var player = Local.Pawn;
+		var player = Local.Pawn as Player;
 
 		if ( player == null )
 		{
