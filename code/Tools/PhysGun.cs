@@ -181,9 +181,9 @@ public partial class PhysGun : Carriable
 			return;
 
 		//
-		// Don't move keyframed, unless it's a player
+		// Don't move keyframed, unless it's a player or npc
 		//
-		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not Player )
+		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not Player && rootEnt is not NPC )
 			return;
 
 		// Unfreeze
@@ -371,6 +371,14 @@ public partial class PhysGun : Carriable
 			{
 				controller.Velocity = velBody.Velocity;
 			}
+
+			return;
+		}
+
+		if ( GrabbedEntity is NPC npc )
+		{
+			npc.Velocity = velBody.Velocity;
+			npc.Position = holdBody.Position - heldPos;
 
 			return;
 		}
