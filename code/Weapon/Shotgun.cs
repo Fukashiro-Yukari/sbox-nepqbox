@@ -30,7 +30,7 @@ partial class Shotgun : Weapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 3 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

@@ -29,13 +29,13 @@ partial class AK47 : Weapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 2 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 2 ); // TODO this is shit
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 
 	public override void NPCAnimator( NPC npc )
 	{
 		npc.SetParam( "holdtype", 2 ); // TODO this is shit
-		npc.SetParam( "aimat_weight", 1.0f );
+		npc.SetParam( "aim_body_weight", 1.0f );
 	}
 }

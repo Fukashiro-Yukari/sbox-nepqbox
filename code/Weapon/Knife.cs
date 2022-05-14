@@ -36,10 +36,10 @@ partial class Knife : WeaponMelee
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 4 ); // TODO this is shit
-		anim.SetParam( "holdtype_attack", 2.0f );
-		anim.SetParam( "holdtype_handedness", 1 );
-		anim.SetParam( "holdtype_pose", 0f );
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 4 ); // TODO this is shit
+		anim.SetAnimParameter( "holdtype_attack", 2.0f );
+		anim.SetAnimParameter( "holdtype_handedness", 1 );
+		anim.SetAnimParameter( "holdtype_pose", 0f );
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

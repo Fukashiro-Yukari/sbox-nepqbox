@@ -55,7 +55,7 @@ public partial class WeaponGrenade : Weapon
 				StartThrow = 0f;
 				Pin = false;
 
-				(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+				(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 				ThrowEffects();
 			}
 			else
@@ -74,7 +74,7 @@ public partial class WeaponGrenade : Weapon
 	{
 		Host.AssertClient();
 
-		ViewModelEntity?.SetAnimBool( "fire", true );
+		ViewModelEntity?.SetAnimParameter( "fire", true );
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 

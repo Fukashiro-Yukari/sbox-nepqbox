@@ -25,16 +25,16 @@ namespace Sandbox.Tools
 				if ( Owner.Scale != scale )
 				{
 					Owner.Scale = scale;
-					Owner.PhysicsGroup?.RebuildMass();
-					Owner.PhysicsGroup?.Wake();
+					Owner.PhysicsGroup.RebuildMass();
+					Owner.PhysicsGroup.Sleeping = false;
 
 					foreach ( var child in Owner.Children )
 					{
 						if ( !child.IsValid() )
 							continue;
 
-						child.PhysicsGroup?.RebuildMass();
-						child.PhysicsGroup?.Wake();
+						child.PhysicsGroup.RebuildMass();
+						child.PhysicsGroup.Sleeping = false;
 					}
 				}
 

@@ -65,9 +65,9 @@ partial class NepQBoxGame : Game
 	[ServerCmd( "spawn" )]
 	public static void Spawn( string modelname )
 	{
-		var owner = ConsoleSystem.Caller?.Pawn;
+		var owner = ConsoleSystem.Caller.Pawn as Player;
 
-		if ( ConsoleSystem.Caller == null )
+		if ( owner == null )
 			return;
 
 		var tr = Trace.Ray( owner.EyePosition, owner.EyePosition + owner.EyeRotation.Forward * 500 )
@@ -185,7 +185,7 @@ partial class NepQBoxGame : Game
 	[AdminCmd( "respawn_entities" )]
 	public static void RespawnEntities()
 	{
-		EntityManager.CleanUpMap( DefaultCleanupFilter );
+		Map.Reset( DefaultCleanupFilter );
 	}
 
 	private EnvironmentLightEntity env;

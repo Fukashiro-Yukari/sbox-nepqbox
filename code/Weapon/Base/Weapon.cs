@@ -92,7 +92,7 @@ public partial class Weapon : Carriable, IUse
 			EnableSelfCollisions = false
 		};
 
-		PickupTrigger.PhysicsBody.EnableAutoSleeping = false;
+		PickupTrigger.PhysicsBody.AutoSleep = false;
 		AmmoClip = ClipSize;
 		
 		if ( ClipSize <= -1 )
@@ -169,7 +169,7 @@ public partial class Weapon : Carriable, IUse
 
 		DoBursts = false;
 
-		(Owner as AnimEntity)?.SetAnimBool( "b_reload", true );
+		(Owner as AnimEntity)?.SetAnimParameter( "b_reload", true );
 
 		if ( !string.IsNullOrEmpty( ReloadSound ) )
 			PlaySound( ReloadSound );
@@ -347,7 +347,7 @@ public partial class Weapon : Carriable, IUse
 			return;
 		}
 
-		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects
@@ -385,7 +385,7 @@ public partial class Weapon : Carriable, IUse
 			return;
 		}
 
-		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 
 		NPCShootEffects();
 
@@ -472,19 +472,19 @@ public partial class Weapon : Carriable, IUse
 	[ClientRpc]
 	public virtual void StartReloadEffects()
 	{
-		ViewModelEntity?.SetAnimBool( "reload", true );
+		ViewModelEntity?.SetAnimParameter( "reload", true );
 	}
 
 	[ClientRpc]
 	public virtual void ToggleSilencerEffects( bool on )
 	{
-		ViewModelEntity?.SetAnimBool( on ? "add_silencer" : "remove_silencer", true );
+		ViewModelEntity?.SetAnimParameter( on ? "add_silencer" : "remove_silencer", true );
 	}
 
 	[ClientRpc]
 	public virtual void SetSilencedEffects( bool on )
 	{
-		ViewModelEntity?.SetAnimBool( "silenced", on );
+		ViewModelEntity?.SetAnimParameter( "silenced", on );
 	}
 
 	public bool TakeAmmo( int amount )
@@ -541,9 +541,10 @@ public partial class Weapon : Carriable, IUse
 
 	public override bool IsUsable( Entity user )
 	{
+		var player = user as Player;
 		if ( Owner != null ) return false;
 
-		if ( user.Inventory is Inventory inventory )
+		if ( player.Inventory is Inventory inventory )
 		{
 			return inventory.CanAdd( this );
 		}
@@ -553,7 +554,6 @@ public partial class Weapon : Carriable, IUse
 
 	public void Remove()
 	{
-		PhysicsGroup?.Wake();
 		Delete();
 	}
 
@@ -578,9 +578,9 @@ public partial class Weapon : Carriable, IUse
 		}
 
 		if ( BurstsMode && !string.IsNullOrEmpty( BurstAnimation ) )
-			ViewModelEntity?.SetAnimBool( BurstAnimation, true );
+			ViewModelEntity?.SetAnimParameter( BurstAnimation, true );
 		else
-			ViewModelEntity?.SetAnimBool( "fire", true );
+			ViewModelEntity?.SetAnimParameter( "fire", true );
 
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
@@ -607,11 +607,11 @@ public partial class Weapon : Carriable, IUse
 		{
 			if ( AmmoClip > 0 ) return;
 
-			ViewModelEntity?.SetAnimBool( "empty", true );
+			ViewModelEntity?.SetAnimParameter( "empty", true );
 		}
 		else
 		{
-			ViewModelEntity?.SetAnimBool( "empty", false );
+			ViewModelEntity?.SetAnimParameter( "empty", false );
 		}
 	}
 

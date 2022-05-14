@@ -8,16 +8,8 @@ partial class SandboxPlayer : Player
 
 	private DamageInfo lastDamage;
 
-	[Net] public PawnController VehicleController { get; set; }
-	[Net] public PawnAnimator VehicleAnimator { get; set; }
-	[Net, Predicted] public ICamera VehicleCamera { get; set; }
-	[Net, Predicted] public Entity Vehicle { get; set; }
-	[Net, Predicted] public ICamera MainCamera { get; set; }
-
-	[ConVar.Replicated("sv_fall_damage")]
+	[ConVar.Replicated( "sv_fall_damage" )]
 	public static bool HavaFallDamage { get; set; } = false;
-
-	public ICamera LastCamera { get; set; }
 
 	/// <summary>
 	/// The clothing container is what dresses the citizen
@@ -43,23 +35,12 @@ partial class SandboxPlayer : Player
 		Clothing.LoadFromClient( cl );
 	}
 
-	public override void Spawn()
-	{
-		MainCamera = new FirstPersonCamera();
-		LastCamera = MainCamera;
-
-		base.Spawn();
-	}
-
 	public override void Respawn()
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
-
-		MainCamera = LastCamera;
-		Camera = MainCamera;
 
 		if ( DevController is NoclipController )
 		{
@@ -85,6 +66,8 @@ partial class SandboxPlayer : Player
 		Inventory.Add( new Flashlight() );
 		Inventory.Add( new Fists() );
 
+		CameraMode = new FirstPersonCamera();
+
 		base.Respawn();
 	}
 
@@ -101,19 +84,17 @@ partial class SandboxPlayer : Player
 			PlaySound( "kersplat" );
 		}
 
-		VehicleController = null;
-		VehicleAnimator = null;
-		VehicleCamera = null;
-		Vehicle = null;
-
 		BecomeRagdollOnClient( Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone( lastDamage.HitboxIndex ) );
-		LastCamera = MainCamera;
-		MainCamera = new SpectateRagdollCamera();
-		Camera = MainCamera;
+
 		Controller = null;
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
+
+		foreach ( var child in Children )
+		{
+			child.EnableDrawing = false;
+		}
 
 		Inventory.DropActive();
 		Inventory.DeleteContents();
@@ -127,8 +108,6 @@ partial class SandboxPlayer : Player
 		}
 
 		lastDamage = info;
-
-		TookDamage( lastDamage.Flags, lastDamage.Position, lastDamage.Force );
 
 		base.TakeDamage( info );
 
@@ -150,11 +129,6 @@ partial class SandboxPlayer : Player
 	}
 
 	[ClientRpc]
-	public void TookDamage( DamageFlags damageFlags, Vector3 forcePos, Vector3 force )
-	{
-	}
-
-	[ClientRpc]
 	public void DidDamage( Vector3 pos, float amount, float healthinv, bool isdeath )
 	{
 		Sound.FromScreen( "dm.ui_attacker" )
@@ -173,24 +147,9 @@ partial class SandboxPlayer : Player
 
 	public override PawnController GetActiveController()
 	{
-		if ( VehicleController != null ) return VehicleController;
 		if ( DevController != null ) return DevController;
 
 		return base.GetActiveController();
-	}
-
-	public override PawnAnimator GetActiveAnimator()
-	{
-		if ( VehicleAnimator != null ) return VehicleAnimator;
-
-		return base.GetActiveAnimator();
-	}
-
-	public ICamera GetActiveCamera()
-	{
-		if ( VehicleCamera != null ) return VehicleCamera;
-
-		return MainCamera;
 	}
 
 	public bool IsOnGround()
@@ -227,11 +186,6 @@ partial class SandboxPlayer : Player
 			Clothing.DressEntity( this );
 		}
 
-		if ( VehicleController != null && DevController is NoclipController )
-		{
-			DevController = null;
-		}
-
 		var controller = GetActiveController();
 		if ( controller != null )
 			EnableSolidCollisions = !controller.HasTag( "noclip" );
@@ -241,17 +195,15 @@ partial class SandboxPlayer : Player
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
-			if ( MainCamera is not FirstPersonCamera )
+			if ( CameraMode is ThirdPersonCamera )
 			{
-				MainCamera = new FirstPersonCamera();
+				CameraMode = new FirstPersonCamera();
 			}
 			else
 			{
-				MainCamera = new ThirdPersonCamera();
+				CameraMode = new ThirdPersonCamera();
 			}
 		}
-
-		Camera = GetActiveCamera();
 
 		if ( Input.Pressed( InputButton.Drop ) )
 		{
@@ -311,7 +263,7 @@ partial class SandboxPlayer : Player
 	[ServerCmd( "inventory_current" )]
 	public static void SetInventoryCurrent( string entName )
 	{
-		var target = ConsoleSystem.Caller.Pawn;
+		var target = ConsoleSystem.Caller.Pawn as Player;
 		if ( target == null ) return;
 
 		var inventory = target.Inventory;
@@ -332,15 +284,4 @@ partial class SandboxPlayer : Player
 			break;
 		}
 	}
-
-	// TODO
-
-	//public override bool HasPermission( string mode )
-	//{
-	//	if ( mode == "noclip" ) return true;
-	//	if ( mode == "devcam" ) return true;
-	//	if ( mode == "suicide" ) return true;
-	//
-	//	return base.HasPermission( mode );
-	//	}
 }

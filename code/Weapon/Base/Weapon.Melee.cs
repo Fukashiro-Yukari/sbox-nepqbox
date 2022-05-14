@@ -38,7 +38,7 @@ public partial class WeaponMelee : Weapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 
 		var forward = Owner.EyeRotation.Forward;
 		forward = forward.Normal;
@@ -171,7 +171,7 @@ public partial class WeaponMelee : Weapon
 				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
 		}
 
-		ViewModelEntity?.SetAnimBool( animation, true );
+		ViewModelEntity?.SetAnimParameter( animation, true );
 	}
 
 	[ClientRpc]
@@ -185,7 +185,7 @@ public partial class WeaponMelee : Weapon
 				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
 		}
 
-		ViewModelEntity?.SetAnimBool( animation, true );
+		ViewModelEntity?.SetAnimParameter( animation, true );
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 }

@@ -48,7 +48,7 @@ partial class PumpShotgun : WeaponShotgun
 			}
 		}
 
-		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects
@@ -69,7 +69,7 @@ partial class PumpShotgun : WeaponShotgun
 
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
 
-		ViewModelEntity?.SetAnimBool( "fire_double", true );
+		ViewModelEntity?.SetAnimParameter( "fire_double", true );
 		CrosshairPanel?.CreateEvent( "fire" );
 
 		if ( IsLocalPawn )

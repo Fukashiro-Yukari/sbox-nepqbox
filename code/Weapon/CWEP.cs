@@ -218,7 +218,7 @@ public partial class CWEPW : Weapon
 
 		if ( CurrentFireMode != null && !CurrentFireMode.PrimaryCanUse ) return;
 
-		(Owner as AnimEntity)?.SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
 
 		if ( CurrentFireMode != null && CurrentFireMode.PrimaryShootEffects )
 		{
@@ -236,7 +236,7 @@ public partial class CWEPW : Weapon
 
 		if ( CurrentFireMode != null && !CurrentFireMode.SecondaryCanUse ) return;
 
-		(Owner as AnimEntity)?.SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
 
 		if ( CurrentFireMode != null && CurrentFireMode.SecondaryShootEffects )
 		{
@@ -255,7 +255,7 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
-		ViewModelEntity?.SetAnimBool( "fire", true );
+		ViewModelEntity?.SetAnimParameter( "fire", true );
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 
@@ -267,7 +267,7 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
-		ViewModelEntity?.SetAnimBool( "fire_double", true );
+		ViewModelEntity?.SetAnimParameter( "fire_double", true );
 		CrosshairPanel?.CreateEvent( "fire" );
 	}
 
@@ -276,7 +276,7 @@ public partial class CWEPW : Weapon
 	{
 		Host.AssertClient();
 
-		ViewModelEntity?.SetAnimBool( "fire_double", true );
+		ViewModelEntity?.SetAnimParameter( "fire_double", true );
 	}
 
 	public override void OnReloadFinish()
@@ -294,7 +294,7 @@ public partial class CWEPW : Weapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		(Owner as AnimEntity)?.SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
 
 		ChangeFireModeEffects();
 
@@ -319,13 +319,13 @@ public partial class CWEPW : Weapon
 	[ClientRpc]
 	protected virtual void FinishReload()
 	{
-		ViewModelEntity?.SetAnimBool( "reload_finished", true );
+		ViewModelEntity?.SetAnimParameter( "reload_finished", true );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 3 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 
 	private void Activate()

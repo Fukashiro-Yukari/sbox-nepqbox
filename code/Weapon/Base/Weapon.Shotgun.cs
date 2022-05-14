@@ -36,7 +36,7 @@ public partial class WeaponShotgun : Weapon
 	[ClientRpc]
 	protected virtual void FinishReload()
 	{
-		ViewModelEntity?.SetAnimBool( "reload_finished", true );
+		ViewModelEntity?.SetAnimParameter( "reload_finished", true );
 	}
 
 	[ClientRpc]
@@ -46,7 +46,7 @@ public partial class WeaponShotgun : Weapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 3 ); // TODO this is shit
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

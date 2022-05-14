@@ -57,12 +57,12 @@ public partial class Carriable : BaseCarriable, IUse
 			if ( this is Weapon wep )
 			{
 				if ( wep.AmmoClip <= 0 && !string.IsNullOrEmpty( DrawEmptyAnim ) )
-					ViewModelEntity?.SetAnimBool( DrawEmptyAnim, true );
+					ViewModelEntity?.SetAnimParameter( DrawEmptyAnim, true );
 				else if ( !string.IsNullOrEmpty( DrawAnim ) )
-					ViewModelEntity?.SetAnimBool( DrawAnim, true );
+					ViewModelEntity?.SetAnimParameter( DrawAnim, true );
 			}
 			else if ( !string.IsNullOrEmpty( DrawAnim ) )
-				ViewModelEntity?.SetAnimBool( DrawAnim, true );
+				ViewModelEntity?.SetAnimParameter( DrawAnim, true );
 		}
 	}
 
@@ -86,7 +86,7 @@ public partial class Carriable : BaseCarriable, IUse
 	public virtual void NPCAnimator( NPC npc )
 	{
 		npc.SetParam( "holdtype", 1 );
-		npc.SetParam( "aimat_weight", 1.0f );
+		npc.SetParam( "aim_body_weight", 1.0f );
 		npc.SetParam( "holdtype_handedness", 0 );
 	}
 

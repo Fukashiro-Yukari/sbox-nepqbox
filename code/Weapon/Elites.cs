@@ -32,10 +32,10 @@ partial class Elites : WeaponDouble
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetParam( "holdtype", 4 ); // TODO this is shit
-		anim.SetParam( "holdtype_pose", 1f );
-		anim.SetParam( "holdtype_pose_hand", 0f );
-		anim.SetParam( "holdtype_handedness", 0 );
-		anim.SetParam( "aimat_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype", 4 ); // TODO this is shit
+		anim.SetAnimParameter( "holdtype_pose", 1f );
+		anim.SetAnimParameter( "holdtype_pose_hand", 0f );
+		anim.SetAnimParameter( "holdtype_handedness", 0 );
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

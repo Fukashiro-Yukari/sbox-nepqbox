@@ -53,16 +53,18 @@ public partial class InventoryBar : Panel
 			return;
 		}
 
-		if ( LastActiveChild != Local.Pawn.ActiveChild )
-		{
-			LastActiveChild = Local.Pawn.ActiveChild;
+		var player = Local.Pawn as Player;
 
-			if ( Local.Pawn.ActiveChild != SelectedWeapon )
-				SelectedWeapon = Local.Pawn.ActiveChild as Weapon;
+		if ( LastActiveChild != player.ActiveChild )
+		{
+			LastActiveChild = player.ActiveChild;
+
+			if ( player.ActiveChild != SelectedWeapon )
+				SelectedWeapon = player.ActiveChild as Weapon;
 		}
 
 		if ( SelectedWeapon == null )
-			SelectedWeapon = Local.Pawn.ActiveChild as Weapon;
+			SelectedWeapon = player.ActiveChild as Weapon;
 
 		if ( ply.ActiveChild is PhysGun physgun && physgun.BeamActive ) return;
 

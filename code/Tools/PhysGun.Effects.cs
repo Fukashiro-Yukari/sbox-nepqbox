@@ -49,9 +49,9 @@ public partial class PhysGun
 
 	protected virtual void UpdateEffects()
 	{
-		var owner = Owner;
+		var owner = Owner as Player;
 
-		if ( owner == null || !BeamActive || !IsActiveChild() )
+		if ( owner == null || !BeamActive || owner.ActiveChild != this )
 		{
 			KillEffects();
 			return;

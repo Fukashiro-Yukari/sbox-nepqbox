@@ -31,7 +31,7 @@ public partial class WeaponDouble : Weapon
 				_ = new Sandbox.ScreenShake.Perlin( ScreenShake.Length, ScreenShake.Speed, ScreenShake.Size, ScreenShake.Rotation );
 		}
 
-		ViewModelEntity?.SetAnimBool( IsSecondary ? FireAnimLeftName : FireAnimRightName, true );
+		ViewModelEntity?.SetAnimParameter( IsSecondary ? FireAnimLeftName : FireAnimRightName, true );
 		CrosshairPanel?.CreateEvent( "fire" );
 
 		IsSecondary = !IsSecondary;
@@ -44,11 +44,11 @@ public partial class WeaponDouble : Weapon
 		{
 			if ( AmmoClip > 1 ) return;
 
-			ViewModelEntity?.SetAnimBool( "empty", true );
+			ViewModelEntity?.SetAnimParameter( "empty", true );
 		}
 		else
 		{
-			ViewModelEntity?.SetAnimBool( "empty", false );
+			ViewModelEntity?.SetAnimParameter( "empty", false );
 		}
 	}
 

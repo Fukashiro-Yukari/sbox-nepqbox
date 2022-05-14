@@ -47,7 +47,7 @@
 				if ( !tr.Entity.IsValid() )
 					return;
 
-				var attached = !tr.Entity.IsWorld && tr.Body.IsValid() && tr.Body.PhysicsGroup != null && tr.Body.Entity.IsValid();
+				var attached = !tr.Entity.IsWorld && tr.Body.IsValid() && tr.Body.PhysicsGroup != null && tr.Body.GetEntity().IsValid();
 
 				if ( attached && tr.Entity is not Prop )
 					return;
@@ -70,13 +70,7 @@
 				ent.SetModel( "models/citizen_props/wheel01.vmdl" );
 
 				ent.PhysicsBody.Mass = tr.Body.Mass;
-
-				ent.Joint = PhysicsJoint.Revolute
-					.From( ent.PhysicsBody )
-					.To( tr.Body )
-					.WithPivot( tr.EndPos )
-					.WithBasis( Rotation.LookAt( tr.Normal ) * Rotation.From( new Angles( 90, 0, 0 ) ) )
-					.Create();
+				ent.Joint = PhysicsJoint.CreateHinge( ent.PhysicsBody, tr.Body, tr.EndPos, tr.Normal );
 
 				new Undo( "Wheel" ).SetClient( Owner.Client ).AddEntity( ent ).Finish();
 			}

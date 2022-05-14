@@ -303,7 +303,7 @@ public partial class NPC : AnimEntity
 		else
 		{
 			SetParam( "holdtype", 0 );
-			SetParam( "aimat_weight", 0.5f ); // old
+			SetParam( "aim_body_weight", 0.5f ); // old
 			SetParam( "aim_body_weight", 0.5f );
 		}
 	}
@@ -386,7 +386,7 @@ public partial class NPC : AnimEntity
 
 	public virtual void SetParam( string name, bool val )
 	{
-		SetAnimBool( name, val );
+		SetAnimParameter( name, val );
 	}
 
 	public virtual void SetParam( string name, int val )

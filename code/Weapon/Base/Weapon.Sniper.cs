@@ -45,7 +45,7 @@ public partial class WeaponSniper : Weapon
 			return;
 		}
 
-		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
+		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects

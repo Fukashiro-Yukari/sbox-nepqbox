@@ -25,7 +25,7 @@ struct CarWheel
 
 		var tr = Trace.Ray( wheelAttachPos, wheelExtend )
 			.Ignore( parent )
-			.Ignore( parent.driver )
+			.Ignore( parent.Driver )
 			.Run();
 
 		wheel = length * tr.Fraction;
