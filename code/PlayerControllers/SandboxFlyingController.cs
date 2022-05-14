@@ -34,7 +34,7 @@
 
 			Velocity = Velocity.Approach( 0, Velocity.Length * Time.Delta * 5.0f );
 
-			EyeRot = Input.Rotation;
+			EyeRotation = Input.Rotation;
 			WishVelocity = Velocity;
 			GroundEntity = null;
 			BaseVelocity = Vector3.Zero;

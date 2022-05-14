@@ -131,7 +131,7 @@ public class CarCamera : Camera
 		var pawn = Local.Pawn;
 		if ( pawn == null ) return;
 
-		Position = pawn.EyePos;
+		Position = pawn.EyePosition;
 		Rotation = pawn.Rotation * (orbitYawRot * orbitPitchRot);
 
 		Viewer = pawn;

@@ -40,13 +40,13 @@ public partial class WeaponMelee : Weapon
 
 		(Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
-		var forward = Owner.EyeRot.Forward;
+		var forward = Owner.EyeRotation.Forward;
 		forward = forward.Normal;
 
 		bool hit = false;
 
 		int index = 0;
-		foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * meleeDistance, ImpactSize ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * meleeDistance, ImpactSize ) )
 		{
 			if ( index > 0 ) break;
 

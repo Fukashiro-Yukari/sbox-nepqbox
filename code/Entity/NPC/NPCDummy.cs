@@ -8,7 +8,7 @@ public partial class NPCDummy : NPC
 	[Event.Frame]
 	public void OnFrame()
 	{
-		DebugOverlay.Text( EyePos, Health.ToString() );
+		DebugOverlay.Text( EyePosition, Health.ToString() );
 	}
 
 	public override void TakeDamage( DamageInfo info )

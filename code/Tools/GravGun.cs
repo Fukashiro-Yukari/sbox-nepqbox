@@ -53,9 +53,9 @@ public partial class GravGun : Carriable
 
 		using ( Prediction.Off() )
 		{
-			var eyePos = owner.EyePos;
-			var eyeRot = owner.EyeRot;
-			var eyeDir = owner.EyeRot.Forward;
+			var EyePosition = owner.EyePosition;
+			var EyeRotation = owner.EyeRotation;
+			var eyeDir = owner.EyeRotation.Forward;
 
 			if ( HeldBody.IsValid() && HeldBody.PhysicsGroup != null )
 			{
@@ -87,7 +87,7 @@ public partial class GravGun : Carriable
 				}
 				else
 				{
-					GrabMove( eyePos, eyeDir, eyeRot );
+					GrabMove( EyePosition, eyeDir, EyeRotation );
 				}
 
 				return;
@@ -96,7 +96,7 @@ public partial class GravGun : Carriable
 			if ( timeSinceDrop < DropCooldown )
 				return;
 
-			var tr = Trace.Ray( eyePos, eyePos + eyeDir * MaxPullDistance )
+			var tr = Trace.Ray( EyePosition, EyePosition + eyeDir * MaxPullDistance )
 				.UseHitboxes()
 				.Ignore( owner, false )
 				.Radius( 2.0f )
@@ -134,12 +134,12 @@ public partial class GravGun : Carriable
 						return;
 				}
 
-				var attachPos = body.FindClosestPoint(eyePos);
+				var attachPos = body.FindClosestPoint(EyePosition);
 
-				if (eyePos.Distance(attachPos) <= AttachDistance)
+				if (EyePosition.Distance(attachPos) <= AttachDistance)
 				{
 					var holdDistance = HoldDistance + attachPos.Distance(body.MassCenter);
-					GrabStart(modelEnt, body, eyePos + eyeDir * holdDistance, eyeRot);
+					GrabStart(modelEnt, body, EyePosition + eyeDir * holdDistance, EyeRotation);
 				}
 				else if ( !IsBodyGrabbed( body ) )
 				{

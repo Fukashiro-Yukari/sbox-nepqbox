@@ -12,8 +12,8 @@ namespace Sandbox.Tools
 
 			using ( Prediction.Off() )
 			{
-				var startPos = Owner.EyePos;
-				var dir = Owner.EyeRot.Forward;
+				var startPos = Owner.EyePosition;
+				var dir = Owner.EyeRotation.Forward;
 				int resizeDir = 0;
 				var reset = false;
 

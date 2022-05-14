@@ -11,10 +11,10 @@ namespace Sandbox.CWEP
 				using ( Prediction.Off() )
 				{
 					var bolt = new CrossbowBolt();
-					bolt.Position = Owner.EyePos;
-					bolt.Rotation = Owner.EyeRot;
+					bolt.Position = Owner.EyePosition;
+					bolt.Rotation = Owner.EyeRotation;
 					bolt.Owner = Owner;
-					bolt.Velocity = Owner.EyeRot.Forward * 100;
+					bolt.Velocity = Owner.EyeRotation.Forward * 100;
 				}
 		}
 	}

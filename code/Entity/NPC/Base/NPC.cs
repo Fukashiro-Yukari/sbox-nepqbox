@@ -30,7 +30,7 @@ public partial class NPC : AnimEntity
 		Inventory = new NPCInventory( this );
 		Health = SpawnHealth;
 		SetModel( ModelPath );
-		EyePos = Position + Vector3.Up * 64;
+		EyePosition = Position + Vector3.Up * 64;
 		CollisionGroup = CollisionGroup.Player;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 		Tags.Add( "npc" );
@@ -145,7 +145,7 @@ public partial class NPC : AnimEntity
 
 		SetParam( "b_attack", true );
 		Velocity = 0;
-		var forward = EyeRot.Forward;
+		var forward = EyeRotation.Forward;
 		forward = forward.Normal;
 
 		var overlaps = Physics.GetEntitiesInSphere( Position, 80 );
@@ -163,7 +163,7 @@ public partial class NPC : AnimEntity
 					overlap.TakeDamage( damageInfo );
 
 					// blood particles
-					foreach ( var tr in TraceBullet( EyePos, EyePos, 100f ) )
+					foreach ( var tr in TraceBullet( EyePosition, EyePosition, 100f ) )
 					{
 						tr.Surface.DoBulletImpact( tr );
 					}
@@ -262,9 +262,9 @@ public partial class NPC : AnimEntity
 		var animHelper = new CitizenAnimationHelper( this );
 
 		LookDir = Vector3.Lerp( LookDir, InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
-		EyeRot = Rotation;
+		EyeRotation = Rotation;
 
-		animHelper.WithLookAt( EyePos + LookDir );
+		animHelper.WithLookAt( EyePosition + LookDir );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
 

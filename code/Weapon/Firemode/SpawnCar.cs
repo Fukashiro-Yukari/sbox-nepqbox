@@ -18,10 +18,10 @@ namespace Sandbox.CWEP
 				using ( Prediction.Off() )
 				{
 					LastCar = new CarEntity();
-					LastCar.Position = Owner.EyePos + Owner.EyeRot.Forward * 80;
-					LastCar.Rotation = Owner.EyeRot;
+					LastCar.Position = Owner.EyePosition + Owner.EyeRotation.Forward * 80;
+					LastCar.Rotation = Owner.EyeRotation;
 					LastCar.Owner = Owner;
-					LastCar.Velocity = Owner.EyeRot.Forward * (super ? 50000 : 1000);
+					LastCar.Velocity = Owner.EyeRotation.Forward * (super ? 50000 : 1000);
 					LastCar.DeleteAsync( 5 );
 				}
 

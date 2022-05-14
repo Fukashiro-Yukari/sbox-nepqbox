@@ -38,9 +38,9 @@ partial class NiceGun : WeaponShotgun
 
 		if (IsClient) return;
 		if (ply.Vehicle != null)
-			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRot.Backward * 500.0f);
+			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRotation.Backward * 500.0f);
 
-        Owner.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 500.0f );
+        Owner.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 500.0f );
 	}
 
 	public override void AttackSecondary()
@@ -81,9 +81,9 @@ partial class NiceGun : WeaponShotgun
 
 		if (IsClient) return;
 		if (ply.Vehicle != null)
-			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRot.Backward * 5000.0f);
+			ply.Vehicle.ApplyAbsoluteImpulse(Owner.EyeRotation.Backward * 5000.0f);
 
-		Owner.ApplyAbsoluteImpulse( Owner.EyeRot.Backward * 5000.0f );
+		Owner.ApplyAbsoluteImpulse( Owner.EyeRotation.Backward * 5000.0f );
 	}
 
 	[ClientRpc]

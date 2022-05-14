@@ -18,10 +18,10 @@ namespace Sandbox.CWEP
 
 						var rand = amount != 1 ? amount * 5 : amount;
 
-						ent.Position = Owner.EyePos + Owner.EyeRot.Forward * 80 + Owner.EyeRot.Left * Rand.Int( -rand, rand ) + Owner.EyeRot.Down * Rand.Int( -rand, rand );
-						ent.Rotation = Owner.EyeRot;
+						ent.Position = Owner.EyePosition + Owner.EyeRotation.Forward * 80 + Owner.EyeRotation.Left * Rand.Int( -rand, rand ) + Owner.EyeRotation.Down * Rand.Int( -rand, rand );
+						ent.Rotation = Owner.EyeRotation;
 						ent.Owner = Owner;
-						ent.Velocity = Owner.EyeRot.Forward * 50000;
+						ent.Velocity = Owner.EyeRotation.Forward * 50000;
 					}
 				}
 		}

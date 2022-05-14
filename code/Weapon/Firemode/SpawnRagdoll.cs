@@ -14,10 +14,10 @@ namespace Sandbox.CWEP
 				{
 					var ent = new Prop();
 					ent.SetModel( "models/citizen/citizen" );
-					ent.Position = Owner.EyePos + Owner.EyeRot.Forward * 80;
-					ent.Rotation = Owner.EyeRot;
+					ent.Position = Owner.EyePosition + Owner.EyeRotation.Forward * 80;
+					ent.Rotation = Owner.EyeRotation;
 					ent.Owner = Owner;
-					ent.Velocity = Owner.EyeRot.Forward * 50000;
+					ent.Velocity = Owner.EyeRotation.Forward * 50000;
 					ent.DeleteAsync( 5 );
 				}
 		}

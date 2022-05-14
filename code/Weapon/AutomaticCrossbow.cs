@@ -33,9 +33,9 @@ partial class AutomaticCrossbow : WeaponSniper
 		{
 			var bolt = new CrossbowBolt();
 			bolt.Position = pos;
-			bolt.Rotation = Owner.EyeRot;
+			bolt.Rotation = Owner.EyeRotation;
 			bolt.Owner = Owner;
-			bolt.Velocity = Owner.EyeRot.Forward * 100;
+			bolt.Velocity = Owner.EyeRotation.Forward * 100;
 
 			return bolt;
 		}

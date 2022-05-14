@@ -14,10 +14,10 @@ namespace Sandbox.UI
 		{
 			if ( !player.IsValid() ) return;
 
-			var eyePos = player.EyePos;
-			var eyeRot = player.EyeRot;
+			var EyePosition = player.EyePosition;
+			var EyeRotation = player.EyeRotation;
 
-			var tr = Trace.Ray( eyePos, eyePos + eyeRot.Forward * 2000 )
+			var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 2000 )
 							.Size( 1.0f )
 							.Ignore( player )
 							.UseHitboxes()

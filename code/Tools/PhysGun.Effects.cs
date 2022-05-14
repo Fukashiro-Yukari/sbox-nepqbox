@@ -57,8 +57,8 @@ public partial class PhysGun
 			return;
 		}
 
-		var startPos = owner.EyePos;
-		var dir = owner.EyeRot.Forward;
+		var startPos = owner.EyePosition;
+		var dir = owner.EyeRotation.Forward;
 
 		var tr = Trace.Ray( startPos, startPos + dir * MaxTargetDistance )
 			.UseHitboxes()
