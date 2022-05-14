@@ -4,6 +4,22 @@ using System.Linq;
 
 partial class NPCInventory : BaseInventory
 {
+	public override Entity Active
+	{
+		get
+		{
+			return (Owner as NPC)?.ActiveChild;
+		}
+
+		set
+		{
+			if ( Owner is NPC npc )
+			{
+				npc.ActiveChild = value;
+			}
+		}
+	}
+
 	public NPCInventory( NPC npc ) : base( npc )
 	{
 	}
@@ -46,7 +62,10 @@ partial class NPCInventory : BaseInventory
 		if ( !Contains( ent ) )
 			return false;
 
-		ent.OnCarryDrop( Owner );
+		if ( ent is BaseCarriable bc )
+		{
+			bc.OnCarryDrop( Owner );
+		}
 
 		return ent.Parent == null;
 	}

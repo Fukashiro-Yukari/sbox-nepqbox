@@ -58,7 +58,7 @@ partial class NPC
 			jacket.EnableHideInFirstPerson = true;
 			jacket.Tags.Add( "clothes" );
 
-			var propInfo = jacket.GetModel().GetPropData();
+			var propInfo = jacket.Model.GetPropData();
 
 			if ( propInfo.ParentBodygroupName != null )
 			{

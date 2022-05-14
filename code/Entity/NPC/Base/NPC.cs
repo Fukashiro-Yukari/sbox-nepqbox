@@ -23,6 +23,11 @@ public partial class NPC : AnimEntity
 	[Predicted]
 	Entity LastActiveChild { get; set; }
 
+	[Net, Predicted]
+	public Entity ActiveChild { get; set; }
+
+	public IBaseInventory Inventory { get; protected set; }
+
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -102,8 +107,15 @@ public partial class NPC : AnimEntity
 
 	public virtual void OnActiveChildChanged( Entity previous, Entity next )
 	{
-		previous?.ActiveEnd( this, previous.Owner != this );
-		next?.ActiveStart( this );
+		if ( previous is BaseCarriable previousBc )
+		{
+			previousBc?.ActiveEnd( this, previousBc.Owner != this );
+		}
+
+		if ( next is BaseCarriable nextBc )
+		{
+			nextBc?.ActiveStart( this );
+		}
 	}
 
 	public virtual IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
@@ -127,23 +139,23 @@ public partial class NPC : AnimEntity
 
 	public void MeleeStrike( float damage, float force )
 	{
-		SetParam( "holdtype", 4 );
+		SetAnimParameter( "holdtype", 4 );
 
 		// random swing attack
 		if ( Rand.Int( 1 ) == 1 )
-			SetParam( "holdtype_attack", 2.0f );
+			SetAnimParameter( "holdtype_attack", 2.0f );
 		else
-			SetParam( "holdtype_attack", 1.0f );
+			SetAnimParameter( "holdtype_attack", 1.0f );
 
 		// random hand
 		if ( Rand.Int( 1 ) == 1 )
-			SetParam( "holdtype_handedness", 1 );
+			SetAnimParameter( "holdtype_handedness", 1 );
 		else if ( Rand.Int( 2 ) == 1 )
-			SetParam( "holdtype_handedness", 2 );
+			SetAnimParameter( "holdtype_handedness", 2 );
 		else
-			SetParam( "holdtype_handedness", 0 );
+			SetAnimParameter( "holdtype_handedness", 0 );
 
-		SetParam( "b_attack", true );
+		SetAnimParameter( "b_attack", true );
 		Velocity = 0;
 		var forward = EyeRotation.Forward;
 		forward = forward.Normal;
@@ -240,7 +252,7 @@ public partial class NPC : AnimEntity
 									Position += Vector3.Up * 5;
 									Velocity = Velocity.WithZ( startz + flMul * flGroundFactor );
 
-									SetParam( "b_jump", true );
+									SetAnimParameter( "b_jump", true );
 								}
 							}
 						}
@@ -289,7 +301,7 @@ public partial class NPC : AnimEntity
 		{
 			timeSinceMeleeStrike = 0f;
 
-			SetParam( "holdtype", 0 );
+			SetAnimParameter( "holdtype", 0 );
 			DoMeleeStrike();
 		}
 	}
@@ -302,9 +314,9 @@ public partial class NPC : AnimEntity
 		}
 		else
 		{
-			SetParam( "holdtype", 0 );
-			SetParam( "aim_body_weight", 0.5f ); // old
-			SetParam( "aim_body_weight", 0.5f );
+			SetAnimParameter( "holdtype", 0 );
+			SetAnimParameter( "aim_body_weight", 0.5f ); // old
+			SetAnimParameter( "aim_body_weight", 0.5f );
 		}
 	}
 
@@ -372,25 +384,5 @@ public partial class NPC : AnimEntity
 
 		Position = move.Position;
 		Velocity = move.Velocity;
-	}
-
-	public virtual void SetParam( string name, Vector3 val )
-	{
-		SetAnimVector( name, val );
-	}
-
-	public virtual void SetParam( string name, float val )
-	{
-		SetAnimFloat( name, val );
-	}
-
-	public virtual void SetParam( string name, bool val )
-	{
-		SetAnimParameter( name, val );
-	}
-
-	public virtual void SetParam( string name, int val )
-	{
-		SetAnimInt( name, val );
 	}
 }
