@@ -31,12 +31,30 @@ partial class Fists : WeaponMelee
 	{
 		anim.SetAnimParameter( "holdtype", 5 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
+
+		if ( Owner.IsValid() )
+		{
+			ViewModelEntity?.SetAnimParameter( "b_grounded", Owner.GroundEntity.IsValid() );
+			ViewModelEntity?.SetAnimParameter( "aim_pitch", Owner.EyeRotation.Pitch() );
+		}
 	}
 
 	public override void CreateViewModel()
 	{
-		base.CreateViewModel();
+		Host.AssertClient();
 
+		if ( string.IsNullOrEmpty( ViewModelPath ) )
+			return;
+
+		ViewModelEntity = new ViewModel
+		{
+			Position = Position,
+			Owner = Owner,
+			EnableViewmodelRendering = true,
+			EnableSwingAndBob = false,
+		};
+
+		ViewModelEntity.SetModel( ViewModelPath );
 		ViewModelEntity.SetAnimGraph( "models/first_person/first_person_arms_punching.vanmgrph" );
 	}
 
