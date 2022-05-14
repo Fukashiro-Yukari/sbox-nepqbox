@@ -75,7 +75,10 @@ partial class NepQBoxGame : Game
 			.Ignore( owner )
 			.Run();
 
-		var model = Resource.FromPath<Model>( modelname );
+		var model = Model.Load( modelname );
+		if ( model == null || model.IsError )
+			return;
+
 		var ent = new Prop
 		{
 			Position = tr.EndPosition + Vector3.Down * model.PhysicsBounds.Mins.z,
