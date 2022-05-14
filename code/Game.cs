@@ -143,7 +143,7 @@ partial class NepQBoxGame : Game
 	[ServerCmd( "spawn_entity" )]
 	public static void SpawnEntity( string entName )
 	{
-		var owner = ConsoleSystem.Caller.Pawn;
+		var owner = ConsoleSystem.Caller.Pawn as Player;
 
 		if ( owner == null )
 			return;
@@ -160,6 +160,7 @@ partial class NepQBoxGame : Game
 			.Run();
 
 		var ent = Library.Create<Entity>( entName );
+
 		if ( ent is BaseCarriable && owner.Inventory != null )
 		{
 			if ( owner.Inventory.Add( ent, true ) )
@@ -177,7 +178,7 @@ partial class NepQBoxGame : Game
 	[ServerCmd( "give_weapon" )]
 	public static void GiveWeapon( string entName )
 	{
-		var target = ConsoleSystem.Caller.Pawn;
+		var target = ConsoleSystem.Caller.Pawn as Player;
 		if ( target == null ) return;
 
 		var inventory = target.Inventory;
@@ -193,7 +194,7 @@ partial class NepQBoxGame : Game
 	[ServerCmd( "give_all_weapons" )]
 	public static void GiveAllWeapon()
 	{
-		var target = ConsoleSystem.Caller.Pawn;
+		var target = ConsoleSystem.Caller.Pawn as Player;
 		if ( target == null ) return;
 
 		var inventory = target.Inventory;
