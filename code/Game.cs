@@ -102,6 +102,12 @@ partial class NepQBoxGame : Game
 		// Let's make sure physics are ready to go instead of waiting
 		ent.SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 
+		// If there's no physics model, create a simple OBB
+		if ( !ent.PhysicsBody.IsValid() )
+		{
+			ent.SetupPhysicsFromOBB( PhysicsMotionType.Dynamic, ent.CollisionBounds.Mins, ent.CollisionBounds.Maxs );
+		}
+
 		if ( ConsoleSystem.Caller.GetClientData<bool>( "cl_print_modelname" ) )
 			PrintModelPath( To.Single( owner ), modelname );
 
