@@ -24,8 +24,7 @@ partial class NepQBoxGame : Game
 		if ( IsServer )
 		{
 			// Create the HUD
-			var hud = new SandboxHud();
-			hud.Parent = this; // Do not delete me on map cleanup
+			_ = new SandboxHud();
 
 			LastDayNightCycle = DayNightCycle;
 
