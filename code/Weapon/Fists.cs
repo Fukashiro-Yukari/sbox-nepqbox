@@ -3,7 +3,7 @@ using Sandbox;
 [Library( "weapon_fists", Title = "Fists", Spawnable = false )]
 partial class Fists : WeaponMelee
 {
-	public override string ViewModelPath => "models/firstperson/temp_punch/temp_punch.vmdl";
+	public override string ViewModelPath => "models/first_person/first_person_arms.vmdl";
 
 	public override int Bucket => 0;
 	public override float PrimarySpeed => 0.5f;
@@ -31,6 +31,13 @@ partial class Fists : WeaponMelee
 	{
 		anim.SetParam( "holdtype", 5 );
 		anim.SetParam( "aimat_weight", 1.0f );
+	}
+
+	public override void CreateViewModel()
+	{
+		base.CreateViewModel();
+
+		ViewModelEntity.SetAnimGraph( "models/first_person/first_person_arms_punching.vanmgrph" );
 	}
 
 	[ClientRpc]
