@@ -43,6 +43,12 @@ public class ViewModel : BaseViewModel
 		Position = camSetup.Position;
 		Rotation = camSetup.Rotation;
 
+		var cameraBoneIndex = GetBoneIndex( "camera" );
+		if ( cameraBoneIndex != -1 )
+		{
+			camSetup.Rotation *= (Rotation.Inverse * GetBoneTransform( cameraBoneIndex ).Rotation);
+		}
+
 		var pl = Local.Pawn as Player;
 
 		if ( pl.ActiveChild is Weapon wep )
