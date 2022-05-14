@@ -35,7 +35,7 @@ partial class AK47 : Weapon
 
 	public override void NPCAnimator( NPC npc )
 	{
-		npc.SetParam( "holdtype", 2 ); // TODO this is shit
-		npc.SetParam( "aim_body_weight", 1.0f );
+		npc.SetAnimParameter( "holdtype", 2 ); // TODO this is shit
+		npc.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

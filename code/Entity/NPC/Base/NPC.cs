@@ -120,17 +120,19 @@ public partial class NPC : AnimEntity
 
 	public virtual IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
 	{
-		bool InWater = Physics.TestPointContents( start, CollisionLayer.Water );
+		bool InWater = Map.Physics.IsPointWater( start );
 
-		var tr = Sandbox.Trace.Ray( start, end )
+		var tr = Trace.Ray( start, end )
 				.UseHitboxes()
 				.HitLayer( CollisionLayer.Water, !InWater )
+				.HitLayer( CollisionLayer.Debris )
 				.Ignore( Owner )
 				.Ignore( this )
 				.Size( radius )
 				.Run();
 
-		yield return tr;
+		if ( tr.Hit )
+			yield return tr;
 
 		//
 		// Another trace, bullet going through thin material, penetrating water surface?
@@ -160,7 +162,7 @@ public partial class NPC : AnimEntity
 		var forward = EyeRotation.Forward;
 		forward = forward.Normal;
 
-		var overlaps = Physics.GetEntitiesInSphere( Position, 80 );
+		var overlaps = Entity.FindInSphere( Position, 80 );
 
 		if ( IsServer )
 		{

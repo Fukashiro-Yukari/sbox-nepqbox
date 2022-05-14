@@ -13,7 +13,7 @@ partial class CrossbowBolt : ModelEntity
 	{
 		base.Spawn();
 
-		SetModel(ModelPath);
+		SetModel( ModelPath );
 	}
 
 	[Event.Tick.Server]
@@ -22,7 +22,7 @@ partial class CrossbowBolt : ModelEntity
 		if ( !IsServer )
 			return;
 
-		if (Stuck)
+		if ( Stuck )
 			return;
 
 		float Speed = 10000.0f;
@@ -57,28 +57,28 @@ partial class CrossbowBolt : ModelEntity
 													.WithWeapon( this );
 
 				tr.Entity.TakeDamage( damageInfo );
-            }
+			}
 
 			var npc = tr.Entity as NPC;
 			var prop = tr.Entity as Prop;
 
 			// TODO: Parent to bone so this will stick in the meaty heads
-			if (npc != null && npc.Corpse != null)
-				SetParent(npc?.Corpse, tr.Bone);
-            else if (prop != null)
-            {
-				if (prop.GetModel().GetPropData().Health > 0)
-                {
-					if (prop.Health > 0)
-						SetParent(prop, tr.Bone);
-                    else
+			if ( npc != null && npc.Corpse != null )
+				SetParent( npc?.Corpse, tr.Bone );
+			else if ( prop != null )
+			{
+				if ( prop.Model.GetPropData().Health > 0 )
+				{
+					if ( prop.Health > 0 )
+						SetParent( prop, tr.Bone );
+					else
 						Delete();
 				}
-				else if (prop.GetModel().GetPropData().Health <= 0)
-					SetParent(prop, tr.Bone);
+				else if ( prop.Model.GetPropData().Health <= 0 )
+					SetParent( prop, tr.Bone );
 			}
-			else if (tr.Entity is WorldEntity || tr.Entity.Health > 0)
-				SetParent(tr.Entity, tr.Bone);
+			else if ( tr.Entity is WorldEntity || tr.Entity.Health > 0 )
+				SetParent( tr.Entity, tr.Bone );
 
 			Owner = null;
 

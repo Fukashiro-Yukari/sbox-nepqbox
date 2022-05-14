@@ -73,7 +73,7 @@ public partial class WeaponMelee : Weapon
 			}
 
 			if ( IsServer )
-				tr.Surface.DoBulletImpactServer( tr );
+				tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
 			var isFlesh = tr.Entity is Player || tr.Entity is NPC;

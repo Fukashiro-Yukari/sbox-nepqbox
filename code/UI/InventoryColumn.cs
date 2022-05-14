@@ -32,7 +32,8 @@ public class InventoryColumn : Panel
 
 	internal void TickSelection( List<Carriable> weapons )
 	{
-		var wep = Local.Pawn.ActiveChild as Carriable;
+		var ply = Local.Pawn as Player;
+		var wep = ply.ActiveChild as Carriable;
 
 		SetClass( "active", wep?.Bucket == Column );
 		SetClass( "empty", weapons.Where( x => x.Bucket == Column ).Count() <= 0 );

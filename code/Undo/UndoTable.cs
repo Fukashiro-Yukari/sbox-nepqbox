@@ -23,19 +23,15 @@ namespace Sandbox
 
 		private UndoRemove CreateUndoRemove( object obj )
 		{
-			var ent = obj as Entity;
-			var phyjoint = obj as IPhysicsJoint;
-			var particles = obj as Particles;
-
-			if ( ent != null )
+			if ( obj is Entity ent )
 			{
 				return new EntityUndo( ent );
 			}
-			else if ( phyjoint != null )
+			else if ( obj is PhysicsJoint phyjoint )
 			{
 				return new PhysicsJointUndo( phyjoint );
 			}
-			else if ( particles != null )
+			else if ( obj is Particles particles )
 			{
 				return new ParticlesUndo( particles );
 			}

@@ -2,16 +2,16 @@ using Sandbox;
 
 public class PhysicsJointUndo : UndoRemove
 {
-	IPhysicsJoint Joint;
+	PhysicsJoint Joint;
 
-	public PhysicsJointUndo( IPhysicsJoint j )
+	public PhysicsJointUndo( PhysicsJoint j )
 	{
 		Joint = j;
 	}
 
 	public override bool Delete()
 	{
-		if ( !Joint.IsValid ) return false;
+		if ( !Joint.IsValid() ) return false;
 
 		Joint.Remove();
 
@@ -20,7 +20,7 @@ public class PhysicsJointUndo : UndoRemove
 
 	public override void Replace( object obj )
 	{
-		var j = obj as IPhysicsJoint;
+		var j = obj as PhysicsJoint;
 
 		if ( j == null ) return;
 
@@ -34,6 +34,6 @@ public class PhysicsJointUndo : UndoRemove
 
 	public override bool IsValid()
 	{
-		return Joint.IsValid;
+		return Joint.IsValid();
 	}
 }

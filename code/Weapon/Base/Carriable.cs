@@ -85,9 +85,9 @@ public partial class Carriable : BaseCarriable, IUse
 
 	public virtual void NPCAnimator( NPC npc )
 	{
-		npc.SetParam( "holdtype", 1 );
-		npc.SetParam( "aim_body_weight", 1.0f );
-		npc.SetParam( "holdtype_handedness", 0 );
+		npc.SetAnimParameter( "holdtype", 1 );
+		npc.SetAnimParameter( "aim_body_weight", 1.0f );
+		npc.SetAnimParameter( "holdtype_handedness", 0 );
 	}
 
 	public virtual bool OnUse( Entity user )

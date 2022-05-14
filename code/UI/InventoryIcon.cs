@@ -22,7 +22,9 @@ class InventoryIcon : Panel
 	{
 		Label.SetText( Weapon.ClassInfo.Title );
 
-		SetClass( "active", Local.Pawn.ActiveChild == Weapon );
+		var ply = Local.Pawn as Player;
+
+		SetClass( "active", ply.ActiveChild == Weapon );
 	}
 
 	public override void Tick()

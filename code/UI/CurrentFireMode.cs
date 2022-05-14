@@ -28,7 +28,7 @@ public class CurrentFireMode : Panel
 
 	CWEPFireMode GetCurrentFireMode()
 	{
-		var player = Local.Pawn;
+		var player = Local.Pawn as Player;
 		if ( player == null ) return null;
 
 		var inventory = player.Inventory;

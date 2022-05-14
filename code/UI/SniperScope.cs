@@ -32,7 +32,7 @@ public class SniperScope : Panel
 	{
 		base.Tick();
 
-		var player = Local.Pawn;
+		var player = Local.Pawn as Player;
 		if ( player == null ) return;
 
 		var weapon = player.ActiveChild as WeaponSniper;
