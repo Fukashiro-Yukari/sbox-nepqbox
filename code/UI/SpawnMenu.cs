@@ -42,6 +42,9 @@ public partial class SpawnMenu : Panel
 
 				var npcs = body.AddChild<NPCList>();
 				tabs.AddButtonActive( "NPCs", ( b ) => npcs.SetClass( "active", b ) );
+
+				var models = body.AddChild<CloudModelList>();
+				tabs.AddButtonActive( "s&works", ( b ) => models.SetClass( "active", b ) );
 			}
 		}
 

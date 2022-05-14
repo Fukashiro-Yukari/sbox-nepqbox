@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Gamelib.DayNight;
 using System.Linq;
+using System.Threading.Tasks;
 
 partial class NepQBoxGame : Game
 {
@@ -63,7 +64,7 @@ partial class NepQBoxGame : Game
 	public static bool cl_print_modelname { get; set; } = false;
 
 	[ServerCmd( "spawn" )]
-	public static void Spawn( string modelname )
+	public static async Task Spawn( string modelname )
 	{
 		var owner = ConsoleSystem.Caller.Pawn as Player;
 
@@ -74,6 +75,16 @@ partial class NepQBoxGame : Game
 			.UseHitboxes()
 			.Ignore( owner )
 			.Run();
+
+		//
+		// Does this look like a package?
+		//
+		if ( modelname.Count( x => x == '.' ) == 1 && !modelname.EndsWith( ".vmdl", System.StringComparison.OrdinalIgnoreCase ) && !modelname.EndsWith( ".vmdl_c", System.StringComparison.OrdinalIgnoreCase ) )
+		{
+			modelname = await SpawnPackageModel( modelname, tr.EndPosition, owner );
+			if ( modelname == null )
+				return;
+		}
 
 		var model = Model.Load( modelname );
 		if ( model == null || model.IsError )
@@ -93,6 +104,31 @@ partial class NepQBoxGame : Game
 			PrintModelPath( To.Single( owner ), modelname );
 
 		new Undo( "Prop" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Prop ({ent.GetModelName()})" );
+	}
+
+	static async Task<string> SpawnPackageModel( string packageName, Vector3 pos, Entity source )
+	{
+		DebugOverlay.Text( pos, $"Spawning {packageName}", 5.0f );
+
+		var package = await Package.Fetch( packageName, false );
+		if ( package == null || package.PackageType != Package.Type.Model || package.Revision == null )
+		{
+			// spawn error particles
+			return null;
+		}
+
+		if ( !source.IsValid ) return null; // source entity died or disconnected or something
+
+		var model = package.GetMeta( "PrimaryAsset", "models/dev/error.vmdl" );
+		var mins = package.GetMeta( "RenderMins", Vector3.Zero );
+		var maxs = package.GetMeta( "RenderMaxs", Vector3.Zero );
+
+		DebugOverlay.Box( 10, pos, mins, maxs, Color.White );
+		DebugOverlay.Text( pos + Vector3.Up * 20, $"Found {package.Title}", 5.0f );
+
+		// async download this package
+
+		return model;
 	}
 
 	[ClientRpc]
