@@ -32,11 +32,20 @@ partial class Fists : WeaponMelee
 		anim.SetAnimParameter( "holdtype", 5 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 
-		if ( Owner.IsValid() )
+		if ( Owner.IsValid() && ViewModelEntity.IsValid() )
 		{
-			ViewModelEntity?.SetAnimParameter( "b_grounded", Owner.GroundEntity.IsValid() );
-			ViewModelEntity?.SetAnimParameter( "aim_pitch", Owner.EyeRotation.Pitch() );
-			ViewModelEntity?.SetAnimParameter( "b_jump", anim.HasEvent( "jump" ) );
+			ViewModelEntity.SetAnimParameter( "b_grounded", Owner.GroundEntity.IsValid() );
+			ViewModelEntity.SetAnimParameter( "aim_pitch", Owner.EyeRotation.Pitch() );
+			ViewModelEntity.SetAnimParameter( "b_jump", anim.HasEvent( "jump" ) );
+
+			var dir = Owner.Velocity;
+			var forward = Owner.Rotation.Forward.Dot( dir );
+			var sideward = Owner.Rotation.Right.Dot( dir );
+
+			ViewModelEntity.SetAnimParameter( "move_groundspeed", dir.WithZ( 0 ).Length );
+			ViewModelEntity.SetAnimParameter( "move_y", sideward );
+			ViewModelEntity.SetAnimParameter( "move_x", forward );
+			ViewModelEntity.SetAnimParameter( "move_z", dir.z );
 		}
 	}
 
