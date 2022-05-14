@@ -1,13 +1,23 @@
 {
-  "Title": "Sbox Nepqbox",
+  "Title": "NepQ Box",
   "Type": "game",
-  "Org": "local",
-  "Ident": "sbox-nepqbox",
+  "Org": "nepqneko",
+  "Ident": "nepqbox",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
   "ResourcePaths": null,
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "Sandbox"
+  "RootNamespace": "NepQBoxGame",
+  "Metadata": {
+    "MapList": [],
+    "PerMapRanking": false,
+    "LeaderboardType": 0,
+    "RankType": 0,
+    "MapSelect": 2,
+    "GameNetworkType": 0,
+    "MaxPlayers": 1000,
+    "MinPlayers": 1
+  }
 }
