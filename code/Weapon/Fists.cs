@@ -43,6 +43,8 @@ partial class Fists : WeaponMelee
 	[ClientRpc]
 	public override void OnMeleeMiss( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
+		ViewModelEntity?.SetAnimBool( "attack_has_hit", false );
+
 		base.OnMeleeMiss( length, speed, size, rotation, animation, leftHand );
 
 		ViewModelEntity?.SetAnimFloat( "holdtype_attack", leftHand ? 2 : 1 );
@@ -51,6 +53,8 @@ partial class Fists : WeaponMelee
 	[ClientRpc]
 	public override void OnMeleeHit( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
+		ViewModelEntity?.SetAnimBool( "attack_has_hit", true );
+
 		base.OnMeleeHit( length, speed, size, rotation, animation, leftHand );
 
 		ViewModelEntity?.SetAnimFloat( "holdtype_attack", leftHand ? 2 : 1 );
