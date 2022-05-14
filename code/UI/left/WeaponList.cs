@@ -28,7 +28,7 @@ public partial class WeaponList : Panel
 			var btn = cell.Add.Button( entry.Title );
 			btn.AddClass( "icon" );
 			btn.AddEventListener( "onclick", () => ConsoleSystem.Run( "spawn_entity", entry.Name ) );
-			btn.Style.BackgroundImage = Texture.Load( path, false );
+			btn.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, path, false );
 		};
 
 		LoadAllItem( false );
