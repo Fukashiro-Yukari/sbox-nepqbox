@@ -52,9 +52,7 @@ public class ViewModel : BaseViewModel
 		var pl = Local.Pawn as Player;
 
 		if ( pl.ActiveChild is Weapon wep )
-			FieldOfView = wep.FOV;
-
-		camSetup.ViewModel.FieldOfView = FieldOfView;
+			camSetup.ViewModel.FieldOfView = wep.FOV;
 
 		var newPitch = Rotation.Pitch();
 		var newYaw = Rotation.Yaw();
