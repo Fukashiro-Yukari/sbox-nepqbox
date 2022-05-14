@@ -41,11 +41,14 @@ partial class Fists : WeaponMelee
 			var dir = Owner.Velocity;
 			var forward = Owner.Rotation.Forward.Dot( dir );
 			var sideward = Owner.Rotation.Right.Dot( dir );
+			var speed = dir.WithZ( 0 ).Length;
 
-			ViewModelEntity.SetAnimParameter( "move_groundspeed", dir.WithZ( 0 ).Length );
-			ViewModelEntity.SetAnimParameter( "move_y", sideward );
-			ViewModelEntity.SetAnimParameter( "move_x", forward );
-			ViewModelEntity.SetAnimParameter( "move_z", dir.z );
+			const float maxSpeed = 320.0f;
+
+			ViewModelEntity.SetAnimParameter( "move_groundspeed", MathX.Clamp( (speed / maxSpeed) * 2.0f, 0.0f, 2.0f ) );
+			ViewModelEntity.SetAnimParameter( "move_y", MathX.Clamp( (sideward / maxSpeed) * 2.0f, -2.0f, 2.0f ) );
+			ViewModelEntity.SetAnimParameter( "move_x", MathX.Clamp( (forward / maxSpeed) * 2.0f, -2.0f, 2.0f ) );
+			ViewModelEntity.SetAnimParameter( "move_z", MathX.Clamp( (dir.z / maxSpeed) * 2.0f, -2.0f, 2.0f ) );
 		}
 	}
 
