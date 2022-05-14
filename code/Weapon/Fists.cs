@@ -27,6 +27,7 @@ partial class Fists : WeaponMelee
 	{
 	}
 
+	private bool jumped;
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		anim.SetAnimParameter( "holdtype", 5 );
@@ -34,8 +35,12 @@ partial class Fists : WeaponMelee
 
 		if ( Owner.IsValid() )
 		{
+			if ( Owner.GroundEntity.IsValid() )
+				jumped = Input.Pressed( InputButton.Jump );
+
 			ViewModelEntity?.SetAnimParameter( "b_grounded", Owner.GroundEntity.IsValid() );
 			ViewModelEntity?.SetAnimParameter( "aim_pitch", Owner.EyeRotation.Pitch() );
+			ViewModelEntity?.SetAnimParameter( "b_jump", jumped );
 		}
 	}
 
