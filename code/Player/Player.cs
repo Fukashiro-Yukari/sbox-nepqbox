@@ -91,6 +91,8 @@ partial class SandboxPlayer : Player
 		EnableAllCollisions = false;
 		EnableDrawing = false;
 
+		CameraMode = new SpectateRagdollCamera();
+
 		foreach ( var child in Children )
 		{
 			child.EnableDrawing = false;
