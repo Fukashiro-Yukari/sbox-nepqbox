@@ -1,5 +1,13 @@
 {
-	"sharedassets": "*.*",
-	"type": "game",
-	"ident": "nepqneko.nepqbox"
+  "Title": "Sbox Nepqbox",
+  "Type": "game",
+  "Org": "local",
+  "Ident": "sbox-nepqbox",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "code",
+  "RootNamespace": "Sandbox"
 }
