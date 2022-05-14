@@ -28,6 +28,7 @@
             opacity: 0.2;
             color: #fff;
             cursor: pointer;
+
             //border-radius: 5px;
             label {
                 //text-shadow: 1px 1px 4px rgba( black, 0.2 );
@@ -38,7 +39,7 @@
             }
 
             &.active {
-                transform: scale( 1 );
+                transform: scale(1);
                 opacity: 1;
                 color: #fff;
                 //  background-color: #fff;//( #3273eb, 0.2 );
@@ -56,7 +57,7 @@
 
         .body {
             border-radius: 10px;
-            background-color: rgba( #111, 0.7 );
+            background-color: rgba(#111, 0.7);
             flex-grow: 1;
         }
     }
@@ -73,7 +74,7 @@
             //  background-color: rgba( #333, 0.95 );
             flex-grow: 1;
             border-radius: 10px;
-            background-color: rgba( #111, 0.7 );
+            background-color: rgba(#111, 0.7);
             padding: 10px;
 
             .page {
@@ -134,9 +135,10 @@
     transition: all 0.2s ease-out;
     pointer-events: all;
     opacity: 1;
-    transform: scale( 1 );
+    transform: scale(1);
 
-    .left, .right {
+    .left,
+    .right {
         left: 0;
         transition: all 0.1s ease-out;
     }
@@ -163,14 +165,14 @@
             padding: 5px;
             transition: all 0.2s ease-out;
 
-            &:hover{
+            &:hover {
                 padding: 8px;
             }
         }
 
         .icon {
-            border-radius: 16px;
-            color: rgba( #fff, 0.5 );
+            border-radius: 8px;
+            color: rgba(#fff, 0.5);
             font-size: 12px;
             text-align: center;
             cursor: pointer;
@@ -178,11 +180,11 @@
             height: 100%;
             background-position: center;
             background-size: cover;
-            background-color: rgba(black, 0.1);
-            background-image: url( /entity/spawnicon.png );
+            background-color: rgba(black, 0.0);
+            background-image: url(/entity/spawnicon.png );
 
             label {
-                background-color: rgba( black, 0.5 );
+                background-color: rgba(black, 0.5);
                 border-radius: 5px;
                 font-size: 9px;
                 color: white;
@@ -197,17 +199,39 @@
 
             &:hover {
                 color: #fff;
-                background-color: rgba(black, 0.4);
+                background-color: rgba(black, 0.1);
                 font-size: 12px;
 
                 label {
-                    background-color: rgba( rgb(0, 153, 255), 0.5 );
+                    background-color: rgba(rgb(0, 153, 255), 0.5);
                     font-size: 11px;
                 }
             }
 
-            &:active {
-            }
+            &:active {}
         }
     }
+}
+
+spawnmenu .sidebar {
+    flex-direction: column;
+    width: 30px;
+    padding: 10px;
+
+    .group {
+        flex-direction: column;
+    }
+
+    button {
+        cursor: pointer;
+        border-radius: 5px;
+        color: white;
+    }
+}
+
+icon,
+iconpanel {
+    font-family: "material icons";
+    flex-grow: 1;
+    text-align: left;
 }

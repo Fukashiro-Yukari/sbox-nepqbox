@@ -110,8 +110,6 @@ partial class NepQBoxGame : Game
 
 	static async Task<string> SpawnPackageModel( string packageName, Vector3 pos, Rotation rotation, Entity source )
 	{
-		DebugOverlay.Text( pos, $"Spawning {packageName}", 5.0f );
-
 		var package = await Package.Fetch( packageName, false );
 		if ( package == null || package.PackageType != Package.Type.Model || package.Revision == null )
 		{
@@ -124,9 +122,6 @@ partial class NepQBoxGame : Game
 		var model = package.GetMeta( "PrimaryAsset", "models/dev/error.vmdl" );
 		var mins = package.GetMeta( "RenderMins", Vector3.Zero );
 		var maxs = package.GetMeta( "RenderMaxs", Vector3.Zero );
-
-		DebugOverlay.Box( 10, pos, rotation, mins, maxs, Color.White );
-		DebugOverlay.Text( pos + Vector3.Up * 20, $"Found {package.Title}", 5.0f );
 
 		// downloads if not downloads, mounts if not mounted
 		await package.MountAsync();

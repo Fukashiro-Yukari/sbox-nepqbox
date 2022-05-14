@@ -3,15 +3,18 @@ using Sandbox.UI;
 using Sandbox.UI.Tests;
 using System.Threading.Tasks;
 
-[Library]
+[Library, UseTemplate]
 public partial class CloudModelList : Panel
 {
-	VirtualScrollPanel Canvas;
+	public VirtualScrollPanel Canvas { get; set; }
 
 	public CloudModelList()
 	{
-		AddClass( "spawnpage" );
-		AddChild( out Canvas, "canvas" );
+	}
+
+	protected override void PostTemplateApplied()
+	{
+		base.PostTemplateApplied();
 
 		Canvas.Layout.AutoColumns = true;
 		Canvas.Layout.ItemWidth = 100;
@@ -28,14 +31,25 @@ public partial class CloudModelList : Panel
 		_ = UpdateItems();
 	}
 
-	public async Task UpdateItems()
+	public async Task UpdateItems( int offset = 0 )
 	{
 		var q = new Package.Query();
 		q.Type = Package.Type.Model;
+		q.Order = Package.Order.Newest;
+		q.Take = 200;
+		q.Skip = offset;
 
 		var found = await q.RunAsync( default );
 
+		Log.Info( found );
 		Canvas.SetItems( found );
+
+		// TODO - auto add more items here
 	}
 
+	public void RefreshItems()
+	{
+		Canvas.Clear();
+		_ = UpdateItems();
+	}
 }
