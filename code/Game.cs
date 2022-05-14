@@ -76,12 +76,14 @@ partial class NepQBoxGame : Game
 			.Ignore( owner )
 			.Run();
 
+		var modelRotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 );
+
 		//
 		// Does this look like a package?
 		//
 		if ( modelname.Count( x => x == '.' ) == 1 && !modelname.EndsWith( ".vmdl", System.StringComparison.OrdinalIgnoreCase ) && !modelname.EndsWith( ".vmdl_c", System.StringComparison.OrdinalIgnoreCase ) )
 		{
-			modelname = await SpawnPackageModel( modelname, tr.EndPosition, owner );
+			modelname = await SpawnPackageModel( modelname, tr.EndPosition, modelRotation, owner );
 			if ( modelname == null )
 				return;
 		}
@@ -93,7 +95,7 @@ partial class NepQBoxGame : Game
 		var ent = new Prop
 		{
 			Position = tr.EndPosition + Vector3.Down * model.PhysicsBounds.Mins.z,
-			Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 ),
+			Rotation = modelRotation,
 			Model = model
 		};
 
@@ -106,7 +108,7 @@ partial class NepQBoxGame : Game
 		new Undo( "Prop" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Prop ({ent.GetModelName()})" );
 	}
 
-	static async Task<string> SpawnPackageModel( string packageName, Vector3 pos, Entity source )
+	static async Task<string> SpawnPackageModel( string packageName, Vector3 pos, Rotation rotation, Entity source )
 	{
 		DebugOverlay.Text( pos, $"Spawning {packageName}", 5.0f );
 
@@ -123,7 +125,7 @@ partial class NepQBoxGame : Game
 		var mins = package.GetMeta( "RenderMins", Vector3.Zero );
 		var maxs = package.GetMeta( "RenderMaxs", Vector3.Zero );
 
-		DebugOverlay.Box( 10, pos, mins, maxs, Color.White );
+		DebugOverlay.Box( 10, pos, rotation, mins, maxs, Color.White );
 		DebugOverlay.Text( pos + Vector3.Up * 20, $"Found {package.Title}", 5.0f );
 
 		// downloads if not downloads, mounts if not mounted
