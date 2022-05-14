@@ -103,16 +103,16 @@ public class CarCamera : CameraMode
 		Rotation = orbitYawRot * orbitPitchRot;
 
 		var carPos = car.Position + car.Rotation * (body.LocalMassCenter * car.Scale);
-		var startPos = carPos;
-		var targetPos = startPos + Rotation.Backward * (OrbitDistance * car.Scale) + (Vector3.Up * (OrbitHeight * car.Scale));
+		var StartPosition = carPos;
+		var targetPos = StartPosition + Rotation.Backward * (OrbitDistance * car.Scale) + (Vector3.Up * (OrbitHeight * car.Scale));
 
-		var tr = Trace.Ray( startPos, targetPos )
+		var tr = Trace.Ray( StartPosition, targetPos )
 			.Ignore( car )
 			.Radius( Math.Clamp( CollisionRadius * car.Scale, 2.0f, 10.0f ) )
 			.WorldOnly()
 			.Run();
 
-		Position = tr.EndPos;
+		Position = tr.EndPosition;
 
 		Viewer = null;
 	}

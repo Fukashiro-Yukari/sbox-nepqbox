@@ -53,10 +53,10 @@
 				if ( !useRope && !Input.Pressed( InputButton.Attack2 ) )
 					return;
 
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 					.Ignore( Owner )
 					.Run();
 
@@ -66,14 +66,14 @@
 				if ( !tr.Entity.IsValid() )
 					return;
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 
 				if ( tr.Entity is BalloonEntity )
 					return;
 
 				var ent = new BalloonEntity
 				{
-					Position = tr.EndPos,
+					Position = tr.EndPosition,
 				};
 
 				ent.SetModel( "models/citizen_props/balloonregular01.vmdl" );
@@ -90,7 +90,7 @@
 				rope.SetEntity( 0, ent );
 
 				var attachEnt = tr.Body.IsValid() ? tr.Body.GetEntity() : tr.Entity;
-				var attachLocalPos = tr.Body.Transform.PointToLocal( tr.EndPos ) * (1.0f / tr.Entity.Scale);
+				var attachLocalPos = tr.Body.Transform.PointToLocal( tr.EndPosition ) * (1.0f / tr.Entity.Scale);
 
 				if ( attachEnt.IsWorld )
 				{
@@ -101,7 +101,7 @@
 					rope.SetEntityBone( 1, attachEnt, tr.Bone, new Transform( attachLocalPos ) );
 				}
 
-				var spring = PhysicsJoint.CreateLength( ent.PhysicsBody, PhysicsPoint.World( tr.Body, tr.EndPos ), 100 );
+				var spring = PhysicsJoint.CreateLength( ent.PhysicsBody, PhysicsPoint.World( tr.Body, tr.EndPosition ), 100 );
 				spring.SpringLinear = new( 5, 0.7f );
 				spring.Collisions = true;
 				spring.EnableAngularConstraint = false;

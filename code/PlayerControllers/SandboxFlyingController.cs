@@ -55,7 +55,7 @@
 			}
 			else if ( tr.Hit )
 			{
-				Position = tr.EndPos + tr.Normal;
+				Position = tr.EndPosition + tr.Normal;
 
 				// subtract the normal from our velocity
 				Velocity = Velocity.SubtractDirection( tr.Normal * (1.0f + Bounce) );
@@ -66,7 +66,7 @@
 			}
 			else
 			{
-				Position = tr.EndPos;
+				Position = tr.EndPosition;
 			}
 		}
 	}

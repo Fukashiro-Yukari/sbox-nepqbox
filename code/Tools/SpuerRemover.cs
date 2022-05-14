@@ -13,10 +13,10 @@
 				if ( !Input.Pressed( InputButton.Attack1 ) )
 					return;
 
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 					.Ignore( Owner )
 					.HitLayer( CollisionLayer.Debris )
 					.Run();
@@ -27,7 +27,7 @@
 				if ( tr.Entity is Player )
 					return;
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 
 				if ( tr.Entity is WorldEntity )
 					return;

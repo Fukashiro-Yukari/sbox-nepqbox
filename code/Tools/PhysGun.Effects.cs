@@ -57,10 +57,10 @@ public partial class PhysGun
 			return;
 		}
 
-		var startPos = owner.EyePosition;
+		var StartPosition = owner.EyePosition;
 		var dir = owner.EyeRotation.Forward;
 
-		var tr = Trace.Ray( startPos, startPos + dir * MaxTargetDistance )
+		var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTargetDistance )
 			.UseHitboxes()
 			.Ignore( owner, false )
 			.HitLayer( CollisionLayer.Debris )
@@ -68,7 +68,7 @@ public partial class PhysGun
 
 		if ( Beam == null )
 		{
-			Beam = Particles.Create( "particles/physgun_beam.vpcf", tr.EndPos );
+			Beam = Particles.Create( "particles/physgun_beam.vpcf", tr.EndPosition );
 		}
 
 		Beam.SetEntityAttachment( 0, EffectEntity, "muzzle", true );
@@ -120,7 +120,7 @@ public partial class PhysGun
 		}
 		else
 		{
-			lastBeamPos = tr.EndPos;// Vector3.Lerp( lastBeamPos, tr.EndPos, Time.Delta * 10 );
+			lastBeamPos = tr.EndPosition;// Vector3.Lerp( lastBeamPos, tr.EndPosition, Time.Delta * 10 );
 			Beam.SetPosition( 1, lastBeamPos );
 
 			if ( EndNoHit == null )

@@ -12,12 +12,12 @@ namespace Sandbox.Tools
 
 			using ( Prediction.Off() )
 			{
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
 				if ( !Input.Pressed( InputButton.Attack1 ) ) return;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 				   .Ignore( Owner )
 				   .UseHitboxes()
 				   .HitLayer( CollisionLayer.Debris )
@@ -35,7 +35,7 @@ namespace Sandbox.Tools
 
 				new Undo( "Color" ).SetClient( Owner.Client ).Add( new ColorUndo( modelEnt, oldcolor ) ).Finish( $"Color ({modelEnt.RenderColor.ToColor32()})" );
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 			}
 		}
 	}

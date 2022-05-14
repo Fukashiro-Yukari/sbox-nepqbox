@@ -40,7 +40,7 @@ namespace Sandbox
 			//
 			if ( !string.IsNullOrWhiteSpace( self.Sounds.Bullet ) )
 			{
-				Sound.FromWorld( self.Sounds.Bullet, tr.EndPos );
+				Sound.FromWorld( self.Sounds.Bullet, tr.EndPosition );
 			}
 
 			//
@@ -51,7 +51,7 @@ namespace Sandbox
 
 			if ( particleName != null && Host.IsServer )
 			{
-				SurfaceEXRpc.CreateClientParticle( particleName, tr.EndPos, tr.Normal );
+				SurfaceEXRpc.CreateClientParticle( particleName, tr.EndPosition, tr.Normal );
 			}
 		}
 	}

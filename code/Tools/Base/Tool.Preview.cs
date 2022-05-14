@@ -66,10 +66,10 @@ namespace Sandbox.Tools
 			if ( !Owner.IsValid() )
 				return;
 
-			var startPos = Owner.EyePosition;
+			var StartPosition = Owner.EyePosition;
 			var dir = Owner.EyeRotation.Forward;
 
-			var tr = Trace.Ray( startPos, startPos + dir * 10000.0f )
+			var tr = Trace.Ray( StartPosition, StartPosition + dir * 10000.0f )
 				.Ignore( Owner )
 				.Run();
 

@@ -34,10 +34,10 @@
 				if ( !Input.Pressed( InputButton.Attack1 ) )
 					return;
 
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 					.Ignore( Owner )
 					.Run();
 
@@ -52,7 +52,7 @@
 				if ( attached && tr.Entity is not Prop )
 					return;
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 
 				if ( tr.Entity is WheelEntity )
 				{
@@ -63,14 +63,14 @@
 
 				var ent = new WheelEntity
 				{
-					Position = tr.EndPos,
+					Position = tr.EndPosition,
 					Rotation = Rotation.LookAt( tr.Normal ) * Rotation.From( new Angles( 0, 90, 0 ) ),
 				};
 
 				ent.SetModel( "models/citizen_props/wheel01.vmdl" );
 
 				ent.PhysicsBody.Mass = tr.Body.Mass;
-				ent.Joint = PhysicsJoint.CreateHinge( ent.PhysicsBody, tr.Body, tr.EndPos, tr.Normal );
+				ent.Joint = PhysicsJoint.CreateHinge( ent.PhysicsBody, tr.Body, tr.EndPosition, tr.Normal );
 
 				new Undo( "Wheel" ).SetClient( Owner.Client ).AddEntity( ent ).Finish();
 			}

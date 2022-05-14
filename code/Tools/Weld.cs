@@ -12,10 +12,10 @@
 
 			using ( Prediction.Off() )
 			{
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 					.Ignore( Owner )
 					.Run();
 
@@ -73,7 +73,7 @@
 					return;
 				}
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 			}
 		}
 

@@ -39,17 +39,17 @@
 				if ( !useRope && !Input.Pressed( InputButton.Attack2 ) )
 					return;
 
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 					.Ignore( Owner )
 					.Run();
 
 				if ( !tr.Hit || !tr.Entity.IsValid() )
 					return;
 
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 
 				if ( tr.Entity is LightEntity )
 				{
@@ -74,7 +74,7 @@
 				light.UseFogNoShadows();
 				light.SetModel( Model );
 				light.SetupPhysicsFromModel( PhysicsMotionType.Dynamic, false );
-				light.Position = tr.EndPos + -light.CollisionBounds.Center + tr.Normal * light.CollisionBounds.Size * 0.5f;
+				light.Position = tr.EndPosition + -light.CollisionBounds.Center + tr.Normal * light.CollisionBounds.Size * 0.5f;
 
 				new Undo( "Light" ).SetClient( Owner.Client ).AddEntity( light ).Finish();
 
@@ -84,7 +84,7 @@
 				rope.SetEntity( 0, light, Vector3.Down * 6.5f ); // Should be an attachment point
 
 				var attachEnt = tr.Body.IsValid() ? tr.Body.GetEntity() : tr.Entity;
-				var attachLocalPos = tr.Body.Transform.PointToLocal( tr.EndPos ) * (1.0f / tr.Entity.Scale);
+				var attachLocalPos = tr.Body.Transform.PointToLocal( tr.EndPosition ) * (1.0f / tr.Entity.Scale);
 
 				if ( attachEnt.IsWorld )
 				{
@@ -95,7 +95,7 @@
 					rope.SetEntityBone( 1, attachEnt, tr.Bone, new Transform( attachLocalPos ) );
 				}
 
-				var spring = PhysicsJoint.CreateLength( PhysicsPoint.Local( light.PhysicsBody, Vector3.Down * 6.5f ), PhysicsPoint.World( tr.Body, tr.EndPos ), 100 );
+				var spring = PhysicsJoint.CreateLength( PhysicsPoint.Local( light.PhysicsBody, Vector3.Down * 6.5f ), PhysicsPoint.World( tr.Body, tr.EndPosition ), 100 );
 				spring.SpringLinear = new( 5, 0.7f );
 				spring.Collisions = true;
 				spring.EnableAngularConstraint = false;

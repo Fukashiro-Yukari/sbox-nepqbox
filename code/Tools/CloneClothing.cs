@@ -13,10 +13,10 @@ namespace Sandbox.Tools
 			if ( !Host.IsServer )
 				return;
 
-			var startPos = Owner.EyePosition;
+			var StartPosition = Owner.EyePosition;
 			var dir = Owner.EyeRotation.Forward;
 
-			var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+			var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 				.Ignore( Owner )
 				.Run();
 
@@ -25,7 +25,7 @@ namespace Sandbox.Tools
 
 			if ( Input.Pressed( InputButton.Attack1 ) )
 			{
-				CreateHitEffects( tr.EndPos );
+				CreateHitEffects( tr.EndPosition );
 				DeleteAllDress( e );
 
 				if ( e is AnimEntity ent )
@@ -48,7 +48,7 @@ namespace Sandbox.Tools
 			{
 				if ( OldClothing.ContainsKey( e ) )
 				{
-					CreateHitEffects( tr.EndPos );
+					CreateHitEffects( tr.EndPosition );
 					DeleteAllDress( e );
 
 					foreach ( var model in OldClothing[e] )

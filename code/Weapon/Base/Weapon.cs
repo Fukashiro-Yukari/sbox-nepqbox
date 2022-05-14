@@ -657,7 +657,7 @@ public partial class Weapon : Carriable, IUse
 			if ( !IsServer ) continue;
 
 			tr.Surface.DoBulletImpactServer( tr );
-			BulletTracer( tr.EndPos );
+			BulletTracer( tr.EndPosition );
 
 			if ( !tr.Entity.IsValid() ) continue;
 
@@ -666,7 +666,7 @@ public partial class Weapon : Carriable, IUse
 			//
 			using ( Prediction.Off() )
 			{
-				var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * 100 * force, damage )
+				var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100 * force, damage )
 					.UsingTraceResult( tr )
 					.WithAttacker( Owner )
 					.WithWeapon( this );

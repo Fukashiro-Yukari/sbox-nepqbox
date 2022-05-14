@@ -152,7 +152,7 @@ public partial class PhysGun : Carriable
 		if ( unfrozen )
 		{
 			var freezeEffect = Particles.Create( "particles/physgun_freeze.vpcf" );
-			freezeEffect.SetPosition( 0, tr.EndPos );
+			freezeEffect.SetPosition( 0, tr.EndPosition );
 		}
 	}
 
@@ -195,10 +195,10 @@ public partial class PhysGun : Carriable
 		if ( IsBodyGrabbed( body ) )
 			return;
 
-		GrabInit( body, EyePosition, tr.EndPos, EyeRotation );
+		GrabInit( body, EyePosition, tr.EndPosition, EyeRotation );
 
 		GrabbedEntity = rootEnt;
-		GrabbedPos = body.Transform.PointToLocal( tr.EndPos );
+		GrabbedPos = body.Transform.PointToLocal( tr.EndPosition );
 		GrabbedBone = body.GroupIndex;
 
 		Client?.Pvs.Add( GrabbedEntity );
@@ -301,7 +301,7 @@ public partial class PhysGun : Carriable
 	{
 	}
 
-	private void GrabInit( PhysicsBody body, Vector3 startPos, Vector3 grabPos, Rotation rot )
+	private void GrabInit( PhysicsBody body, Vector3 StartPosition, Vector3 grabPos, Rotation rot )
 	{
 		if ( !body.IsValid() )
 			return;
@@ -310,7 +310,7 @@ public partial class PhysGun : Carriable
 
 		grabbing = true;
 		heldBody = body;
-		holdDistance = Vector3.DistanceBetween( startPos, grabPos );
+		holdDistance = Vector3.DistanceBetween( StartPosition, grabPos );
 		holdDistance = holdDistance.Clamp( MinTargetDistance, MaxTargetDistance );
 
 		heldRot = rot.Inverse * heldBody.Rotation;
@@ -354,12 +354,12 @@ public partial class PhysGun : Carriable
 		grabbing = false;
 	}
 
-	private void GrabMove( Vector3 startPos, Vector3 dir, Rotation rot, bool snapAngles )
+	private void GrabMove( Vector3 StartPosition, Vector3 dir, Rotation rot, bool snapAngles )
 	{
 		if ( !heldBody.IsValid() )
 			return;
 
-		holdBody.Position = startPos + dir * holdDistance;
+		holdBody.Position = StartPosition + dir * holdDistance;
 
 		if ( GrabbedEntity is Player player )
 		{

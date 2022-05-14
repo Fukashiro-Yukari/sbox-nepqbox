@@ -118,7 +118,7 @@ public partial class GravGun : Carriable
 				if ( tr.Distance < MaxPushDistance && !IsBodyGrabbed( body ) )
 				{
 					var pushScale = 1.0f - Math.Clamp( tr.Distance / MaxPushDistance, 0.0f, 1.0f );
-					body.ApplyImpulseAt( tr.EndPos, eyeDir * (body.Mass * (PushForce * pushScale)) );
+					body.ApplyImpulseAt( tr.EndPosition, eyeDir * (body.Mass * (PushForce * pushScale)) );
 				}
 			}
 			else if ( Input.Down( InputButton.Attack2 ) )
@@ -258,15 +258,15 @@ public partial class GravGun : Carriable
 		HeldEntity = null;
 	}
 
-	private void GrabMove( Vector3 startPos, Vector3 dir, Rotation rot )
+	private void GrabMove( Vector3 StartPosition, Vector3 dir, Rotation rot )
 	{
 		if ( !HeldBody.IsValid() )
 			return;
 
-		var attachPos = HeldBody.FindClosestPoint(startPos);
+		var attachPos = HeldBody.FindClosestPoint(StartPosition);
 		var holdDistance = HoldDistance + attachPos.Distance(HeldBody.MassCenter);
 
-		holdBody.Position = startPos + dir * holdDistance;
+		holdBody.Position = StartPosition + dir * holdDistance;
 		holdBody.Rotation = rot * HeldRot;
 	}
 

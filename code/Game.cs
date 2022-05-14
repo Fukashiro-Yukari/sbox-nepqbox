@@ -76,10 +76,10 @@ partial class NepQBoxGame : Game
 			.Run();
 
 		var ent = new Prop();
-		ent.Position = tr.EndPos;
+		ent.Position = tr.EndPosition;
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 );
 		ent.SetModel( modelname );
-		ent.Position = tr.EndPos - Vector3.Up * ent.CollisionBounds.Mins.z;
+		ent.Position = tr.EndPosition - Vector3.Up * ent.CollisionBounds.Mins.z;
 
 		if ( ConsoleSystem.Caller.GetClientData<bool>( "cl_print_modelname" ) )
 			PrintModelPath( To.Single( owner ), modelname );
@@ -119,7 +119,7 @@ partial class NepQBoxGame : Game
 				return;
 		}
 
-		ent.Position = tr.EndPos;
+		ent.Position = tr.EndPosition;
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) );
 
 		new Undo( "Entity" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Entity ({ent.ClassInfo.Title})" );

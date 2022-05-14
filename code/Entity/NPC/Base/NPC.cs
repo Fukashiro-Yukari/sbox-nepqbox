@@ -213,8 +213,8 @@ public partial class NPC : AnimEntity
 
 					if ( !tr.Hit )
 					{
-						start = tr.EndPos;
-						end = tr.EndPos + Rotation.Forward * distance + 5;
+						start = tr.EndPosition;
+						end = tr.EndPosition + Rotation.Forward * distance + 5;
 						tr = StartTrace( start, end );
 
 						if ( tr.Hit )
@@ -225,8 +225,8 @@ public partial class NPC : AnimEntity
 
 							if ( !tr.Hit )
 							{
-								start = tr.EndPos;
-								end = tr.EndPos + Rotation.Forward * distance + 5;
+								start = tr.EndPosition;
+								end = tr.EndPosition + Rotation.Forward * distance + 5;
 								tr = StartTrace( start, end );
 
 								if ( !tr.Hit && timeSinceJump > 1f )
@@ -349,7 +349,7 @@ public partial class NPC : AnimEntity
 
 			if ( !tr.StartedSolid )
 			{
-				move.Position = tr.EndPos;
+				move.Position = tr.EndPosition;
 			}
 
 			if ( InputVelocity.Length > 0 )

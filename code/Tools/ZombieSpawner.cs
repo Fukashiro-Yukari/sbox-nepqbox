@@ -37,21 +37,21 @@ namespace Sandbox.Tools
 
 				if ( isNormalZombie || isSpeedZombie )
 				{
-					var startPos = Owner.EyePosition;
+					var StartPosition = Owner.EyePosition;
 					var dir = Owner.EyeRotation.Forward;
 
-					var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+					var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 						.Ignore( Owner )
 						.Run();
 
 					if ( !tr.Hit || !tr.Entity.IsValid() )
 						return;
 
-					CreateHitEffects( tr.EndPos );
+					CreateHitEffects( tr.EndPosition );
 
 					var zombie = isSpeedZombie ? new NPCZombieSpeed() : new NPCZombie();
 
-					zombie.Position = tr.EndPos;
+					zombie.Position = tr.EndPosition;
 
 					new Undo( "Zombie" ).SetClient( Owner.Client ).AddEntity( zombie ).Finish( isSpeedZombie ? "Speed Zombie" : "Zombie" );
 				}

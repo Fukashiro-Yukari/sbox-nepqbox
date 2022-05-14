@@ -12,7 +12,7 @@ namespace Sandbox.Tools
 
 			using ( Prediction.Off() )
 			{
-				var startPos = Owner.EyePosition;
+				var StartPosition = Owner.EyePosition;
 				var dir = Owner.EyeRotation.Forward;
 				int resizeDir = 0;
 				var reset = false;
@@ -22,7 +22,7 @@ namespace Sandbox.Tools
 				else if ( Input.Pressed( InputButton.Reload ) ) reset = true;
 				else return;
 
-				var tr = Trace.Ray( startPos, startPos + dir * MaxTraceDistance )
+				var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTraceDistance )
 				   .Ignore( Owner )
 				   .UseHitboxes()
 				   .HitLayer( CollisionLayer.Debris )
@@ -62,7 +62,7 @@ namespace Sandbox.Tools
 
 				if ( Input.Pressed( InputButton.Attack1 ) || Input.Pressed( InputButton.Attack2 ) || reset )
 				{
-					CreateHitEffects( tr.EndPos );
+					CreateHitEffects( tr.EndPosition );
 
 					new Undo( "Resizer" ).SetClient( Owner.Client ).Add( new ResizerUndo( entity, oldscale ) ).Finish();
 				}

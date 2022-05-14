@@ -109,7 +109,7 @@ public partial class WeaponMelee : Weapon
 
 			using ( Prediction.Off() )
 			{
-				var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * force, IsBack ? backDamage : damage )
+				var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * force, IsBack ? backDamage : damage )
 					.UsingTraceResult( tr )
 					.WithAttacker( Owner )
 					.WithWeapon( this );
