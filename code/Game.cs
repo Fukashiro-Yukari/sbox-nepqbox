@@ -75,11 +75,16 @@ partial class NepQBoxGame : Game
 			.Ignore( owner )
 			.Run();
 
-		var ent = new Prop();
-		ent.Position = tr.EndPosition;
-		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 );
-		ent.SetModel( modelname );
-		ent.Position = tr.EndPosition - Vector3.Up * ent.CollisionBounds.Mins.z;
+		var model = Resource.FromPath<Model>( modelname );
+		var ent = new Prop
+		{
+			Position = tr.EndPosition + Vector3.Down * model.PhysicsBounds.Mins.z,
+			Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) ) * Rotation.FromAxis( Vector3.Up, 180 ),
+			Model = model
+		};
+
+		// Let's make sure physics are ready to go instead of waiting
+		ent.SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 
 		if ( ConsoleSystem.Caller.GetClientData<bool>( "cl_print_modelname" ) )
 			PrintModelPath( To.Single( owner ), modelname );
