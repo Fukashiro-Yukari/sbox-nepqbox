@@ -60,7 +60,7 @@ partial class NPC
 
 			var propInfo = jacket.Model.GetPropData();
 
-			if ( propInfo.ParentBodygroupName != null )
+			if ( propInfo?.ParentBodygroupName != null )
 			{
 				SetBodyGroup( propInfo.ParentBodygroupName, propInfo.ParentBodygroupValue );
 			}
