@@ -5,17 +5,17 @@ using Sandbox.UI;
 public class SniperScope : Panel
 {
 	Panel LensWrapper;
-	Panel ScopeWrapper;
+	//Panel ScopeWrapper;
 
 	Panel LeftBar;
 	Panel RightBar;
-	Panel TopBar;
-	Panel BottomBar;
+	//Panel TopBar;
+	//Panel BottomBar;
 
 	Image Lens;
 	Image Scope;
 
-	float lensRotation;
+	//float lensRotation;
 
 	public SniperScope( string lensTexture, string scopeTexture )
 	{
