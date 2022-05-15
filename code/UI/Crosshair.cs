@@ -10,7 +10,7 @@ public class Crosshair : Panel
 
 	public Crosshair()
 	{
-		for( int i=0; i<5; i++ )
+		for ( int i = 0; i < 5; i++ )
 		{
 			var p = Add.Panel( "element" );
 			p.AddClass( $"el{i}" );
