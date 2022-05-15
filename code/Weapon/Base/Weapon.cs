@@ -618,13 +618,13 @@ public partial class Weapon : Carriable, IUse
 	[ClientRpc]
 	protected virtual void BulletTracer( Vector3 to )
 	{
-		//var tr = EffectEntity.GetAttachment( "muzzle" );
+		var tr = EffectEntity.GetAttachment( "muzzle" );
 
-		//if ( tr == null ) return;
+		if ( tr == null ) return;
 
-		//var ps = Particles.Create( "particles/sd_bullet_trail.vpcf", to );
-		//ps.SetPosition( 0, tr.Value.Position );
-		//ps.SetPosition( 1, to );
+		var ps = Particles.Create( "particles/swb/tracer/tracer_large.vpcf", to );
+		ps.SetPosition( 1, tr.GetValueOrDefault().Position );
+		ps.SetPosition( 2, to );
 	}
 
 	/// <summary>
@@ -657,7 +657,12 @@ public partial class Weapon : Carriable, IUse
 			if ( !IsServer ) continue;
 
 			tr.Surface.DoBulletImpact( tr );
-			BulletTracer( tr.EndPosition );
+
+			var random = new Random();
+			var randVal = random.Next( 0, 2 );
+
+			if ( randVal == 0 )
+				BulletTracer( tr.EndPosition );
 
 			if ( !tr.Entity.IsValid() ) continue;
 
