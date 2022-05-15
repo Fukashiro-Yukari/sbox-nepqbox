@@ -1,71 +1,83 @@
-CurrentTool
-{
+CurrentTool {
 	position: absolute;
-	background: linear-gradient(to right, rgba(black, 0.5), rgba(black, 0.0));
+	background-color: rgba(#3472e6, 0.8);
+	backdrop-filter: blur(50px);
+	border-radius: 10px;
 	top: 100px;
-	left: 0px;
-	padding: 30px 70px;
+	left: 100px;
+	padding: 20px 50px;
 	flex-direction: column;
-	width: 560px;
 	opacity: 0.0;
 
-	&.active
-	{
+	&.active {
 		opacity: 1.0;
 	}
 
-	.title
-	{
-		font-size: 50px;
-		font-weight: bold;
-		text-shadow: 4px 4px 10px rgba( black, 0.3 );
+	.title {
+		font-size: 40px;
 		color: white;
+		font-family: Poppins;
+		font-weight: 800;
+		mix-blend-mode: lighten;
+		text-transform: uppercase;
 	}
 
-	.description
-	{
-		padding-top: 5px;
-		padding-left: 10px;
-		font-size: 18px;
+	.description {
+		font-size: 14px;
 		font-weight: normal;
-		text-shadow: 2px 2px 5px rgba( black, 0.3 );
 		color: white;
 		opacity: 0.8;
+		font-family: Poppins;
+		font-weight: 500;
+		mix-blend-mode: lighten;
+		text-transform: uppercase;
 	}
 }
 
-CurrentFireMode
-{
+.spawnmenuopen CurrentTool {
+	&.active {
+		opacity: 0.01;
+	}
+}
+
+CurrentFireMode {
 	position: absolute;
-	background: linear-gradient(to right, rgba(black, 0.5), rgba(black, 0.0));
+	background-color: rgba(#3472e6, 0.8);
+	backdrop-filter: blur(50px);
+	border-radius: 10px;
 	top: 100px;
-	left: 0px;
-	padding: 30px 70px;
+	left: 100px;
+	padding: 20px 50px;
 	flex-direction: column;
-	width: 560px;
 	opacity: 0.0;
 
-	&.active
-	{
+	&.active {
 		opacity: 1.0;
 	}
 
-	.title
-	{
-		font-size: 50px;
-		font-weight: bold;
-		text-shadow: 4px 4px 10px rgba( black, 0.3 );
+	.title {
+		font-size: 40px;
 		color: white;
+		font-family: Poppins;
+		font-weight: 800;
+		mix-blend-mode: lighten;
+		text-transform: uppercase;
 	}
 
-	.description
-	{
-		padding-top: 5px;
-		padding-left: 10px;
-		font-size: 18px;
+	.description {
+		font-size: 14px;
 		font-weight: normal;
-		text-shadow: 2px 2px 5px rgba( black, 0.3 );
 		color: white;
 		opacity: 0.8;
+		font-family: Poppins;
+		font-weight: 500;
+		mix-blend-mode: lighten;
+		text-transform: uppercase;
+	}
+}
+
+.spawnmenuopen CurrentFireMode {
+	&.active {
+		opacity: 0.01;
 	}
 }
