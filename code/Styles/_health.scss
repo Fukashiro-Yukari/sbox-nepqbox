@@ -1,56 +1,57 @@
-Health
-{
+Health {
 	position: absolute;
-	background-color: rgba( black, 0.5 );
+	// background-color: rgba( black, 0.5 );
 	left: 10px;
 	bottom: 10px;
 	height: 70px;
 	width: 250px;
 	padding: 5px;
 	align-items: center;
+	font-family: Poppins;
+	background-color: rgba(#333, 0.4);
+	backdrop-filter: blur(20px);
+	border-radius: 10px;
 
-	image
-	{
+	image {
 		position: absolute;
 		left: 5px;
 		top: 5px;
 		width: 40px;
-        height: 40px;
+		height: 40px;
+		border-radius: 10px;
 	}
 
-	.PlayerName
-	{
+	.PlayerName {
 		position: absolute;
 		top: 13px;
 		left: 50px;
 		width: 10000px;
 		font-size: 20px;
 		font-weight: bold;
-		text-shadow: 4px 4px 1px black;
+		text-shadow: 2px 2px 1px black;
 		color: white;
 	}
 
-	.HealthText
-	{
+	.HealthText {
 		position: absolute;
-		margin-left: 8px;
-		top: 50px;
+		margin-left: 10px;
+		top: 48px;
 		width: 40px;
 		font-weight: bold;
 		text-shadow: 0 0 1px black;
 		color: white;
 	}
 
-	.HealthBarBG
-	{
-		background-color: rgba( black, 0.7 );
+	.HealthBarBG {
+		background-color: rgba(black, 0.7);
 		margin-top: 45px;
 		width: 250px;
 		height: 18px;
+		border-radius: 10px;
 	}
 
-	.HealthBar
-	{
-		background-color: rgba( red, 0.7 );
+	.HealthBar {
+		background-color: rgba(red, 0.7);
+		border-radius: 10px;
 	}
 }

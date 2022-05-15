@@ -10,20 +10,16 @@
 // @import "_pickupfeed.scss";
 // @import "_scoreboard.scss";
 
-rootpanel
-{
-	background-color: rgba( #333, 0 );
+rootpanel {
+	background-color: rgba(#333, 0);
 	transition: background-color 0.2s ease-in;
-	transform-origin: 50% 50%;
 
-	&.spawnmenuopen
-	{
+	&.spawnmenuopen {
 		transition: background-color 0.3s ease-out;
-		background-color: rgba( #333, 0.9 );
+		background-color: rgba(#333, 0.9);
 	}
 
-	&.devcamera
-	{
+	&.devcamera {
 		display: none;
 	}
 }

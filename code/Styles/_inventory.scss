@@ -1,62 +1,62 @@
-InventoryBar
-{
-    position: absolute;
+InventoryBar {
+	position: absolute;
 	right: 10px;
-    bottom: 60px;
-    font-family: Roboto;
+	bottom: 60px;
+	font-family: Roboto;
 	justify-content: center;
 	flex-direction: column;
 	align-items: flex-end;
 }
 
-InventoryColumn
-{
-    margin-bottom: 5px;
+InventoryColumn {
+	margin-bottom: 5px;
 	flex-direction: row-reverse;
 	align-items: flex-start; // align to the left, don't stretch
-    position: relative;
-    height: 80px;
+	position: relative;
+	height: 80px;
 	padding: 0 0 0 200px;
+	border-radius: 10px;
 
-    .slot-number
-	{
-        color: white;
+	.slot-number {
+		color: #666;
 		top: 5px;
-        right: 5px;
+		right: 5px;
 		font-size: 15px;
 		font-weight: bolder;
 		width: 20px;
+		text-transform: uppercase;
+		mix-blend-mode: lighten;
+		transition: all 0.2s ease-in-out;
 	}
 
-    &.active
-	{
-		background: linear-gradient(to left, rgba(black, 0.5), rgba(black, 0.0));
-    }
+	&.active {
+		background: linear-gradient(to left, rgba(#333, 0.5), rgba(#333, 0.0));
 
-    &.empty
-    {
-        display: none;
-    }
+		.slot-number {
+			color: white;
+		}
+	}
 
-    inventoryicon
-	{
-		transition: all 0.1s ease-out;
+	&.empty {
+		display: none;
+	}
+
+	inventoryicon {
+		transition: all 0.2s ease-out;
 		display: flex;
 		width: 100px;
 		height: 80px;
 	}
 }
 
-inventoryicon
-{
-    mix-blend-mode: lighten;
+inventoryicon {
+	mix-blend-mode: lighten;
 	padding: 10px;
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
 
-	.item-name
-	{
+	.item-name {
 		padding: 5px;
 		color: white;
 		text-align: center;
@@ -67,29 +67,26 @@ inventoryicon
 		position: absolute;
 		bottom: 0;
 		opacity: 0.2;
-		transition: all 0.2s ease-in-out;
 		text-shadow: 1px 1px 5px black;
+		transition: all 0.2s ease-in-out;
 	}
 
-	.icon
-	{
+	.icon {
 		width: 100px;
 		height: 100px;
 		background-size: 100%;
-        background-image-tint: #4b4b4b;
+		background-image-tint: #4b4b4b;
 		position: absolute;
 	}
 
-	&.active
-	{
-        .item-name
-        {
-            opacity: 1;
-        }
+	&.active {
+		.item-name {
+			color: #3472e6;
+			opacity: 1;
+		}
 
-		.icon
-		{
-            background-image-tint: white;
+		.icon {
+			background-image-tint: #3472e6;
 		}
 	}
 }

@@ -4,8 +4,8 @@
     right: 0px;
     top: 0px;
     bottom: 0px;
-    margin: 100px;
-    margin-bottom: 200px;
+    padding: 100px;
+    padding-bottom: 200px;
     border-radius: 5px;
     pointer-events: none;
     transition: all 0.1s ease-out;
@@ -22,16 +22,17 @@
         button {
             padding: 6px 5px;
             margin-right: 10px;
-            font-size: 13px;
+            font-size: 23px;
             align-items: center;
             font-weight: 600;
             opacity: 0.2;
             color: #fff;
             cursor: pointer;
+            font-family: Poppins;
 
             //border-radius: 5px;
             label {
-                //text-shadow: 1px 1px 4px rgba( black, 0.2 );
+                text-shadow: 1px 1px 4px rgba(black, 0.2);
             }
 
             &:hover {
@@ -42,7 +43,7 @@
                 transform: scale(1);
                 opacity: 1;
                 color: #fff;
-                //  background-color: #fff;//( #3273eb, 0.2 );
+                //	background-color: #fff;//( #3273eb, 0.2 );
                 //color: #3273eb;
             }
         }
@@ -57,8 +58,9 @@
 
         .body {
             border-radius: 10px;
-            background-color: rgba(#111, 0.7);
+            background-color: rgba(#111, 0.4);
             flex-grow: 1;
+            backdrop-filter: blur(100px);
         }
     }
 
@@ -71,11 +73,12 @@
         transition: all 0.3s ease-in;
 
         .body {
-            //  background-color: rgba( #333, 0.95 );
+            //	background-color: rgba( #333, 0.95 );
             flex-grow: 1;
             border-radius: 10px;
-            background-color: rgba(#111, 0.7);
+            background-color: rgba(#111, 0.4);
             padding: 10px;
+            backdrop-filter: blur(100px);
 
             .page {
                 display: none;
@@ -130,7 +133,6 @@
     }
 }
 
-
 .spawnmenuopen spawnmenu {
     transition: all 0.2s ease-out;
     pointer-events: all;
@@ -163,11 +165,6 @@
 
         .cell {
             padding: 5px;
-            transition: all 0.2s ease-out;
-
-            &:hover {
-                padding: 8px;
-            }
         }
 
         .icon {
@@ -180,11 +177,12 @@
             height: 100%;
             background-position: center;
             background-size: cover;
-            background-color: rgba(black, 0.0);
+            background-color: rgba(#333, 0.0);
             background-image: url(/entity/spawnicon.png );
+            transition: all 0.2s ease-out;
 
             label {
-                background-color: rgba(black, 0.5);
+                background-color: rgba(#333, 0.5);
                 border-radius: 5px;
                 font-size: 9px;
                 color: white;
@@ -199,11 +197,13 @@
 
             &:hover {
                 color: #fff;
-                background-color: rgba(black, 0.1);
+                background-color: rgba(#333, 0.1);
                 font-size: 12px;
+                width: 105%;
+                height: 105%;
 
                 label {
-                    background-color: rgba(rgb(0, 153, 255), 0.5);
+                    background-color: rgba(#3472e6, 0.5);
                     font-size: 11px;
                 }
             }
