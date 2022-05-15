@@ -68,15 +68,17 @@ public partial class InventoryBar : Panel
 
 		if ( ply.ActiveChild is PhysGun physgun && physgun.BeamActive ) return;
 
-		var oldSelectedWeapon = SelectedWeapon;
-		int SelectedIndex = Weapons.IndexOf( SelectedWeapon );
+		var sortedWeapons = Weapons.OrderBy( x => x.Order ).ToList();
 
-		SelectedIndex = SlotPressInput( input, SelectedIndex );
+		var oldSelectedWeapon = SelectedWeapon;
+		int SelectedIndex = sortedWeapons.IndexOf( SelectedWeapon );
+
+		SelectedIndex = SlotPressInput( input, SelectedIndex, sortedWeapons );
 
 		SelectedIndex -= input.MouseWheel;
 		SelectedIndex = SelectedIndex.UnsignedMod( Weapons.Count );
 
-		SelectedWeapon = Weapons[SelectedIndex];
+		SelectedWeapon = sortedWeapons[SelectedIndex];
 
 		for ( int i = 0; i < 9; i++ )
 		{
@@ -92,7 +94,7 @@ public partial class InventoryBar : Panel
 		}
 	}
 
-	int SlotPressInput( InputBuilder input, int SelectedIndex )
+	int SlotPressInput( InputBuilder input, int SelectedIndex, List<Carriable> sortedWeapons )
 	{
 		var columninput = -1;
 
@@ -110,33 +112,33 @@ public partial class InventoryBar : Panel
 
 		if ( SelectedWeapon.IsValid() && SelectedWeapon.Bucket == columninput )
 		{
-			return NextInBucket();
+			return NextInBucket( sortedWeapons );
 		}
 
 		// Are we already selecting a weapon with this column?
-		var firstOfColumn = Weapons.Where( x => x.Bucket == columninput ).OrderBy( x => x.BucketWeight ).FirstOrDefault();
+		var firstOfColumn = sortedWeapons.Where( x => x.Bucket == columninput ).FirstOrDefault();
 		if ( firstOfColumn == null )
 		{
 			// DOOP sound
 			return SelectedIndex;
 		}
 
-		return Weapons.IndexOf( firstOfColumn );
+		return sortedWeapons.IndexOf( firstOfColumn );
 	}
 
-	int NextInBucket()
+	int NextInBucket( List<Carriable> sortedWeapons )
 	{
 		Assert.NotNull( SelectedWeapon );
 
 		Carriable first = null;
 		Carriable prev = null;
-		foreach ( var weapon in Weapons.Where( x => x.Bucket == SelectedWeapon.Bucket ).OrderBy( x => x.BucketWeight ) )
+		foreach ( var weapon in sortedWeapons.Where( x => x.Bucket == SelectedWeapon.Bucket ) )
 		{
 			if ( first == null ) first = weapon;
-			if ( prev == SelectedWeapon ) return Weapons.IndexOf( weapon );
+			if ( prev == SelectedWeapon ) return sortedWeapons.IndexOf( weapon );
 			prev = weapon;
 		}
 
-		return Weapons.IndexOf( first );
+		return sortedWeapons.IndexOf( first );
 	}
 }

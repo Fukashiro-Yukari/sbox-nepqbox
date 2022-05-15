@@ -4,6 +4,7 @@ public partial class Carriable : BaseCarriable, IUse
 {
 	public virtual int Bucket => 1;
 	public virtual int BucketWeight => 100;
+	public virtual int Order => (Bucket * 1000) + BucketWeight;
 	public virtual string WorldModelPath => "";
 	public virtual string Icon => "";
 	public virtual string DrawAnim => "deploy";
