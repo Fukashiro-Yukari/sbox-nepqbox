@@ -24,8 +24,19 @@ partial class Inventory : BaseInventory
 		if ( !entity.IsValid() )
 			return false;
 
+		var player = Owner as SandboxPlayer;
+		var weapon = entity as Weapon;
+		var notices = !player.SupressPickupNotices;
+
 		if ( IsCarryingType( entity.GetType() ) )
 			return false;
+
+		if ( weapon != null && notices && entity.Owner == null )
+		{
+			Sound.FromWorld( "dm.pickup_weapon", weapon.Position );
+
+			PickupFeed.OnPickup( To.Single( player ), weapon );
+		}
 
 		return base.Add( entity, makeActive );
 	}

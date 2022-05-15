@@ -17,6 +17,7 @@ partial class SandboxPlayer : Player
 	public Clothing.Container Clothing = new();
 
 	public bool IsHeadShot { get; private set; }
+	public bool SupressPickupNotices { get; private set; }
 
 	/// <summary>
 	/// Default init
@@ -54,6 +55,8 @@ partial class SandboxPlayer : Player
 
 		Clothing.DressEntity( this );
 
+		SupressPickupNotices = true;
+
 		Inventory.Add( new PhysGun(), true );
 		Inventory.Add( new GravGun() );
 		Inventory.Add( new Tool() );
@@ -65,6 +68,8 @@ partial class SandboxPlayer : Player
 		Inventory.Add( new Python357() );
 		Inventory.Add( new Flashlight() );
 		Inventory.Add( new Fists() );
+
+		SupressPickupNotices = false;
 
 		CameraMode = new FirstPersonCamera();
 

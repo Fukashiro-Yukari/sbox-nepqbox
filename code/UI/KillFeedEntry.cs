@@ -18,7 +18,7 @@ public partial class KillFeedEntry : Panel
 		Left = Add.Label( "", "left" );
 		Method = Add.Label( "", "method" );
 		Icon = Add.Panel( "icon" );
-		HeadShotIcon = Add.Panel( "icon" );
+		HeadShotIcon = Add.Panel( "icon2" );
 		Right = Add.Label( "", "right" );
 	}
 

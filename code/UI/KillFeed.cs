@@ -3,8 +3,17 @@ using Sandbox;
 using Sandbox.UI;
 using System;
 
-public partial class KillFeed : Sandbox.UI.KillFeed
+public partial class KillFeed : Panel
 {
+	public static KillFeed Current;
+
+	public KillFeed()
+	{
+		Current = this;
+	}
+
+	string headShotImage = "ui/headshot.png";
+
 	private bool GetIcon( string method, KillFeedEntry e )
 	{
 		try
@@ -17,7 +26,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 				{
 					if ( !string.IsNullOrEmpty( car.Icon ) )
 					{
-						e.Icon.Style.BackgroundImage = Texture.Load( car.Icon );
+						e.Icon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, car.Icon );
 						e.Icon.SetClass( "close", false );
 						killWeapon.Delete();
 
@@ -28,7 +37,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 				{
 					if ( !string.IsNullOrEmpty( cb.Icon ) )
 					{
-						e.Icon.Style.BackgroundImage = Texture.Load( cb.Icon ); ;
+						e.Icon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, cb.Icon ); ;
 						e.Icon.SetClass( "close", false );
 						killWeapon.Delete();
 
@@ -57,7 +66,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
-		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, headShotImage );
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
@@ -79,7 +88,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
-		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, headShotImage );
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
@@ -101,7 +110,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
-		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, headShotImage );
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
@@ -123,12 +132,36 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 			e.Icon.SetClass( "close", true );
 		}
 
-		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( "ui/headshot.png" );
+		e.HeadShotIcon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, headShotImage );
 		e.HeadShotIcon.SetClass( "close", !isHeadShot );
 
 		e.Right.Text = right;
 		e.Right.SetClass( "me", false );
 
 		return e;
+	}
+
+	[ClientRpc]
+	public static void OnKilledMessage( long leftid, string left, long rightid, string right, string method, bool isHeadShot )
+	{
+		Current?.AddEntry( leftid, left, rightid, right, method, isHeadShot );
+	}
+
+	[ClientRpc]
+	public static void OnKilledMessage( long leftid, string left, string right, string method, bool isHeadShot )
+	{
+		Current?.AddEntry( leftid, left, right, method, isHeadShot );
+	}
+
+	[ClientRpc]
+	public static void OnKilledMessage( string left, long rightid, string right, string method, bool isHeadShot )
+	{
+		Current?.AddEntry( left, rightid, right, method, isHeadShot );
+	}
+
+	[ClientRpc]
+	public static void OnKilledMessage( string left, string right, string method, bool isHeadShot )
+	{
+		Current?.AddEntry( left, right, method, isHeadShot );
 	}
 }

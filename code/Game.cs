@@ -351,18 +351,18 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( pawn.LastAttackerWeapon != null )
-					OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name, isHeadShot );
 				else
-					OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttacker.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttacker.ClassInfo?.Name, isHeadShot );
 			}
 			else
 			{
-				OnKilledMessage( pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.PlayerId, client.Name, "killed", isHeadShot );
+				KillFeed.OnKilledMessage( pawn.LastAttacker.NetworkIdent, pawn.LastAttacker.ToString(), client.PlayerId, client.Name, "killed", isHeadShot );
 			}
 		}
 		else
 		{
-			OnKilledMessage( 0, "", client.PlayerId, client.Name, "died", isHeadShot );
+			KillFeed.OnKilledMessage( 0, "", client.PlayerId, client.Name, "died", isHeadShot );
 		}
 	}
 
@@ -382,73 +382,18 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( ent.LastAttackerWeapon != null )
-					OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name, isHeadShot );
 				else
-					OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name, isHeadShot );
 			}
 			else
 			{
-				OnKilledMessage( ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed", isHeadShot );
+				KillFeed.OnKilledMessage( ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed", isHeadShot );
 			}
 		}
 		else
 		{
-			OnKilledMessage( 0, "", ent.ClassInfo.Title, "died", isHeadShot );
+			KillFeed.OnKilledMessage( 0, "", ent.ClassInfo.Title, "died", isHeadShot );
 		}
-	}
-
-	/// <summary>
-	/// Called clientside from OnKilled on the server to add kill messages to the killfeed. 
-	/// </summary>
-	[ClientRpc]
-	public virtual void OnKilledMessage( long leftid, string left, long rightid, string right, string method, bool isHeadShot )
-	{
-		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
-
-		kf?.AddEntry( leftid, left, rightid, right, method, isHeadShot );
-	}
-
-	[ClientRpc]
-	public virtual void OnKilledMessage( long leftid, string left, string right, string method, bool isHeadShot )
-	{
-		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
-
-		kf?.AddEntry( leftid, left, right, method, isHeadShot );
-	}
-
-	[ClientRpc]
-	public virtual void OnKilledMessage( string left, long rightid, string right, string method, bool isHeadShot )
-	{
-		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
-
-		kf?.AddEntry( left, rightid, right, method, isHeadShot );
-	}
-
-	[ClientRpc]
-	public virtual void OnKilledMessage( string left, string right, string method, bool isHeadShot )
-	{
-		var kf = Sandbox.UI.KillFeed.Current as KillFeed;
-
-		kf?.AddEntry( left, right, method, isHeadShot );
-	}
-
-	public static void AddHint( string text )
-	{
-		if ( Host.IsClient ) return;
-
-		AddHintMessage( text );
-	}
-
-	public static void AddHint( To to, string text )
-	{
-		if ( Host.IsClient ) return;
-
-		AddHintMessage( to, text );
-	}
-
-	[ClientRpc]
-	public static void AddHintMessage( string text )
-	{
-		Hint.Current?.AddHint( text );
 	}
 }
