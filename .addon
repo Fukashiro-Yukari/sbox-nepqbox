@@ -8,7 +8,9 @@
   "AssetsPath": "",
   "ResourcePaths": [
     "/ui/*",
-    "/entity/*"
+    "/entity/*",
+    "/materials/*",
+    "/weapons/*"
   ],
   "HasCode": true,
   "CodePath": "code",
