@@ -658,11 +658,11 @@ public partial class Weapon : Carriable, IUse
 
 			tr.Surface.DoBulletImpact( tr );
 
-			var random = new Random();
-			var randVal = random.Next( 0, 2 );
+			//var random = new Random();
+			//var randVal = random.Next( 0, 2 );
 
-			if ( randVal == 0 )
-				BulletTracer( tr.EndPosition );
+			//if ( randVal == 0 )
+			BulletTracer( tr.EndPosition );
 
 			if ( !tr.Entity.IsValid() ) continue;
 
