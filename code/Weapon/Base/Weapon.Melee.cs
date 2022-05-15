@@ -1,4 +1,5 @@
 using Sandbox;
+using System.Linq;
 
 public partial class WeaponMelee : Weapon
 {
@@ -45,12 +46,16 @@ public partial class WeaponMelee : Weapon
 
 		bool hit = false;
 
-		int index = 0;
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * meleeDistance, ImpactSize ) )
-		{
-			if ( index > 0 ) break;
+		// I think the method is broken, if you melee miss, the method will not output anything.
+		var bullets = TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * meleeDistance, ImpactSize );
 
-			index++;
+		//Log.Info( "try" );
+		//Log.Info( bullets.Count() );
+
+		foreach ( var tr in bullets )
+		{
+			//Log.Info( "test" );
+			//Log.Info( tr.Entity );
 
 			if ( !tr.Entity.IsValid() )
 			{
@@ -66,6 +71,8 @@ public partial class WeaponMelee : Weapon
 						Rotation = -1f
 					};
 				}
+
+				//Log.Info( "test" );
 
 				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Speed, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
 
