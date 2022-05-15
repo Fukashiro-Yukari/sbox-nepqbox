@@ -370,3 +370,4 @@ tools_thumbnail_cache.bin
 *.dll
 maps/editor/_bakeresourcecache/toolscene_default_baked/*
 .vs/*
+*.generated.*
