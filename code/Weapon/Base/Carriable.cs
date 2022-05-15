@@ -9,6 +9,7 @@ public partial class Carriable : BaseCarriable, IUse
 	public virtual string Icon => "";
 	public virtual string DrawAnim => "deploy";
 	public virtual string DrawEmptyAnim => null;
+	public virtual bool EnableSwingAndBob => true;
 
 	public override void Spawn()
 	{
@@ -78,7 +79,8 @@ public partial class Carriable : BaseCarriable, IUse
 		{
 			Position = Position,
 			Owner = Owner,
-			EnableViewmodelRendering = true
+			EnableViewmodelRendering = true,
+			EnableSwingAndBob = EnableSwingAndBob
 		};
 
 		ViewModelEntity.SetModel( ViewModelPath );

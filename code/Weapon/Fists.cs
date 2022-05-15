@@ -22,6 +22,7 @@ partial class Fists : WeaponMelee
 	public override string SecondaryAnimationHit => "attack";
 	public override string SecondaryAnimationMiss => "attack";
 	public override bool CanUseSecondary => true;
+	public override bool EnableSwingAndBob => false;
 
 	public override void OnCarryDrop( Entity dropper )
 	{
@@ -54,26 +55,16 @@ partial class Fists : WeaponMelee
 
 	public override void CreateViewModel()
 	{
-		Host.AssertClient();
+		base.CreateViewModel();
 
-		if ( string.IsNullOrEmpty( ViewModelPath ) )
-			return;
-
-		ViewModelEntity = new ViewModel
-		{
-			Position = Position,
-			Owner = Owner,
-			EnableViewmodelRendering = true,
-			EnableSwingAndBob = false,
-		};
-
-		ViewModelEntity.SetModel( ViewModelPath );
 		ViewModelEntity.SetAnimGraph( "models/first_person/first_person_arms_punching.vanmgrph" );
 	}
 
 	[ClientRpc]
 	public override void OnMeleeMiss( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
+		Host.AssertClient();
+
 		ViewModelEntity?.SetAnimParameter( "attack_has_hit", false );
 
 		base.OnMeleeMiss( length, speed, size, rotation, animation, leftHand );
@@ -84,6 +75,8 @@ partial class Fists : WeaponMelee
 	[ClientRpc]
 	public override void OnMeleeHit( float length, float speed, float size, float rotation, string animation, bool leftHand )
 	{
+		Host.AssertClient();
+
 		ViewModelEntity?.SetAnimParameter( "attack_has_hit", true );
 
 		base.OnMeleeHit( length, speed, size, rotation, animation, leftHand );
