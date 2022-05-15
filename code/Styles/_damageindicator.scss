@@ -1,34 +1,29 @@
-﻿damageindicator
-{
+﻿damageindicator {
 	mix-blend-mode: lighten;
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	position: absolute;
 
-	hitpoint
-	{
+	hitpoint {
 		position: absolute;
 		left: 50%;
 		top: 50%;
-		width: 600px;
-		height: 600px;
-		border-radius: 1000px;
-		border: 20px solid transparent;
-		border-bottom: 20px solid #f00;
-		transition: opacity 0.5s ease-out;
-		opacity: 0.8;
+		width: 100px;
+		height: 350px;
+		border-radius: 0px;
+		border: 0px solid yellow;
+		border-bottom: 10px solid #f00;
+		transition: opacity 0.2s linear;
+		opacity: 0.5;
 		transform-origin: 0% 0%;
 
-		label
-		{
+		label {
 			text-shadow: 0px 0px 10px #fa0;
 		}
 
-		&.dying
-		{
+		&.dying {
 			opacity: 0;
 		}
 	}
