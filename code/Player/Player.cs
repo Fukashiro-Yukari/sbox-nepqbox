@@ -283,7 +283,7 @@ partial class SandboxPlayer : Player
 			if ( !slot.IsValid() )
 				continue;
 
-			if ( !slot.ClassInfo.IsNamed( entName ) )
+			if ( slot.ClassName != entName )
 				continue;
 
 			inventory.SetActiveSlot( i, false );

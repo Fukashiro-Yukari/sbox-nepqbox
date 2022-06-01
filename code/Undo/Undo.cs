@@ -167,9 +167,11 @@ namespace Sandbox
 		[ClientRpc]
 		public static void AddUndoText( Entity ent )
 		{
-			Event.Run( "OnUndo", $"Undone {ent.ClassInfo.Title}" );
+			var di = DisplayInfo.For( ent );
 
-			UndoUI.Current.AddUndoText( ent.ClassInfo.Title );
+			Event.Run( "OnUndo", $"Undone {di.Name}" );
+
+			UndoUI.Current.AddUndoText( di.Name );
 		}
 
 		[ClientRpc]

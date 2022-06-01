@@ -20,7 +20,9 @@ class InventoryIcon : Panel
 
 	internal void TickSelection()
 	{
-		Label.SetText( Weapon.ClassInfo.Title );
+		var di = DisplayInfo.For( Weapon );
+
+		Label.SetText( di.Name );
 
 		var ply = Local.Pawn as Player;
 

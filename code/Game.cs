@@ -170,7 +170,9 @@ partial class NepQBoxGame : Game
 		ent.Position = tr.EndPosition;
 		ent.Rotation = Rotation.From( new Angles( 0, owner.EyeRotation.Angles().yaw, 0 ) );
 
-		new Undo( "Entity" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Entity ({ent.ClassInfo.Title})" );
+		var di = DisplayInfo.For( ent );
+
+		new Undo( "Entity" ).SetClient( ConsoleSystem.Caller ).AddEntity( ent ).Finish( $"Entity ({di.Name})" );
 
 		//Log.Info( $"ent: {ent}" );
 	}
@@ -351,9 +353,9 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( pawn.LastAttackerWeapon != null )
-					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttackerWeapon.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttackerWeapon?.ClassName, isHeadShot );
 				else
-					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttacker.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, client.PlayerId, client.Name, pawn.LastAttacker?.ClassName, isHeadShot );
 			}
 			else
 			{
@@ -371,6 +373,7 @@ partial class NepQBoxGame : Game
 		Host.AssertServer();
 
 		var isHeadShot = false;
+		var di = DisplayInfo.For( ent );
 
 		if ( ent is NPC npc )
 			isHeadShot = npc.IsHeadShot;
@@ -382,18 +385,18 @@ partial class NepQBoxGame : Game
 			if ( attackerClient != null )
 			{
 				if ( ent.LastAttackerWeapon != null )
-					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttackerWeapon?.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, di.Name, ent.LastAttackerWeapon?.ClassName, isHeadShot );
 				else
-					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, ent.ClassInfo.Title, ent.LastAttacker.ClassInfo?.Name, isHeadShot );
+					KillFeed.OnKilledMessage( attackerClient.PlayerId, attackerClient.Name, di.Name, ent.LastAttacker.ClassName, isHeadShot );
 			}
 			else
 			{
-				KillFeed.OnKilledMessage( ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), ent.ClassInfo.Title, "killed", isHeadShot );
+				KillFeed.OnKilledMessage( ent.LastAttacker.NetworkIdent, ent.LastAttacker.ToString(), di.Name, "killed", isHeadShot );
 			}
 		}
 		else
 		{
-			KillFeed.OnKilledMessage( 0, "", ent.ClassInfo.Title, "died", isHeadShot );
+			KillFeed.OnKilledMessage( 0, "", di.Name, "died", isHeadShot );
 		}
 	}
 }

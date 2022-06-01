@@ -16,13 +16,15 @@ public class CurrentFireMode : Panel
 
 	public override void Tick()
 	{
-		var tool = GetCurrentFireMode();
-		SetClass( "active", tool != null );
+		var mode = GetCurrentFireMode();
+		SetClass( "active", mode != null );
 
-		if ( tool != null )
+		if ( mode != null )
 		{
-			Title.SetText( tool.ClassInfo.Title );
-			Description.SetText( tool.ClassInfo.Description );
+			var display = DisplayInfo.For( mode );
+
+			Title.SetText( display.Name );
+			Description.SetText( display.Description );
 		}
 	}
 

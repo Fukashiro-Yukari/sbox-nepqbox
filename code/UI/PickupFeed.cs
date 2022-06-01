@@ -29,9 +29,10 @@ public partial class PickupFeed : Panel
 	public virtual Panel AddPickupFeed( Weapon wep )
 	{
 		var e = Current.AddChild<PickupFeedEntry>();
+		var di = DisplayInfo.For( wep );
 
 		e.Icon.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, wep.Icon );
-		e.Text.Text = $"+ {wep.ClassInfo.Title}";
+		e.Text.Text = $"+ {di.Name}";
 
 		return e;
 	}
