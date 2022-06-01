@@ -84,7 +84,7 @@ public partial class CWEPW : Weapon
 		if (FireModes.Count > 0)
 			FireModes = new();
 
-		foreach (var en in Library.GetAllAttributes<CWEPFireMode>())
+		foreach (var en in TypeLibrary.GetDescriptions<CWEPFireMode>())
 		{
 			if (en.Title == "CWEPFireMode")
 				continue;
@@ -159,12 +159,12 @@ public partial class CWEPW : Weapon
 			{
 				if ( FireModes.IndexOf( "cwep_default" ) != -1 )
 				{
-					CurrentFireMode = Library.Create<CWEPFireMode>( FireModes[FireModes.IndexOf( "cwep_default" )], false );
+					CurrentFireMode = TypeLibrary.Create<CWEPFireMode>( FireModes[FireModes.IndexOf( "cwep_default" )], false );
 					CurrentFireModeInt = FireModes.IndexOf( "cwep_default" );
 				}
 				else
 				{
-					CurrentFireMode = Library.Create<CWEPFireMode>( FireModes[0], false );
+					CurrentFireMode = TypeLibrary.Create<CWEPFireMode>( FireModes[0], false );
 					CurrentFireModeInt = 0;
 				}
 			}
@@ -312,7 +312,7 @@ public partial class CWEPW : Weapon
 
 			LastCurrentFireMode = CurrentFireMode;
 			CurrentFireMode?.BeforeChangeFireMode();
-			CurrentFireMode = Library.Create<CWEPFireMode>( FireModes[CurrentFireModeInt], false );
+			CurrentFireMode = TypeLibrary.Create<CWEPFireMode>( FireModes[CurrentFireModeInt], false );
 			CurrentFireMode?.AfterChangeFireMode();
 		}
 	}

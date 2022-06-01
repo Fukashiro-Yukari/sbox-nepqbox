@@ -20,7 +20,7 @@ public partial class KillFeed : Panel
 		{
 			if ( method != null && method.StartsWith( "weapon_" ) || method == "crossbow_bolt" )
 			{
-				var killWeapon = Library.Create<Entity>( method );
+				var killWeapon = TypeLibrary.Create<Entity>( method );
 
 				if ( killWeapon is Carriable car )
 				{

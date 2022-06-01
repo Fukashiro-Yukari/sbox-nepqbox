@@ -148,9 +148,11 @@ partial class NepQBoxGame : Game
 		if ( owner == null )
 			return;
 
-		var attribute = Library.GetAttribute( entName );
+		var entityType = TypeLibrary.GetTypeByName<Entity>( entName );
+		if ( entityType == null )
+			return;
 
-		if ( attribute == null || !attribute.Spawnable )
+		if ( !TypeLibrary.Has<SpawnableAttribute>( entityType ) )
 			return;
 
 		var tr = Trace.Ray( owner.EyePosition, owner.EyePosition + owner.EyeRotation.Forward * 200 )
@@ -159,7 +161,7 @@ partial class NepQBoxGame : Game
 			.Size( 2 )
 			.Run();
 
-		var ent = Library.Create<Entity>( entName );
+		var ent = TypeLibrary.Create<Entity>( entityType );
 
 		if ( ent is BaseCarriable && owner.Inventory != null )
 		{
@@ -187,7 +189,7 @@ partial class NepQBoxGame : Game
 		if ( inventory == null )
 			return;
 
-		var wep = Library.Create<Weapon>( entName );
+		var wep = TypeLibrary.Create<Weapon>( entName );
 
 		if ( wep.IsValid() )
 			inventory.Add( wep );
@@ -203,12 +205,12 @@ partial class NepQBoxGame : Game
 		if ( inventory == null )
 			return;
 
-		foreach ( var wep in Library.GetAllAttributes<Weapon>() )
+		foreach ( var wep in TypeLibrary.GetDescriptions<Weapon>() )
 		{
 			if ( wep.Title.StartsWith( "Weapon" ) )
 				continue;
 
-			var w = Library.Create<Weapon>( wep.Name );
+			var w = TypeLibrary.Create<Weapon>( wep.Name );
 
 			if ( w.IsValid() )
 				inventory.Add( w );

@@ -19,16 +19,18 @@ public partial class WeaponList : Panel
 		Canvas.Layout.ItemWidth = 100;
 		Canvas.OnCreateCell = ( cell, data ) =>
 		{
-			var entry = (LibraryAttribute)data;
-			var path = $"/entity/{entry.Name}.png";
+			if ( data is TypeDescription type )
+			{
+				var path = $"/entity/{type.Name}.png";
 
-			if ( !FileSystem.Mounted.FileExists( path ) )
-				path = $"/ui/weapons/{entry.Name}.png";
+				if ( !FileSystem.Mounted.FileExists( path ) )
+					path = $"/ui/weapons/{type.Name}.png";
 
-			var btn = cell.Add.Button( entry.Title );
-			btn.AddClass( "icon" );
-			btn.AddEventListener( "onclick", () => ConsoleSystem.Run( "spawn_entity", entry.Name ) );
-			btn.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, path, false );
+				var btn = cell.Add.Button( type.Title );
+				btn.AddClass( "icon" );
+				btn.AddEventListener( "onclick", () => ConsoleSystem.Run( "spawn_entity", type.ClassName ) );
+				btn.Style.BackgroundImage = Texture.Load( FileSystem.Mounted, path, false );
+			}
 		};
 
 		LoadAllItem( false );
@@ -39,7 +41,10 @@ public partial class WeaponList : Panel
 		if ( isreload )
 			Canvas.Data.Clear();
 
-		var ents = Library.GetAllAttributes<Weapon>().Where( x => x.Spawnable ).OrderBy( x => x.Title ).ToArray();
+		var ents = TypeLibrary.GetDescriptions<Weapon>()
+									.Where( x => x.HasTag( "spawnable" ) )
+									.OrderBy( x => x.Title )
+									.ToArray();
 
 		foreach ( var entry in ents )
 		{
