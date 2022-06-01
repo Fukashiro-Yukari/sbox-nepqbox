@@ -180,7 +180,7 @@ namespace Sandbox
 			UndoUI.Current.AddCustomUndoText( text );
 		}
 
-		[ServerCmd( "undo" )]
+		[ConCmd.Server( "undo" )]
 		public static void UndoCmd()
 		{
 			var owner = ConsoleSystem.Caller.Pawn;
@@ -191,7 +191,7 @@ namespace Sandbox
 			DoUndo( ConsoleSystem.Caller );
 		}
 
-		[ServerCmd( "cleanup" )]
+		[ConCmd.Server( "cleanup" )]
 		public static void CleanupCmd()
 		{
 			var owner = ConsoleSystem.Caller.Pawn;
@@ -202,7 +202,7 @@ namespace Sandbox
 			DoUndoAll( ConsoleSystem.Caller );
 		}
 
-		[ServerCmd( "admin_cleanup" )]
+		[ConCmd.Server( "admin_cleanup" )]
 		public static void AdminCleanupCmd()
 		{
 			var owner = ConsoleSystem.Caller.Pawn;

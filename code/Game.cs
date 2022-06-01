@@ -62,7 +62,7 @@ partial class NepQBoxGame : Game
 	[ConVar.ClientData]
 	public static bool cl_print_modelname { get; set; } = false;
 
-	[ServerCmd( "spawn" )]
+	[ConCmd.Server( "spawn" )]
 	public static async Task Spawn( string modelname )
 	{
 		var owner = ConsoleSystem.Caller.Pawn as Player;
@@ -140,7 +140,7 @@ partial class NepQBoxGame : Game
 		Log.Info( $"Spawn Prop: {modelname}" );
 	}
 
-	[ServerCmd( "spawn_entity" )]
+	[ConCmd.Server( "spawn_entity" )]
 	public static void SpawnEntity( string entName )
 	{
 		var owner = ConsoleSystem.Caller.Pawn as Player;
@@ -175,7 +175,7 @@ partial class NepQBoxGame : Game
 		//Log.Info( $"ent: {ent}" );
 	}
 
-	[ServerCmd( "give_weapon" )]
+	[ConCmd.Server( "give_weapon" )]
 	public static void GiveWeapon( string entName )
 	{
 		var target = ConsoleSystem.Caller.Pawn as Player;
@@ -191,7 +191,7 @@ partial class NepQBoxGame : Game
 			inventory.Add( wep );
 	}
 
-	[ServerCmd( "give_all_weapons" )]
+	[ConCmd.Server( "give_all_weapons" )]
 	public static void GiveAllWeapon()
 	{
 		var target = ConsoleSystem.Caller.Pawn as Player;
@@ -230,7 +230,7 @@ partial class NepQBoxGame : Game
 		}
 	}
 
-	[AdminCmd( "respawn_entities" )]
+	[ConCmd.Admin( "respawn_entities" )]
 	public static void RespawnEntities()
 	{
 		Map.Reset( DefaultCleanupFilter );
