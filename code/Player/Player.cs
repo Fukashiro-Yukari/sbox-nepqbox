@@ -1,6 +1,7 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 
-partial class SandboxPlayer : Player
+partial class SandboxPlayer : PlayerBase
 {
 	private TimeSince timeSinceDropped;
 	private TimeSince timeSinceJumpReleased;
@@ -14,7 +15,7 @@ partial class SandboxPlayer : Player
 	/// <summary>
 	/// The clothing container is what dresses the citizen
 	/// </summary>
-	public Clothing.Container Clothing = new();
+	public ClothingContainer Clothing = new();
 
 	public bool IsHeadShot { get; private set; }
 	public bool SupressPickupNotices { get; private set; }
@@ -265,30 +266,5 @@ partial class SandboxPlayer : Player
 		if ( timeSinceDropped < 1 ) return;
 
 		base.StartTouch( other );
-	}
-
-	[ConCmd.Server( "inventory_current" )]
-	public static void SetInventoryCurrent( string entName )
-	{
-		var target = ConsoleSystem.Caller.Pawn as Player;
-		if ( target == null ) return;
-
-		var inventory = target.Inventory;
-		if ( inventory == null )
-			return;
-
-		for ( int i = 0; i < inventory.Count(); ++i )
-		{
-			var slot = inventory.GetSlot( i );
-			if ( !slot.IsValid() )
-				continue;
-
-			if ( slot.ClassName != entName )
-				continue;
-
-			inventory.SetActiveSlot( i, false );
-
-			break;
-		}
 	}
 }

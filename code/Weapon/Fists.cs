@@ -44,7 +44,7 @@ partial class Fists : WeaponMelee
 			var sideward = Owner.Rotation.Right.Dot( dir );
 			var speed = dir.WithZ( 0 ).Length;
 
-			const float maxSpeed = 320.0f;
+			const float maxDelay = 320.0f;
 
 			ViewModelEntity.SetAnimParameter( "move_groundspeed", MathX.Clamp( (speed / maxSpeed) * 2.0f, 0.0f, 2.0f ) );
 			ViewModelEntity.SetAnimParameter( "move_y", MathX.Clamp( (sideward / maxSpeed) * 2.0f, -2.0f, 2.0f ) );

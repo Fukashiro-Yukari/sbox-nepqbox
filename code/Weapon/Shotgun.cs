@@ -24,7 +24,7 @@ partial class Shotgun : Weapon
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 1.0f,
-		Speed = 1.5f,
+		Delay = 1.5f,
 		Size = 2.0f,
 	};
 

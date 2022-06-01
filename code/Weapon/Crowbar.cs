@@ -23,13 +23,13 @@ partial class Crowbar : WeaponMelee
 	public override ScreenShake PrimaryScreenShakeHit => new ScreenShake
 	{
 		Length = 1.0f,
-		Speed = 1.0f,
+		Delay = 1.0f,
 		Size = 3.0f,
 	};
 	public override ScreenShake PrimaryScreenShakeMiss => new ScreenShake
 	{
 		Length = 1.0f,
-		Speed = 1.0f,
+		Delay = 1.0f,
 		Size = 3.0f,
 	};
 

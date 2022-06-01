@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Utils
 
 [Spawnable]
 [Library( "weapon_nicegun", Title = "Nice Gun" )]
@@ -27,7 +28,7 @@ partial class NiceGun : WeaponShotgun
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 1.0f,
-		Speed = 1.5f,
+		Delay = 1.5f,
 		Size = 2.0f,
 	};
 
@@ -100,7 +101,7 @@ partial class NiceGun : WeaponShotgun
 
 		if ( IsLocalPawn )
 		{
-			new Sandbox.ScreenShake.Perlin( 3.0f, 3.0f, 3.0f );
+			ScreenUtil.Shake( 3.0f, 2.0f, 3.0f, 3.0f );
 		}
 	}
 }

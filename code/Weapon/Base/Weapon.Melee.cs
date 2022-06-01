@@ -66,7 +66,7 @@ public partial class WeaponMelee : Weapon
 					screenShakeMiss = new ScreenShake
 					{
 						Length = -1f,
-						Speed = -1f,
+						Delay = -1f,
 						Size = -1f,
 						Rotation = -1f
 					};
@@ -74,7 +74,7 @@ public partial class WeaponMelee : Weapon
 
 				//Log.Info( "test" );
 
-				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Speed, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
+				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Delay, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
 
 				continue;
 			}
@@ -104,13 +104,13 @@ public partial class WeaponMelee : Weapon
 				screenShakeHit = new ScreenShake
 				{
 					Length = -1f,
-					Speed = -1f,
+					Delay = -1f,
 					Size = -1f,
 					Rotation = -1f
 				};
 			}
 
-			OnMeleeHit( screenShakeHit.Length, screenShakeHit.Speed, screenShakeHit.Size, screenShakeHit.Rotation, animationHit, leftHand );
+			OnMeleeHit( screenShakeHit.Length, screenShakeHit.Delay, screenShakeHit.Size, screenShakeHit.Rotation, animationHit, leftHand );
 
 			if ( !IsServer ) continue;
 
@@ -168,28 +168,28 @@ public partial class WeaponMelee : Weapon
 	}
 
 	[ClientRpc]
-	public virtual void OnMeleeMiss( float length, float speed, float size, float rotation, string animation, bool leftHand )
+	public virtual void OnMeleeMiss( float length, float delay, float size, float rotation, string animation, bool leftHand )
 	{
 		Host.AssertClient();
 
 		if ( IsLocalPawn )
 		{
 			if ( length != -1 )
-				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
+				ScreenUtil.Shake( length, delay, size, rotation );
 		}
 
 		ViewModelEntity?.SetAnimParameter( animation, true );
 	}
 
 	[ClientRpc]
-	public virtual void OnMeleeHit( float length, float speed, float size, float rotation, string animation, bool leftHand )
+	public virtual void OnMeleeHit( float length, float delay, float size, float rotation, string animation, bool leftHand )
 	{
 		Host.AssertClient();
 
 		if ( IsLocalPawn )
 		{
 			if ( length != -1 )
-				_ = new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
+				ScreenUtil.Shake( length, delay, size, rotation );
 		}
 
 		ViewModelEntity?.SetAnimParameter( animation, true );

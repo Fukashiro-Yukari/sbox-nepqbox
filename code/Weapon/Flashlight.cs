@@ -24,7 +24,7 @@ partial class Flashlight : WeaponMelee
 	public override ScreenShake SecondaryScreenShakeHit => new ScreenShake
 	{
 		Length = 1.0f,
-		Speed = 1.0f,
+		Delay = 1.0f,
 		Rotation = 3.0f
 	};
 

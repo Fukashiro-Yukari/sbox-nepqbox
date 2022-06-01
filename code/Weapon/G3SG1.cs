@@ -26,7 +26,7 @@ partial class G3SG1 : WeaponSniper
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,
-		Speed = 4.0f,
+		Delay = 4.0f,
 		Size = 1f,
 		Rotation = 0.5f
 	};

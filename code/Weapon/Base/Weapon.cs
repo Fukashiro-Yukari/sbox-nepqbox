@@ -574,7 +574,7 @@ public partial class Weapon : Carriable, IUse
 		if ( IsLocalPawn )
 		{
 			if ( ScreenShake != null )
-				_ = new Sandbox.ScreenShake.Perlin( ScreenShake.Length, ScreenShake.Speed, ScreenShake.Size, ScreenShake.Rotation );
+				ScreenUtil.Shake( ScreenShake.Length, ScreenShake.Delay, ScreenShake.Size, ScreenShake.Rotation );
 		}
 
 		if ( BurstsMode && !string.IsNullOrEmpty( BurstAnimation ) )
@@ -767,12 +767,4 @@ public enum CType
 	Pistol,
 	SMG,
 	Rifle
-}
-
-public class ScreenShake
-{
-	public float Length { get; set; } = 1.0f;
-	public float Speed { get; set; } = 1.0f;
-	public float Size { get; set; } = 1.0f;
-	public float Rotation { get; set; } = 0.6f;
 }

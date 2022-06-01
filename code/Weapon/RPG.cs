@@ -29,7 +29,7 @@ partial class RPG : Weapon
 	public override ScreenShake ScreenShake => new ScreenShake
 	{
 		Length = 0.5f,
-		Speed = 4.0f,
+		Delay = 4.0f,
 		Size = 0.5f,
 		Rotation = 0.5f
 	};
@@ -65,7 +65,7 @@ partial class RPG : Weapon
 			rocket.ExplosionShake = new ScreenShake
 			{
 				Length = 1f,
-				Speed = 5f,
+				Delay = 5f,
 				Size = 7f,
 				Rotation = 3f
 			};
@@ -73,7 +73,7 @@ partial class RPG : Weapon
 			rocket.Owner = Owner;
 			rocket.Position = MathUtil.RelativeAdd( Position, new Vector3( 10, 10, 10 ), Owner.EyeRotation );
 			rocket.Rotation = Owner.EyeRotation * Rotation.From( new Angles( 0, 180, 0 ) );
-			rocket.Speed = 30;
+			rocket.Delay = 30;
 			rocket.StartVelocity = MathUtil.RelativeAdd( Vector3.Zero, new Vector3( 0, 0, 3000 ), Owner.EyeRotation );
 			rocket.Start();
 
