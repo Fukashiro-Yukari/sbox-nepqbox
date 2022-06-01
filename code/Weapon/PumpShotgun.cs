@@ -49,7 +49,7 @@ partial class PumpShotgun : WeaponShotgun
 			}
 		}
 
-		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects

@@ -219,7 +219,7 @@ public partial class CWEPW : Weapon
 
 		if ( CurrentFireMode != null && !CurrentFireMode.PrimaryCanUse ) return;
 
-		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 
 		if ( CurrentFireMode != null && CurrentFireMode.PrimaryShootEffects )
 		{
@@ -237,7 +237,7 @@ public partial class CWEPW : Weapon
 
 		if ( CurrentFireMode != null && !CurrentFireMode.SecondaryCanUse ) return;
 
-		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 
 		if ( CurrentFireMode != null && CurrentFireMode.SecondaryShootEffects )
 		{
@@ -295,7 +295,7 @@ public partial class CWEPW : Weapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 
 		ChangeFireModeEffects();
 

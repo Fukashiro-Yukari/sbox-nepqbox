@@ -5,7 +5,7 @@ namespace Sandbox.Tools
 	[Library( "tool_cloneclothing", Title = "Clone Clothing", Description = "Clone your own clothing on any citizen model ( Rag dolls can also )", Group = "fun" )]
 	public partial class CloneClothing : BaseTool
 	{
-		List<AnimEntity> ClothingModels = new();
+		List<AnimatedEntity> ClothingModels = new();
 		Dictionary<Entity, List<string>> OldClothing = new();
 
 		public override void Simulate()
@@ -28,16 +28,16 @@ namespace Sandbox.Tools
 				CreateHitEffects( tr.EndPosition );
 				DeleteAllDress( e );
 
-				if ( e is AnimEntity ent )
+				if ( e is AnimatedEntity ent )
 				{
-					var Clothing = new Clothing.Container();
+					var Clothing = new ClothingContainer();
 
 					Clothing.LoadFromClient( Owner.Client );
 					Clothing.DressEntity( ent );
 				}
 				else
 				{
-					var Clothing = new Clothing.Container();
+					var Clothing = new ClothingContainer();
 
 					Clothing.LoadFromClient( Owner.Client );
 					Clothing.DressEntity( e, ClothingModels );
@@ -91,7 +91,7 @@ namespace Sandbox.Tools
 
 	public static class ClothingContainerEX
 	{
-		public static void ClearModelEntities( this Clothing.Container Clothing, List<AnimEntity> list )
+		public static void ClearModelEntities( this ClothingContainer Clothing, List<AnimatedEntity> list )
 		{
 			foreach ( var model in list )
 			{
@@ -100,7 +100,7 @@ namespace Sandbox.Tools
 			list.Clear();
 		}
 
-		public static void DressEntity( this Clothing.Container Clothing, ModelEntity model, List<AnimEntity> list )
+		public static void DressEntity( this ClothingContainer Clothing, ModelEntity model, List<AnimatedEntity> list )
 		{
 			//
 			// Start with defaults
@@ -124,7 +124,7 @@ namespace Sandbox.Tools
 					continue;
 				}
 
-				var anim = new AnimEntity( c.Model, model );
+				var anim = new AnimatedEntity( c.Model, model );
 
 				anim.Tags.Add( "clothes" );
 

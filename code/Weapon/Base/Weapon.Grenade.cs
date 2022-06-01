@@ -55,7 +55,7 @@ public partial class WeaponGrenade : Weapon
 				StartThrow = 0f;
 				Pin = false;
 
-				(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
+				(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 				ThrowEffects();
 			}
 			else

@@ -58,7 +58,7 @@ public partial class PhysGun : Carriable
 
 		if ( Input.Pressed( InputButton.Attack1 ) )
 		{
-			(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
+			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 
 			if ( !grabbing )
 				grabbing = true;
@@ -69,7 +69,7 @@ public partial class PhysGun : Carriable
 
 		if ( GrabbedEntity.IsValid() && wantsToFreeze )
 		{
-			(Owner as AnimEntity)?.SetAnimParameter( "b_attack", true );
+			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 		}
 
 		BeamActive = grabEnabled;

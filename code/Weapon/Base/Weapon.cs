@@ -172,7 +172,7 @@ public partial class Weapon : Carriable, IUse
 
 		DoBursts = false;
 
-		(Owner as AnimEntity)?.SetAnimParameter( "b_reload", true );
+		(Owner as AnimatedEntity)?.SetAnimParameter( "b_reload", true );
 
 		if ( !string.IsNullOrEmpty( ReloadSound ) )
 			PlaySound( ReloadSound );
@@ -350,7 +350,7 @@ public partial class Weapon : Carriable, IUse
 			return;
 		}
 
-		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
 		//
 		// Tell the clients to play the shoot effects
@@ -388,7 +388,7 @@ public partial class Weapon : Carriable, IUse
 			return;
 		}
 
-		(Owner as AnimEntity).SetAnimParameter( "b_attack", true );
+		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
 		NPCShootEffects();
 
