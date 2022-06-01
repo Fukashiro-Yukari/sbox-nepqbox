@@ -2,7 +2,7 @@ using Sandbox;
 
 [Spawnable]
 [Library( "weapon_elite", Title = "Dual Elites" )]
-[Hammer.EditorModel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" )]
+[EditorModel( "weapons/css_elite/w_css_pist_elite_dropped.vmdl" )]
 partial class Elites : WeaponDouble
 {
 	public override string ViewModelPath => "weapons/css_elite/v_css_pist_elite.vmdl";

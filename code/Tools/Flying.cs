@@ -2,7 +2,6 @@
 
 [Spawnable]
 [Library("weapon_flying", Title = "Flying" )]
-[Hammer.EditorModel( "weapons/rust_pistol/rust_pistol.vmdl" )]
 partial class Flying : Carriable
 { 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";

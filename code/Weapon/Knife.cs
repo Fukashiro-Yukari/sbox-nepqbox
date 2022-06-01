@@ -3,7 +3,7 @@ using System;
 
 [Spawnable]
 [Library( "weapon_knife", Title = "Knife" )]
-[Hammer.EditorModel( "weapons/css_knife/css_w_knife.vmdl" )]
+[EditorModel( "weapons/css_knife/css_w_knife.vmdl" )]
 partial class Knife : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/css_knife/css_v_knife.vmdl";

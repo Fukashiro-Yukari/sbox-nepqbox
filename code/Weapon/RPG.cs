@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [Spawnable]
 [Library( "weapon_rpg", Title = "RPG-7" )]
-[Hammer.EditorModel( "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl" )]
+[EditorModel( "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl" )]
 partial class RPG : Weapon
 {
 	public override string ViewModelPath => "weapons/swb/explosives/rpg-7/swb_v_rpg7.vmdl";

@@ -2,7 +2,7 @@ using Sandbox;
 
 [Spawnable]
 [Library( "weapon_m3", Title = "M3 Super 90" )]
-[Hammer.EditorModel( "weapons/css_super90/css_w_shot_m3super90.vmdl" )]
+[EditorModel( "weapons/css_super90/css_w_shot_m3super90.vmdl" )]
 partial class M3 : WeaponShotgun
 {
 	public override string ViewModelPath => "weapons/css_super90/css_v_shot_m3super90.vmdl";

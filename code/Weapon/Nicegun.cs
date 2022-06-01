@@ -3,7 +3,7 @@ using Utils
 
 [Spawnable]
 [Library( "weapon_nicegun", Title = "Nice Gun" )]
-[Hammer.EditorModel("weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl")]
+[EditorModel("weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl")]
 partial class NiceGun : WeaponShotgun
 {
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";

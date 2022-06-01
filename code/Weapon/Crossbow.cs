@@ -3,7 +3,7 @@ using System;
 
 [Spawnable]
 [Library( "weapon_crossbow", Title = "Crossbow" )]
-[Hammer.EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
+[EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
 partial class Crossbow : WeaponSniper
 { 
 	public override string ViewModelPath => "weapons/rust_crossbow/v_rust_crossbow.vmdl";

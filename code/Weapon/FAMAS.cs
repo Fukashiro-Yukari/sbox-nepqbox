@@ -2,7 +2,7 @@
 
 [Spawnable]
 [Library( "weapon_famas", Title = "FAMAS" )]
-[Hammer.EditorModel( "weapons/css_famas/w_css_rif_famas.vmdl" )]
+[EditorModel( "weapons/css_famas/w_css_rif_famas.vmdl" )]
 partial class FAMAS : Weapon
 {
 	public override string ViewModelPath => "weapons/css_famas/v_css_rif_famas.vmdl";

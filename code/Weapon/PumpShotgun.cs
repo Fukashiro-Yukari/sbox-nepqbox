@@ -2,7 +2,7 @@
 
 [Spawnable]
 [Library( "weapon_pumpshotgun", Title = "Pump Shotgun" )]
-[Hammer.EditorModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" )]
+[EditorModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" )]
 partial class PumpShotgun : WeaponShotgun
 { 
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";

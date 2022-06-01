@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 [Spawnable]
 [Library( "weapon_awp", Title = "AWP" )]
-[Hammer.EditorModel( "weapons/css_awp/css_w_awp.vmdl" )]
+[EditorModel( "weapons/css_awp/css_w_awp.vmdl" )]
 partial class AWP : WeaponSniper
 {
 	public override string ViewModelPath => "weapons/css_awp/css_v_awp.vmdl";

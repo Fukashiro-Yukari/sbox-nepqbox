@@ -2,7 +2,7 @@
 
 [Spawnable]
 [Library( "weapon_flashlight", Title = "Flashlight" )]
-[Hammer.EditorModel("weapons/rust_pistol/rust_pistol.vmdl")]
+[EditorModel("weapons/rust_pistol/rust_pistol.vmdl")]
 partial class Flashlight : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/rust_flashlight/v_rust_flashlight.vmdl";

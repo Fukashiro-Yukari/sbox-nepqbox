@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 [Spawnable]
 [Library( "weapon_g3sg1", Title = "G3/SG-1" )]
-[Hammer.EditorModel( "weapons/css_g3sg1/w_css_snip_g3sg1.vmdl" )]
+[EditorModel( "weapons/css_g3sg1/w_css_snip_g3sg1.vmdl" )]
 partial class G3SG1 : WeaponSniper
 {
 	public override string ViewModelPath => "weapons/css_g3sg1/v_css_snip_g3sg1.vmdl";

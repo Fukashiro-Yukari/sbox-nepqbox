@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [Spawnable]
 [Library( "weapon_cwep", Title = "Combination Weapon" )]
-[Hammer.EditorModel("weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl")]
+[EditorModel("weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl")]
 public partial class CWEPW : Weapon
 {
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";

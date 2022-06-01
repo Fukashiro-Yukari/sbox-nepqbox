@@ -3,7 +3,7 @@ using System;
 
 [Spawnable]
 [Library("weapon_smgshotgun", Title = "SMG Like Shotgun" )]
-[Hammer.EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
+[EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
 partial class SMGShotgun : Weapon
 { 
 	public override string ViewModelPath => "weapons/rust_smg/v_rust_smg.vmdl";

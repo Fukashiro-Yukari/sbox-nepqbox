@@ -2,7 +2,7 @@ using Sandbox;
 
 [Spawnable]
 [Library( "weapon_crowbar", Title = "Crowbar" )]
-[Hammer.EditorModel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" )]
+[EditorModel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" )]
 partial class Crowbar : WeaponMelee
 {
 	public override string ViewModelPath => "weapons/hl2_crowbar/v_hl2_crowbar.vmdl";
