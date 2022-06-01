@@ -10,8 +10,6 @@ public partial class PickupFeed : Panel
 	public PickupFeed()
 	{
 		Current = this;
-
-		StyleSheet.Load( "/UI/PickupFeed.scss" );
 	}
 
 	[ClientRpc]
