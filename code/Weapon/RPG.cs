@@ -73,7 +73,7 @@ partial class RPG : Weapon
 			rocket.Owner = Owner;
 			rocket.Position = MathUtil.RelativeAdd( Position, new Vector3( 10, 10, 10 ), Owner.EyeRotation );
 			rocket.Rotation = Owner.EyeRotation * Rotation.From( new Angles( 0, 180, 0 ) );
-			rocket.Delay = 30;
+			rocket.Speed = 30;
 			rocket.StartVelocity = MathUtil.RelativeAdd( Vector3.Zero, new Vector3( 0, 0, 3000 ), Owner.EyeRotation );
 			rocket.Start();
 
