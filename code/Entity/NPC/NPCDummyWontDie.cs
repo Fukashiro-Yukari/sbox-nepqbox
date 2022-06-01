@@ -10,7 +10,7 @@ public partial class NPCDummyWontDie : NPC
 	[Event.Frame]
 	public void OnFrame()
 	{
-		DebugOverlay.Text( EyePosition, $"Last Damage: {lastDamage}" );
+		DebugOverlay.Text( $"Last Damage: {lastDamage}", EyePosition );
 	}
 
 	public override void TakeDamage( DamageInfo info )
