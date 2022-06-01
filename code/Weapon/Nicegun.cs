@@ -1,5 +1,4 @@
 ﻿using Sandbox;
-using Utils
 
 [Spawnable]
 [Library( "weapon_nicegun", Title = "Nice Gun" )]

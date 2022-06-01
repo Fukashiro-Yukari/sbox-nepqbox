@@ -58,16 +58,16 @@ partial class NPC
 			jacket.EnableHideInFirstPerson = true;
 			jacket.Tags.Add( "clothes" );
 
-			var propInfo = jacket.Model.GetPropData();
+			//var propInfo = jacket.Model.GetPropData();
 
-			if ( propInfo?.ParentBodygroupName != null )
-			{
-				SetBodyGroup( propInfo.ParentBodygroupName, propInfo.ParentBodygroupValue );
-			}
-			else
-			{
+			//if ( propInfo?.ParentBodygroupName != null )
+			//{
+			//	SetBodyGroup( propInfo.ParentBodygroupName, propInfo.ParentBodygroupValue );
+			//}
+			//else
+			//{
 				SetBodyGroup( "Chest", 0 );
-			}
+			//}
 		}
 
 		if ( true )

@@ -72,7 +72,7 @@ partial class Flashlight : WeaponMelee
 			Color = Color.White,
 			InnerConeAngle = 20,
 			OuterConeAngle = 40,
-			FogStength = 1.0f,
+			FogStrength = 1.0f,
 			Owner = Owner,
 			LightCookie = Texture.Load("materials/effects/lightcookie.vtex")
 		};

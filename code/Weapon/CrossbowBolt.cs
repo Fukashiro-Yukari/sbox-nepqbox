@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 
 [Library( "crossbow_bolt" )]
-[Hammer.Skip]
+[HideInEditor]
 partial class CrossbowBolt : ModelEntity
 {
 	bool Stuck;
@@ -59,25 +59,12 @@ partial class CrossbowBolt : ModelEntity
 				tr.Entity.TakeDamage( damageInfo );
 			}
 
-			var npc = tr.Entity as NPC;
 			var prop = tr.Entity as Prop;
 
 			// TODO: Parent to bone so this will stick in the meaty heads
-			if ( npc != null && npc.Corpse != null )
+			if ( tr.Entity is NPC npc && npc.Corpse != null )
 				SetParent( npc?.Corpse, tr.Bone );
-			else if ( prop != null )
-			{
-				if ( prop.Model.GetPropData().Health > 0 )
-				{
-					if ( prop.Health > 0 )
-						SetParent( prop, tr.Bone );
-					else
-						Delete();
-				}
-				else if ( prop.Model.GetPropData().Health <= 0 )
-					SetParent( prop, tr.Bone );
-			}
-			else if ( tr.Entity is WorldEntity || tr.Entity.Health > 0 )
+			else
 				SetParent( tr.Entity, tr.Bone );
 
 			Owner = null;
