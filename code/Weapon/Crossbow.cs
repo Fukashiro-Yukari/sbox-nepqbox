@@ -25,6 +25,8 @@ partial class Crossbow : WeaponSniper
 		Rotation = 0.5f
 	};
 	public override CType Crosshair => CType.Crossbow;
+	public override string LensTexture => null;
+	public override string ScopeTexture => null;
 
 	public override Func<Vector3, Vector3, Vector3, float, float, float, Entity> CreateEntity => CreateCrossbow;
 

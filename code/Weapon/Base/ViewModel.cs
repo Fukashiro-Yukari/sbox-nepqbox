@@ -49,9 +49,7 @@ public class ViewModel : BaseViewModel
 			camSetup.Rotation *= (Rotation.Inverse * GetBoneTransform( cameraBoneIndex ).Rotation);
 		}
 
-		var pl = Local.Pawn as Player;
-
-		if ( pl.ActiveChild is Weapon wep )
+		if ( Local.Pawn is Player pl && pl.ActiveChild is Weapon wep )
 			camSetup.ViewModel.FieldOfView = wep.FOV;
 
 		var newPitch = Rotation.Pitch();

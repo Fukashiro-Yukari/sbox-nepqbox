@@ -25,9 +25,13 @@ public class SniperScope : Panel
 			LeftBar = Add.Panel( "leftBar" );
 
 		LensWrapper = Add.Panel( "lensWrapper" );
-		Lens = LensWrapper.AddChild<Image>( "lens" );
-		Lens.SetTexture( lensTexture );
-		//Lens = LensWrapper.Add.Image( lensTexture, "lens" );
+
+		if ( lensTexture != null )
+		{
+			Lens = LensWrapper.AddChild<Image>( "lens" );
+			Lens.SetTexture( lensTexture );
+			//Lens = LensWrapper.Add.Image( lensTexture, "lens" );
+		}
 
 		if ( scopeTexture != null )
 		{

@@ -21,10 +21,10 @@ public partial class WeaponList : Panel
 		{
 			if ( data is TypeDescription type )
 			{
-				var path = $"/entity/{type.Name}.png";
+				var path = $"/entity/{type.ClassName}.png";
 
 				if ( !FileSystem.Mounted.FileExists( path ) )
-					path = $"/ui/weapons/{type.Name}.png";
+					path = $"/ui/weapons/{type.ClassName}.png";
 
 				var btn = cell.Add.Button( type.Title );
 				btn.AddClass( "icon" );
