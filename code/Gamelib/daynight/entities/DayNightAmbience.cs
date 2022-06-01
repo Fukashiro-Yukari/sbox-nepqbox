@@ -1,16 +1,16 @@
 ﻿using Sandbox;
 using System;
-using System.ComponentModel.DataAnnotations;
+using SandboxEditor;
 
 namespace Gamelib.DayNight
 {
 	/// <summary>
-	/// An audio controller for when a looping sound should play at each point in the day
+	/// An audio controller for when a looping sound should play at each point in the day.
 	/// </summary>
 	/// 
 	[Library( "daynight_ambience" )]
-	[Display( Name = "Ambience", GroupName = "Day and Night" )]
-	[Hammer.EditorSprite( "editor/snd_daynight.vmat" )]
+	[Title( "Day and Night Ambience" )]
+	[EditorSprite( "editor/snd_daynight.vmat" )]
 	public partial class DayNightAmbience : Entity
 	{
 		[Property( Title = "Dawn Ambient Sound" ), FGDType( "sound" )]

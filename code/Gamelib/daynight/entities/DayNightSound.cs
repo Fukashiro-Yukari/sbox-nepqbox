@@ -1,5 +1,5 @@
 ﻿using Sandbox;
-using System.ComponentModel.DataAnnotations;
+using SandboxEditor;
 
 namespace Gamelib.DayNight
 {
@@ -7,10 +7,11 @@ namespace Gamelib.DayNight
 	/// <summary>
 	/// A way to play sounds during the day night cycle, this also allows you to play a looping sound between 2 time periods e.g. 5pm to 6pm. You can also set the sound to only place once.
 	/// </summary>
-
+	/// 
 	[Library( "daynight_sound" )]
-	[Display( Name = "Sound", GroupName = "Day and Night" )]
-	[Hammer.EditorSprite("editor/daynight_sound.vmat")]
+	[Title( "Day and Night Brush" )]
+	[Solid]
+	[HammerEntity]
 	public partial class DayNightSound : Entity
 	{
 		[Property( Title = "Sound To Play" ), FGDType( "sound" )]
