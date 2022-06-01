@@ -398,4 +398,24 @@ partial class NepQBoxGame : Game
 			KillFeed.OnKilledMessage( 0, "", di.Name, "died", isHeadShot );
 		}
 	}
+
+	public override void RenderHud()
+	{
+		var localPawn = Local.Pawn as PlayerBase;
+		if ( localPawn == null ) return;
+
+		//
+		// scale the screen using a matrix, so the scale math doesn't invade everywhere
+		// (other than having to pass the new scale around)
+		//
+
+		var scale = Screen.Height / 1080.0f;
+		var screenSize = Screen.Size / scale;
+		var matrix = Matrix.CreateScale( scale );
+
+		using ( Render.Draw2D.MatrixScope( matrix ) )
+		{
+			localPawn.RenderHud( screenSize );
+		}
+	}
 }

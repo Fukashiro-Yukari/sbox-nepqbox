@@ -77,6 +77,9 @@ public partial class Weapon : Carriable, IUse
 
 	public TimeSince TimeSinceDischarge { get; set; }
 
+	protected TimeSince CrosshairLastShoot { get; set; }
+	protected TimeSince CrosshairLastReload { get; set; }
+
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -514,18 +517,6 @@ public partial class Weapon : Carriable, IUse
 		// CLICK
 	}
 
-	public override void CreateHudElements()
-	{
-		if ( Local.Hud == null || Crosshair == CType.None ) return;
-
-		CrosshairPanel = new Crosshair();
-		CrosshairPanel.Parent = Local.Hud;
-
-		if ( Crosshair == CType.Common ) return;
-
-		CrosshairPanel.AddClass( Crosshair.ToString() );
-	}
-
 	public override bool OnUse( Entity user )
 	{
 		if ( Owner != null )
@@ -557,6 +548,11 @@ public partial class Weapon : Carriable, IUse
 		Delete();
 	}
 
+	public void CrosshairShoot()
+	{
+		CrosshairLastShoot = 0;
+	}
+
 	[ClientRpc]
 	protected virtual void ShootEffects()
 	{
@@ -582,7 +578,7 @@ public partial class Weapon : Carriable, IUse
 		else
 			ViewModelEntity?.SetAnimParameter( "fire", true );
 
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 	}
 
 	[ClientRpc]
@@ -728,6 +724,196 @@ public partial class Weapon : Carriable, IUse
 		}
 	}
 
+	public override void RenderHud( in Vector2 screensize )
+	{
+		var center = screensize * 0.5f;
+
+		if ( IsReloading || (AmmoClip == 0 && ClipSize > 1) )
+			CrosshairLastReload = 0;
+
+		RenderCrosshair( center, CrosshairLastShoot.Relative, CrosshairLastReload.Relative );
+	}
+
+	TimeSince timeSinceZoomed;
+
+	public virtual void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+
+		switch ( Crosshair )
+		{
+			case CType.Common:
+				{
+					var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.3f, 0.0f ) );
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					var length = 3.0f + shootEase * 5.0f;
+
+					draw.Ring( center, length, length - 3.0f );
+
+					break;
+				}
+			case CType.ShotGun:
+				{
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					// center
+					{
+						var shootEase = 1 + Easing.BounceIn( lastAttack.LerpInverse( 0.3f, 0.0f ) );
+						draw.Ring( center, 15 * shootEase, 14 * shootEase );
+					}
+
+					// outer lines
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.4f, 0.0f ) );
+						var length = 30.0f;
+						var gap = 30.0f + shootEase * 50.0f;
+						var thickness = 4.0f;
+						var extraAngle = 30 * shootEase;
+
+						draw.CircleEx( center + Vector2.Right * gap, length, length - thickness, 32, 220, 320 );
+						draw.CircleEx( center - Vector2.Right * gap, length, length - thickness, 32, 40, 140 );
+
+						draw.Color = draw.Color.WithAlpha( 0.1f );
+						draw.CircleEx( center + Vector2.Right * gap * 2.6f, length, length - thickness * 0.5f, 32, 220, 320 );
+						draw.CircleEx( center - Vector2.Right * gap * 2.6f, length, length - thickness * 0.5f, 32, 40, 140 );
+					}
+
+					break;
+				}
+			case CType.Pistol:
+				{
+					var shootEase = Easing.EaseIn( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					var length = 8.0f - shootEase * 2.0f;
+					var gap = 10.0f + shootEase * 30.0f;
+					var thickness = 2.0f;
+
+					draw.Line( thickness, center + Vector2.Left * gap, center + Vector2.Left * (length + gap) );
+					draw.Line( thickness, center - Vector2.Left * gap, center - Vector2.Left * (length + gap) );
+
+					draw.Line( thickness, center + Vector2.Up * gap, center + Vector2.Up * (length + gap) );
+					draw.Line( thickness, center - Vector2.Up * gap, center - Vector2.Up * (length + gap) );
+
+					break;
+				}
+			case CType.SMG:
+				{
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					// center circle
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.1f, 0.0f ) );
+						var length = 2.0f + shootEase * 2.0f;
+						draw.Circle( center, length );
+					}
+
+
+					draw.Color = draw.Color.WithAlpha( draw.Color.a * 0.2f );
+
+					// outer lines
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+						var length = 3.0f + shootEase * 2.0f;
+						var gap = 30.0f + shootEase * 50.0f;
+						var thickness = 2.0f;
+
+						draw.Line( thickness, center + Vector2.Up * gap + Vector2.Left * length, center + Vector2.Up * gap - Vector2.Left * length );
+						draw.Line( thickness, center - Vector2.Up * gap + Vector2.Left * length, center - Vector2.Up * gap - Vector2.Left * length );
+
+						draw.Line( thickness, center + Vector2.Left * gap + Vector2.Up * length, center + Vector2.Left * gap - Vector2.Up * length );
+						draw.Line( thickness, center - Vector2.Left * gap + Vector2.Up * length, center - Vector2.Left * gap - Vector2.Up * length );
+					}
+
+					break;
+				}
+			case CType.Rifle:
+				{
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					// center circle
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.1f, 0.0f ) );
+						var length = 2.0f + shootEase * 2.0f;
+						draw.Circle( center, length );
+					}
+
+
+					draw.Color = draw.Color.WithAlpha( draw.Color.a * 0.2f );
+
+					// outer lines
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+						var length = 2.0f + shootEase * 2.0f;
+						var gap = 30.0f + shootEase * 50.0f;
+						var thickness = 2.0f;
+
+						draw.Line( thickness, center + Vector2.Up * gap + Vector2.Left * length, center + Vector2.Up * gap - Vector2.Left * length );
+						draw.Line( thickness, center - Vector2.Up * gap + Vector2.Left * length, center - Vector2.Up * gap - Vector2.Left * length );
+
+						draw.Line( thickness, center + Vector2.Left * gap + Vector2.Up * length, center + Vector2.Left * gap - Vector2.Up * length );
+						draw.Line( thickness, center - Vector2.Left * gap + Vector2.Up * length, center - Vector2.Left * gap - Vector2.Up * length );
+					}
+
+					break;
+				}
+			case CType.Crossbow:
+				{
+					if ( this is not WeaponSniper sniper )
+						break;
+
+					if ( sniper.ZoomLevel > -1 )
+						timeSinceZoomed = 0;
+
+					var zoomFactor = timeSinceZoomed.Relative.LerpInverse( 0.4f, 0 );
+
+					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					draw.BlendMode = BlendMode.Lighten;
+					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+					// outer lines
+					{
+						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.4f, 0.0f ) );
+						var length = 10.0f;
+						var gap = 40.0f + shootEase * 50.0f;
+
+						gap -= zoomFactor * 20.0f;
+
+
+						draw.Line( 0, center + Vector2.Up * gap, length, center + Vector2.Up * (gap + length) );
+						draw.Line( 0, center - Vector2.Up * gap, length, center - Vector2.Up * (gap + length) );
+
+						draw.Color = draw.Color.WithAlpha( draw.Color.a * zoomFactor );
+
+						for ( int i = 0; i < 4; i++ )
+						{
+							gap += 40.0f;
+
+							draw.Line( 0, center - Vector2.Left * gap, length, center - Vector2.Left * (gap + length) );
+							draw.Line( 0, center + Vector2.Left * gap, length, center + Vector2.Left * (gap + length) );
+
+							draw.Color = draw.Color.WithAlpha( draw.Color.a * 0.5f );
+						}
+					}
+
+					break;
+				}
+		}
+	}
+
 	private void Discharge()
 	{
 		if ( TimeSinceDischarge < 0.5f )
@@ -766,5 +952,6 @@ public enum CType
 	ShotGun,
 	Pistol,
 	SMG,
-	Rifle
+	Rifle,
+	Crossbow
 }

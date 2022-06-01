@@ -97,7 +97,7 @@ partial class NiceGun : WeaponShotgun
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimParameter( "fire_double", true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 
 		if ( IsLocalPawn )
 		{

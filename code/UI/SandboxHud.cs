@@ -11,7 +11,6 @@ public partial class SandboxHud : HudEntity<RootPanel>
 
 		RootPanel.StyleSheet.Load( "/Styles/hud.scss" );
 
-		RootPanel.AddChild<CrosshairCanvas>();
 		RootPanel.AddChild<InventoryBar>();
 		RootPanel.AddChild<DamageIndicator>();
 		RootPanel.AddChild<HitIndicator>();

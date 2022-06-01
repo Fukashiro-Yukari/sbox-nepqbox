@@ -71,7 +71,7 @@ partial class PumpShotgun : WeaponShotgun
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
 
 		ViewModelEntity?.SetAnimParameter( "fire_double", true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 
 		if ( IsLocalPawn )
 		{

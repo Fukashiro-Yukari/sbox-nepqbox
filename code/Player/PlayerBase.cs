@@ -28,6 +28,17 @@ partial class PlayerBase : Player
 		nextShake = 0;
 	}
 
+	public virtual void RenderHud( Vector2 screenSize )
+	{
+		if ( LifeState != LifeState.Alive )
+			return;
+
+		if ( ActiveChild is Carriable carriable )
+		{
+			carriable.RenderHud( screenSize );
+		}
+	}
+
 	[ConCmd.Server( "inventory_current" )]
 	public static void SetInventoryCurrent( string entName )
 	{

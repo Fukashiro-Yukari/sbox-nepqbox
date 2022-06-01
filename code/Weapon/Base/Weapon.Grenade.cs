@@ -75,7 +75,7 @@ public partial class WeaponGrenade : Weapon
 		Host.AssertClient();
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 	}
 
 	public virtual void Throw()

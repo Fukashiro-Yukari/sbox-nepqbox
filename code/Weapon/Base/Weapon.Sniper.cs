@@ -11,6 +11,7 @@ public partial class WeaponSniper : Weapon
 	public virtual List<float> ZoomLevels => new() { 20f };
 	public virtual List<float> MouseSensitivity => new() { 0.2f };
 	public virtual float ScopedSpread => 0f;
+	public override CType Crosshair => CType.None;
 
 	[Net, Predicted]
 	public int ZoomLevel { get; set; } = -1;

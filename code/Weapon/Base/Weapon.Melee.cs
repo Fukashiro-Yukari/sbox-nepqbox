@@ -193,6 +193,6 @@ public partial class WeaponMelee : Weapon
 		}
 
 		ViewModelEntity?.SetAnimParameter( animation, true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 	}
 }

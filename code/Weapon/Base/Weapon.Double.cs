@@ -28,11 +28,11 @@ public partial class WeaponDouble : Weapon
 		if ( IsLocalPawn )
 		{
 			if ( ScreenShake != null )
-				_ = new Sandbox.ScreenShake.Perlin( ScreenShake.Length, ScreenShake.Speed, ScreenShake.Size, ScreenShake.Rotation );
+				ScreenUtil.Shake( ScreenShake.Length, ScreenShake.Delay, ScreenShake.Size, ScreenShake.Rotation );
 		}
 
 		ViewModelEntity?.SetAnimParameter( IsSecondary ? FireAnimLeftName : FireAnimRightName, true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 
 		IsSecondary = !IsSecondary;
 	}

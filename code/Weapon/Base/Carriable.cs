@@ -102,4 +102,8 @@ public partial class Carriable : BaseCarriable, IUse
 	{
 		return Owner == null;
 	}
+
+	public virtual void RenderHud( in Vector2 screensize )
+	{
+	}
 }

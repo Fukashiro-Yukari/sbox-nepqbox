@@ -177,10 +177,10 @@ public partial class CWEPW : Weapon
 			if ( IsClient )
 			{
 				if ( CurrentFireMode.Crosshair == CType.None || ( LastCurrentFireMode != null && LastCurrentFireMode.Crosshair == CurrentFireMode.Crosshair ) ) return;
-				if ( LastCurrentFireMode != null)
-					CrosshairPanel.SetClass( LastCurrentFireMode.Crosshair.ToString(), false );
+				//if ( LastCurrentFireMode != null)
+					//CrosshairPanel.SetClass( LastCurrentFireMode.Crosshair.ToString(), false );
 
-				CrosshairPanel.SetClass( CurrentFireMode.Crosshair.ToString(), true );
+				//CrosshairPanel.SetClass( CurrentFireMode.Crosshair.ToString(), true );
 			}
 		}
 	}
@@ -257,7 +257,7 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 	}
 
 	[ClientRpc]
@@ -269,7 +269,7 @@ public partial class CWEPW : Weapon
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimParameter( "fire_double", true );
-		CrosshairPanel?.CreateEvent( "fire" );
+		CrosshairShoot();
 	}
 
 	[ClientRpc]
