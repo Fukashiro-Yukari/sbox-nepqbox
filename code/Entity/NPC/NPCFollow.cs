@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-[Library("npc_follow", Title = "Follow Player Npc", Spawnable = true )]
+[Spawnable]
+[Library("npc_follow", Title = "Follow Player Npc" )]
 public partial class NPCFollow : NPC
 {
 	public override float SpawnHealth => 100;

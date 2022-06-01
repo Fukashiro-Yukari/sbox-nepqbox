@@ -2,7 +2,8 @@
 using Sandbox.CWEP;
 using System.Collections.Generic;
 
-[Library( "weapon_cwep", Title = "Combination Weapon", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_cwep", Title = "Combination Weapon" )]
 [Hammer.EditorModel("weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl")]
 public partial class CWEPW : Weapon
 {

@@ -1,7 +1,8 @@
 ﻿using Sandbox;
 using System;
 
-[Library( "weapon_automaticcrossbow", Title = "Automatic Crossbow", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_automaticcrossbow", Title = "Automatic Crossbow" )]
 [Hammer.EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
 partial class AutomaticCrossbow : WeaponSniper
 { 

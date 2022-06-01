@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-[Library("npc_zombie_speed", Title = "Speed Zombie", Spawnable = true )]
+[Spawnable]
+[Library("npc_zombie_speed", Title = "Speed Zombie" )]
 public partial class NPCZombieSpeed : NPCZombie
 {
 	public override float Speed => 2000;

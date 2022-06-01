@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 
-[Library( "weapon_357", Title = ".357 Revolver", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_357", Title = ".357 Revolver" )]
 [Hammer.EditorModel("models/weapons/w_357.vmdl")]
 partial class Python357 : Weapon
 { 

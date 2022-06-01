@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 
-[Library( "weapon_famas", Title = "FAMAS", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_famas", Title = "FAMAS" )]
 [Hammer.EditorModel( "weapons/css_famas/w_css_rif_famas.vmdl" )]
 partial class FAMAS : Weapon
 {

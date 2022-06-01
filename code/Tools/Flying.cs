@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 
-
-[Library("weapon_flying", Title = "Flying", Spawnable = true )]
+[Spawnable]
+[Library("weapon_flying", Title = "Flying" )]
 [Hammer.EditorModel( "weapons/rust_pistol/rust_pistol.vmdl" )]
 partial class Flying : Carriable
 { 

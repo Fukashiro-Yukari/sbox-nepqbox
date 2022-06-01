@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 
-[Library( "weapon_flashlight", Title = "Flashlight", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_flashlight", Title = "Flashlight" )]
 [Hammer.EditorModel("weapons/rust_pistol/rust_pistol.vmdl")]
 partial class Flashlight : WeaponMelee
 {

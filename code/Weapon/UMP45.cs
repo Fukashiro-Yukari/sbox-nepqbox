@@ -1,6 +1,7 @@
 using Sandbox;
 
-[Library( "weapon_ump45", Title = "UMP 45", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_ump45", Title = "UMP 45" )]
 [Hammer.EditorModel( "weapons/css_ump45/w_css_smg_ump45.vmdl" )]
 partial class UMP45 : Weapon
 {

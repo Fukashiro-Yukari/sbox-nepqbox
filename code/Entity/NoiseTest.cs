@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 
-[Library( "noise_test", Title = "Noise Test", Spawnable = true )]
+[Spawnable]
+[Library( "noise_test", Title = "Noise Test" )]
 public partial class NoiseTest : Prop
 {
 	public override void Spawn()

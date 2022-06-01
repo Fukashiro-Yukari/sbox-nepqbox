@@ -2,7 +2,8 @@ using Sandbox;
 using System;
 using System.Collections.Generic;
 
-[Library( "weapon_rpg", Title = "RPG-7", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_rpg", Title = "RPG-7" )]
 [Hammer.EditorModel( "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl" )]
 partial class RPG : Weapon
 {

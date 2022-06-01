@@ -1,6 +1,7 @@
 using Sandbox;
 
-[Library( "weapon_usp", Title = "USP", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_usp", Title = "USP" )]
 [Hammer.EditorModel( "weapons/css_usp/w_css_pist_usp.vmdl" )]
 partial class USP : Weapon
 {

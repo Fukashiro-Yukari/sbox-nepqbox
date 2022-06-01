@@ -1,7 +1,8 @@
 ﻿using Sandbox;
 using System;
 
-[Library( "ent_meloncar", Title = "Melon Car", Spawnable = true )]
+[Spawnable]
+[Library( "ent_meloncar", Title = "Melon Car" )]
 public partial class MelonCar : CarEntity
 {
 	public override float Height => 30f;

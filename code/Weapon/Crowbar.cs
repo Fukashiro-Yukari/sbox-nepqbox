@@ -1,6 +1,7 @@
 using Sandbox;
 
-[Library( "weapon_crowbar", Title = "Crowbar", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_crowbar", Title = "Crowbar" )]
 [Hammer.EditorModel( "weapons/hl2_crowbar/w_hl2_crowbar.vmdl" )]
 partial class Crowbar : WeaponMelee
 {

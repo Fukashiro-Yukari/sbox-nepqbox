@@ -1,6 +1,7 @@
 using Sandbox;
 
-[Library( "weapon_glock", Title = "Glock 18", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_glock", Title = "Glock 18" )]
 [Hammer.EditorModel( "weapons/css_glock18/w_css_pist_glock18.vmdl" )]
 partial class Glock18 : Weapon
 {

@@ -1,7 +1,8 @@
 using Sandbox;
 using System.Collections.Generic;
 
-[Library( "weapon_p90", Title = "P90", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_p90", Title = "P90" )]
 [Hammer.EditorModel( "weapons/css_p90/w_css_smg_p90.vmdl" )]
 partial class P90 : WeaponSniper
 {

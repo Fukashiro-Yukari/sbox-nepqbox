@@ -1,7 +1,8 @@
 ﻿using Sandbox;
 using System;
 
-[Library( "ent_unlimited_bouncyball", Title = "Unlimited Bouncy Ball", Spawnable = true )]
+[Spawnable]
+[Library( "ent_unlimited_bouncyball", Title = "Unlimited Bouncy Ball" )]
 public partial class UnlimitedBouncyBallEntity : Prop, IUse
 {
 	public float SpeedMul { get; set; } = 1.2f;

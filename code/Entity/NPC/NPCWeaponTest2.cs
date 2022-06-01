@@ -1,7 +1,8 @@
 using Sandbox;
 using System.Linq;
 
-[Library( "npc_weapon_test2", Title = "Weapon Test 2", Spawnable = true )]
+[Spawnable]
+[Library( "npc_weapon_test2", Title = "Weapon Test 2" )]
 public partial class NPCWeaponTest2 : NPC
 {
 	public override bool UseWeapon => true;

@@ -1,7 +1,8 @@
 using Sandbox;
 using System.Collections.Generic;
 
-[Library( "weapon_awp", Title = "AWP", Spawnable = true )]
+[Spawnable]
+[Library( "weapon_awp", Title = "AWP" )]
 [Hammer.EditorModel( "weapons/css_awp/css_w_awp.vmdl" )]
 partial class AWP : WeaponSniper
 {

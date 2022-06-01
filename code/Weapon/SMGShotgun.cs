@@ -1,7 +1,8 @@
 ﻿using Sandbox;
 using System;
 
-[Library("weapon_smgshotgun", Title = "SMG Like Shotgun", Spawnable = true )]
+[Spawnable]
+[Library("weapon_smgshotgun", Title = "SMG Like Shotgun" )]
 [Hammer.EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
 partial class SMGShotgun : Weapon
 { 

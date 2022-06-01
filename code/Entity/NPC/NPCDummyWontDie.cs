@@ -1,6 +1,7 @@
 using Sandbox;
 
-[Library( "npc_dummy_wontdie", Title = "Dummy Won't die", Spawnable = true )]
+[Spawnable]
+[Library( "npc_dummy_wontdie", Title = "Dummy Won't die" )]
 public partial class NPCDummyWontDie : NPC
 {
 	[Net]
