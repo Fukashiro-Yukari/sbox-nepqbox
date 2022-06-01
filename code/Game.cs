@@ -149,10 +149,7 @@ partial class NepQBoxGame : Game
 			return;
 
 		var entityType = TypeLibrary.GetTypeByName<Entity>( entName );
-		if ( entityType == null )
-			return;
-
-		if ( !TypeLibrary.Has<SpawnableAttribute>( entityType ) )
+		if ( entityType == null || !TypeLibrary.Has<SpawnableAttribute>( entityType ) )
 			return;
 
 		var tr = Trace.Ray( owner.EyePosition, owner.EyePosition + owner.EyeRotation.Forward * 200 )
