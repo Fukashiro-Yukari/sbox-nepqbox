@@ -23,7 +23,7 @@ namespace Sandbox.Tools
 			if ( !tr.Hit || !tr.Entity.IsValid() || !(tr.Entity is ModelEntity e) || e.GetModelName() != "models/citizen/citizen.vmdl" )
 				return;
 
-			if ( Input.Pressed( InputButton.Attack1 ) )
+			if ( Input.Pressed( InputButton.PrimaryAttack ) )
 			{
 				CreateHitEffects( tr.EndPosition );
 				DeleteAllDress( e );
@@ -44,7 +44,7 @@ namespace Sandbox.Tools
 				}
 			}
 
-			if ( Input.Pressed( InputButton.Attack2 ) )
+			if ( Input.Pressed( InputButton.SecondaryAttack ) )
 			{
 				if ( OldClothing.ContainsKey( e ) )
 				{

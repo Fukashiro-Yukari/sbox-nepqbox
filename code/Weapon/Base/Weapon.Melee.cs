@@ -142,14 +142,14 @@ public partial class WeaponMelee : Weapon
 
 	public override bool CanPrimaryAttack()
 	{
-		return CanMelee( TimeSincePrimaryAttack, PrimarySpeed, InputButton.Attack1 );
+		return CanMelee( TimeSincePrimaryAttack, PrimarySpeed, InputButton.PrimaryAttack );
 	}
 
 	public override bool CanSecondaryAttack()
 	{
 		if ( !CanUseSecondary ) return false;
 
-		return CanMelee( TimeSinceSecondaryAttack, SecondarySpeed, InputButton.Attack2 );
+		return CanMelee( TimeSinceSecondaryAttack, SecondarySpeed, InputButton.SecondaryAttack );
 	}
 
 	public override bool CanReload()

@@ -50,7 +50,7 @@ public partial class WeaponGrenade : Weapon
 
 		if ( Pin )
 		{
-			if ( !Input.Down(InputButton.Attack1) && !Input.Down( InputButton.Attack2 ) )
+			if ( !Input.Down( InputButton.PrimaryAttack ) && !Input.Down( InputButton.SecondaryAttack ) )
 			{
 				StartThrow = 0f;
 				Pin = false;

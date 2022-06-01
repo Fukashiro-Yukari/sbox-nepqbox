@@ -223,7 +223,7 @@ public partial class Weapon : Carriable, IUse
 			OnReloadFinish();
 		}
 
-		if ( UseSilencer && !IsReloading && Input.Pressed( InputButton.Attack2 ) )
+		if ( UseSilencer && !IsReloading && Input.Pressed( InputButton.SecondaryAttack ) )
 		{
 			if ( SilencerDelay ) return;
 
@@ -234,7 +234,7 @@ public partial class Weapon : Carriable, IUse
 			_ = SilencerEquip();
 		}
 
-		if ( UseBursts && Input.Pressed( InputButton.Attack2 ) )
+		if ( UseBursts && Input.Pressed( InputButton.SecondaryAttack ) )
 		{
 			BurstsMode = !BurstsMode;
 
@@ -299,8 +299,8 @@ public partial class Weapon : Carriable, IUse
 
 	public virtual bool CanPrimaryAttack()
 	{
-		if ( !Owner.IsValid() || !Input.Down( InputButton.Attack1 ) ) return false;
-		if ( !Automatic && !Input.Pressed( InputButton.Attack1 ) ) return false;
+		if ( !Owner.IsValid() || !Input.Down( InputButton.PrimaryAttack ) ) return false;
+		if ( !Automatic && !Input.Pressed( InputButton.PrimaryAttack ) ) return false;
 
 		var rate = PrimaryRate;
 		if ( rate <= 0 ) return true;
@@ -322,7 +322,7 @@ public partial class Weapon : Carriable, IUse
 
 	public virtual bool CanSecondaryAttack()
 	{
-		if ( !Owner.IsValid() || !Input.Down( InputButton.Attack2 ) ) return false;
+		if ( !Owner.IsValid() || !Input.Down( InputButton.SecondaryAttack ) ) return false;
 
 		var rate = SecondaryRate;
 		if ( rate <= 0 ) return true;

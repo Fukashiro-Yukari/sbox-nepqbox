@@ -28,7 +28,7 @@
 				if ( tr.Entity is not Prop prop )
 					return;
 
-				if ( Input.Pressed( InputButton.Attack1 ) )
+				if ( Input.Pressed( InputButton.PrimaryAttack ) )
 				{
 					if ( prop.Root is not Prop rootProp )
 					{
@@ -51,7 +51,7 @@
 						target = null;
 					}
 				}
-				else if ( Input.Pressed( InputButton.Attack2 ) )
+				else if ( Input.Pressed( InputButton.SecondaryAttack ) )
 				{
 					prop.Unweld( true );
 

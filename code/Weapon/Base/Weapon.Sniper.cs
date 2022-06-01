@@ -110,7 +110,7 @@ public partial class WeaponSniper : Weapon
 	{
 		base.Simulate( owner );
 
-		if ( Input.Pressed( InputButton.Attack2 ) && !IsReloading )
+		if ( Input.Pressed( InputButton.SecondaryAttack ) && !IsReloading )
 		{
 			ZoomLevel++;
 

@@ -192,8 +192,8 @@ public partial class CWEPW : Weapon
 
 	public override bool CanPrimaryAttack()
 	{
-		if ( !Owner.IsValid() || !Input.Down( InputButton.Attack1 ) || CurrentFireMode == null ) return false;
-		if ( !Input.Pressed( InputButton.Attack1 ) && !CurrentFireMode.PrimaryAutomatic ) return false;
+		if ( !Owner.IsValid() || !Input.Down( InputButton.PrimaryAttack ) || CurrentFireMode == null ) return false;
+		if ( !Input.Pressed( InputButton.PrimaryAttack ) && !CurrentFireMode.PrimaryAutomatic ) return false;
 
 		var rate = CurrentFireMode.PrimaryRate;
 		if ( rate <= 0 ) return true;
@@ -203,8 +203,8 @@ public partial class CWEPW : Weapon
 
 	public override bool CanSecondaryAttack()
 	{
-		if ( !Owner.IsValid() || !Input.Down( InputButton.Attack2 ) || CurrentFireMode == null ) return false;
-		if ( !Input.Pressed( InputButton.Attack2 ) && !CurrentFireMode.SecondaryAutomatic ) return false;
+		if ( !Owner.IsValid() || !Input.Down( InputButton.SecondaryAttack ) || CurrentFireMode == null ) return false;
+		if ( !Input.Pressed( InputButton.SecondaryAttack ) && !CurrentFireMode.SecondaryAutomatic ) return false;
 
 		var rate = CurrentFireMode.SecondaryRate;
 		if ( rate <= 0 ) return true;

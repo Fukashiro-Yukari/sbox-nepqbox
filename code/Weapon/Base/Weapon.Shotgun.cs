@@ -14,7 +14,7 @@ public partial class WeaponShotgun : Weapon
 		if ( AmmoClip >= ClipSize || AmmoCount <= 0 )
 			return;
 
-		if ( Input.Down( InputButton.Attack1 ) || Input.Down( InputButton.Attack2 ) )
+		if ( Input.Down( InputButton.PrimaryAttack ) || Input.Down( InputButton.SecondaryAttack ) )
 		{
 			FinishReload();
 

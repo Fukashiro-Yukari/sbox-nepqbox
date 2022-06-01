@@ -56,7 +56,7 @@ public partial class PhysGun : Carriable
 		var eyeDir = owner.EyeRotation.Forward;
 		var EyeRotation = Rotation.From( new Angles( 0.0f, owner.EyeRotation.Angles().yaw, 0.0f ) );
 
-		if ( Input.Pressed( InputButton.Attack1 ) )
+		if ( Input.Pressed( InputButton.PrimaryAttack ) )
 		{
 			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 
@@ -64,8 +64,8 @@ public partial class PhysGun : Carriable
 				grabbing = true;
 		}
 
-		bool grabEnabled = grabbing && Input.Down( InputButton.Attack1 );
-		bool wantsToFreeze = Input.Pressed( InputButton.Attack2 );
+		bool grabEnabled = grabbing && Input.Down( InputButton.PrimaryAttack );
+		bool wantsToFreeze = Input.Pressed( InputButton.SecondaryAttack );
 
 		if ( GrabbedEntity.IsValid() && wantsToFreeze )
 		{
@@ -418,7 +418,7 @@ public partial class PhysGun : Carriable
 		if ( !GrabbedEntity.IsValid() )
 			return;
 
-		if ( !owner.Down( InputButton.Attack1 ) )
+		if ( !owner.Down( InputButton.PrimaryAttack ) )
 			return;
 
 		if ( owner.Down( InputButton.Use ) )

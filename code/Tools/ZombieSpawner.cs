@@ -32,8 +32,8 @@ namespace Sandbox.Tools
 
 			using ( Prediction.Off() )
 			{
-				bool isNormalZombie = Input.Pressed( InputButton.Attack1 );
-				bool isSpeedZombie = Input.Pressed( InputButton.Attack2 );
+				bool isNormalZombie = Input.Pressed( InputButton.PrimaryAttack );
+				bool isSpeedZombie = Input.Pressed( InputButton.SecondaryAttack );
 
 				if ( isNormalZombie || isSpeedZombie )
 				{

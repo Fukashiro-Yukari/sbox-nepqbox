@@ -87,7 +87,7 @@ partial class Flashlight : WeaponMelee
 
 		base.Simulate( cl );
 
-		bool toggle = Input.Pressed( InputButton.Flashlight ) || Input.Pressed( InputButton.Attack1 );
+		bool toggle = Input.Pressed( InputButton.Flashlight ) || Input.Pressed( InputButton.PrimaryAttack );
 
 		if ( timeSinceLightToggled > 0.1f && toggle )
 		{
