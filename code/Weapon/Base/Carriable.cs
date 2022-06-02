@@ -105,5 +105,14 @@ public partial class Carriable : BaseCarriable, IUse
 
 	public virtual void RenderHud( in Vector2 screensize )
 	{
+		var draw = Render.Draw2D;
+		var center = screensize * 0.5f;
+
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = Color.White;
+
+		var length = 4.0f;
+
+		draw.Ring( center, length, length / 2 );
 	}
 }
