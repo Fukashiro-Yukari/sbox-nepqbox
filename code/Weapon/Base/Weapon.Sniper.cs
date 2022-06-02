@@ -40,8 +40,7 @@ public partial class WeaponSniper : Weapon
 
 		if ( !TakeAmmo( ClipTake ) )
 		{
-			//DryFire();
-			Reload();
+			DryFire();
 
 			return;
 		}
