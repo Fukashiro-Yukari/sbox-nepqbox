@@ -2,7 +2,7 @@ using Sandbox;
 
 [Spawnable]
 [Library( "npc_dummy", Title = "Dummy" )]
-public partial class NPCDummy : NPC
+public partial class Dummy : NPC
 {
 	public override float SpawnHealth => 100;
 

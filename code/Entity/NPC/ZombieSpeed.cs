@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 [Spawnable]
-[Library("npc_zombie_speed", Title = "Speed Zombie" )]
-public partial class NPCZombieSpeed : NPCZombie
+[Library( "npc_zombie_speed", Title = "Speed Zombie" )]
+public partial class ZombieSpeed : Zombie
 {
 	public override float Speed => 2000;
 	public override float SpawnHealth => 20;

@@ -2,8 +2,8 @@ using Sandbox;
 using System.Linq;
 
 [Spawnable]
-[Library( "npc_weapon_test", Title = "Weapon Test" )]
-public partial class NPCWeaponTest : NPC
+[Library( "npc_weapon_test2", Title = "Weapon Test 2" )]
+public partial class WeaponTest2 : NPC
 {
 	public override bool UseWeapon => true;
 
@@ -11,7 +11,7 @@ public partial class NPCWeaponTest : NPC
 	{
 		base.Spawn();
 
-		Inventory.Add( new Pistol(), true );
+		Inventory.Add( new AK47(), true );
 	}
 
 	public override void OnTick()

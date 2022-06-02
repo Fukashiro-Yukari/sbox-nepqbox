@@ -20,6 +20,8 @@ public partial class NPC : AnimatedEntity
 	TimeSince timeSinceFall;
 	TimeSince timeSinceMeleeStrike;
 
+	public float NowSpeed { get; set; }
+
 	[Predicted]
 	Entity LastActiveChild { get; set; }
 
@@ -44,6 +46,8 @@ public partial class NPC : AnimatedEntity
 
 		if ( HaveDress )
 			Dress();
+
+		NowSpeed = Speed;
 	}
 
 	public override void OnKilled()
@@ -162,7 +166,7 @@ public partial class NPC : AnimatedEntity
 		var forward = EyeRotation.Forward;
 		forward = forward.Normal;
 
-		var overlaps = Entity.FindInSphere( Position, 80 );
+		var overlaps = FindInSphere( Position, 60 );
 
 		if ( IsServer )
 		{
@@ -212,7 +216,7 @@ public partial class NPC : AnimatedEntity
 			if ( !Steer.Output.Finished )
 			{
 				InputVelocity = Steer.Output.Direction.Normal;
-				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, Speed );
+				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, NowSpeed );
 
 				var distance = 60f;
 				var start = Position;

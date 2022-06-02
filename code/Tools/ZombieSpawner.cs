@@ -10,7 +10,7 @@ namespace Sandbox.Tools
 			if ( !base.IsPreviewTraceValid( tr ) )
 				return false;
 
-			if ( tr.Entity is NPCZombie )
+			if ( tr.Entity is Zombie )
 				return false;
 
 			return true;
@@ -49,7 +49,7 @@ namespace Sandbox.Tools
 
 					CreateHitEffects( tr.EndPosition );
 
-					var zombie = isSpeedZombie ? new NPCZombieSpeed() : new NPCZombie();
+					var zombie = isSpeedZombie ? new ZombieSpeed() : new Zombie();
 
 					zombie.Position = tr.EndPosition;
 

@@ -27,6 +27,8 @@ public partial class Health : Panel
 		var ply = Local.Pawn;
 
 		if ( ply == null ) return;
+		if ( ply is CarEntity car )
+			ply = car.Driver;
 
 		if ( !setAvatar )
 		{

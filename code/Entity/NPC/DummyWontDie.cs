@@ -2,7 +2,7 @@ using Sandbox;
 
 [Spawnable]
 [Library( "npc_dummy_wontdie", Title = "Dummy Won't die" )]
-public partial class NPCDummyWontDie : NPC
+public partial class DummyWontDie : NPC
 {
 	[Net]
 	private float lastDamage { get; set; }
