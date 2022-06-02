@@ -41,46 +41,17 @@ public partial class WeaponMelee : Weapon
 
 		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
+		Rand.SetSeed( Time.Tick );
+
 		var forward = Owner.EyeRotation.Forward;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f;
 		forward = forward.Normal;
 
 		bool hit = false;
 
-		// I think the method is broken, if you melee miss, the method will not output anything.
-		var bullets = TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * meleeDistance, ImpactSize );
-
-		//Log.Info( "try" );
-		//Log.Info( bullets.Count() );
-
-		foreach ( var tr in bullets )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * meleeDistance, ImpactSize ) )
 		{
-			//Log.Info( "test" );
-			//Log.Info( tr.Entity );
-
-			if ( !tr.Entity.IsValid() )
-			{
-				PlaySound( MissSound );
-
-				if ( screenShakeMiss == null )
-				{
-					screenShakeMiss = new ScreenShake
-					{
-						Length = -1f,
-						Delay = -1f,
-						Size = -1f,
-						Rotation = -1f
-					};
-				}
-
-				//Log.Info( "test" );
-
-				OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Delay, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
-
-				continue;
-			}
-
-			if ( IsServer )
-				tr.Surface.DoBulletImpact( tr );
+			tr.Surface.DoBulletImpact( tr );
 
 			hit = true;
 			var isFlesh = tr.Entity is Player || tr.Entity is NPC;
@@ -113,6 +84,7 @@ public partial class WeaponMelee : Weapon
 			OnMeleeHit( screenShakeHit.Length, screenShakeHit.Delay, screenShakeHit.Size, screenShakeHit.Rotation, animationHit, leftHand );
 
 			if ( !IsServer ) continue;
+			if ( !tr.Entity.IsValid() ) continue;
 
 			using ( Prediction.Off() )
 			{
@@ -123,6 +95,24 @@ public partial class WeaponMelee : Weapon
 
 				tr.Entity.TakeDamage( damageInfo );
 			}
+		}
+
+		if ( !hit )
+		{
+			PlaySound( MissSound );
+
+			if ( screenShakeMiss == null )
+			{
+				screenShakeMiss = new ScreenShake
+				{
+					Length = -1f,
+					Delay = -1f,
+					Size = -1f,
+					Rotation = -1f
+				};
+			}
+
+			OnMeleeMiss( screenShakeMiss.Length, screenShakeMiss.Delay, screenShakeMiss.Size, screenShakeMiss.Rotation, animationMiss, leftHand );
 		}
 
 		return hit;

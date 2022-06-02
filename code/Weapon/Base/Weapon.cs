@@ -344,8 +344,7 @@ public partial class Weapon : Carriable, IUse
 	{
 		if ( !TakeAmmo( ClipTake ) )
 		{
-			//DryFire();
-			Reload();
+			DryFire();
 
 			return;
 		}
@@ -514,7 +513,7 @@ public partial class Weapon : Carriable, IUse
 	[ClientRpc]
 	public virtual void DryFire()
 	{
-		// CLICK
+		PlaySound( "dm.dryfire" );
 	}
 
 	public override bool OnUse( Entity user )

@@ -4,6 +4,17 @@ public partial class WeaponShotgun : Weapon
 {
 	public override bool RealReload => false;
 
+	TimeSince timeSinceStop;
+
+	public override void Simulate( Client owner )
+	{
+		base.Simulate( owner );
+
+		if ( IsReloading )
+			if ( Input.Down( InputButton.PrimaryAttack ) || Input.Down( InputButton.SecondaryAttack ) )
+				timeSinceStop = 0;
+	}
+
 	public override void OnReloadFinish()
 	{
 		IsReloading = false;
@@ -14,7 +25,7 @@ public partial class WeaponShotgun : Weapon
 		if ( AmmoClip >= ClipSize || AmmoCount <= 0 )
 			return;
 
-		if ( Input.Down( InputButton.PrimaryAttack ) || Input.Down( InputButton.SecondaryAttack ) )
+		if ( timeSinceStop < ReloadTime )
 		{
 			FinishReload();
 
