@@ -61,7 +61,6 @@ partial class SandboxPlayer : PlayerBase
 		Inventory.Add( new PhysGun(), true );
 		Inventory.Add( new GravGun() );
 		Inventory.Add( new Tool() );
-		Inventory.Add( new Flying() );
 		Inventory.Add( new Crowbar() );
 		Inventory.Add( new Knife() );
 		Inventory.Add( new Pistol() );
