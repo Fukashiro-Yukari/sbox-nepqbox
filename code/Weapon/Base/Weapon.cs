@@ -857,8 +857,8 @@ public partial class Weapon : Carriable, IUse
 					// outer lines
 					{
 						var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
-						var length = 2.0f + shootEase * 2.0f;
-						var gap = 30.0f + shootEase * 50.0f;
+						var length = 3.0f + shootEase * 2.0f;
+						var gap = 15.0f + shootEase * 50.0f;
 						var thickness = 2.0f;
 
 						draw.Line( thickness, center + Vector2.Up * gap + Vector2.Left * length, center + Vector2.Up * gap - Vector2.Left * length );
