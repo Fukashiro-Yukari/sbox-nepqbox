@@ -57,10 +57,10 @@ public partial class PhysGun
 			return;
 		}
 
-		var StartPosition = owner.EyePosition;
+		var startPos = owner.EyePosition;
 		var dir = owner.EyeRotation.Forward;
 
-		var tr = Trace.Ray( StartPosition, StartPosition + dir * MaxTargetDistance )
+		var tr = Trace.Ray( startPos, startPos + dir * MaxTargetDistance )
 			.UseHitboxes()
 			.Ignore( owner, false )
 			.HitLayer( CollisionLayer.Debris )

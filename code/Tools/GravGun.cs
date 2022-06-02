@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿
+using Sandbox;
 using System;
 using System.Linq;
 
@@ -51,8 +52,8 @@ public partial class GravGun : Carriable
 
 		using ( Prediction.Off() )
 		{
-			var EyePosition = owner.EyePosition;
-			var EyeRotation = owner.EyeRotation;
+			var eyePos = owner.EyePosition;
+			var eyeRot = owner.EyeRotation;
 			var eyeDir = owner.EyeRotation.Forward;
 
 			if ( HeldBody.IsValid() && HeldBody.PhysicsGroup != null )
@@ -85,7 +86,7 @@ public partial class GravGun : Carriable
 				}
 				else
 				{
-					GrabMove( EyePosition, eyeDir, EyeRotation );
+					GrabMove( eyePos, eyeDir, eyeRot );
 				}
 
 				return;
@@ -94,7 +95,7 @@ public partial class GravGun : Carriable
 			if ( timeSinceDrop < DropCooldown )
 				return;
 
-			var tr = Trace.Ray( EyePosition, EyePosition + eyeDir * MaxPullDistance )
+			var tr = Trace.Ray( eyePos, eyePos + eyeDir * MaxPullDistance )
 				.UseHitboxes()
 				.Ignore( owner, false )
 				.Radius( 2.0f )
@@ -132,12 +133,12 @@ public partial class GravGun : Carriable
 						return;
 				}
 
-				var attachPos = body.FindClosestPoint(EyePosition);
+				var attachPos = body.FindClosestPoint( eyePos );
 
-				if (EyePosition.Distance(attachPos) <= AttachDistance)
+				if ( eyePos.Distance( attachPos ) <= AttachDistance )
 				{
-					var holdDistance = HoldDistance + attachPos.Distance(body.MassCenter);
-					GrabStart(modelEnt, body, EyePosition + eyeDir * holdDistance, EyeRotation);
+					var holdDistance = HoldDistance + attachPos.Distance( body.MassCenter );
+					GrabStart( modelEnt, body, eyePos + eyeDir * holdDistance, eyeRot );
 				}
 				else if ( !IsBodyGrabbed( body ) )
 				{
@@ -243,6 +244,9 @@ public partial class GravGun : Carriable
 
 	private void GrabEnd()
 	{
+		holdJoint?.Remove();
+		holdJoint = null;
+
 		if ( HeldBody.IsValid() )
 		{
 			HeldBody.AutoSleep = true;
@@ -258,15 +262,15 @@ public partial class GravGun : Carriable
 		HeldEntity = null;
 	}
 
-	private void GrabMove( Vector3 StartPosition, Vector3 dir, Rotation rot )
+	private void GrabMove( Vector3 startPos, Vector3 dir, Rotation rot )
 	{
 		if ( !HeldBody.IsValid() )
 			return;
 
-		var attachPos = HeldBody.FindClosestPoint(StartPosition);
-		var holdDistance = HoldDistance + attachPos.Distance(HeldBody.MassCenter);
+		var attachPos = HeldBody.FindClosestPoint( startPos );
+		var holdDistance = HoldDistance + attachPos.Distance( HeldBody.MassCenter );
 
-		holdBody.Position = StartPosition + dir * holdDistance;
+		holdBody.Position = startPos + dir * holdDistance;
 		holdBody.Rotation = rot * HeldRot;
 	}
 

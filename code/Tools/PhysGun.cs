@@ -52,9 +52,9 @@ public partial class PhysGun : Carriable
 	{
 		if ( Owner is not Player owner ) return;
 
-		var EyePosition = owner.EyePosition;
+		var eyePos = owner.EyePosition;
 		var eyeDir = owner.EyeRotation.Forward;
-		var EyeRotation = Rotation.From( new Angles( 0.0f, owner.EyeRotation.Angles().yaw, 0.0f ) );
+		var eyeRot = Rotation.From( new Angles( 0.0f, owner.EyeRotation.Angles().yaw, 0.0f ) );
 
 		if ( Input.Pressed( InputButton.PrimaryAttack ) )
 		{
@@ -85,11 +85,11 @@ public partial class PhysGun : Carriable
 				{
 					if ( heldBody.IsValid() )
 					{
-						UpdateGrab( EyePosition, EyeRotation, eyeDir, wantsToFreeze );
+						UpdateGrab( eyePos, eyeRot, eyeDir, wantsToFreeze );
 					}
 					else
 					{
-						TryStartGrab( owner, EyePosition, EyeRotation, eyeDir );
+						TryStartGrab( owner, eyePos, eyeRot, eyeDir );
 					}
 				}
 				else if ( grabbing )
@@ -99,7 +99,7 @@ public partial class PhysGun : Carriable
 
 				if ( !grabbing && Input.Pressed( InputButton.Reload ) )
 				{
-					TryUnfreezeAll( owner, EyePosition, EyeRotation, eyeDir );
+					TryUnfreezeAll( owner, eyePos, eyeRot, eyeDir );
 				}
 			}
 		}
@@ -119,9 +119,9 @@ public partial class PhysGun : Carriable
 		return false;
 	}
 
-	private void TryUnfreezeAll( Player owner, Vector3 EyePosition, Rotation EyeRotation, Vector3 eyeDir )
+	private void TryUnfreezeAll( Player owner, Vector3 eyePos, Rotation eyeRot, Vector3 eyeDir )
 	{
-		var tr = Trace.Ray( EyePosition, EyePosition + eyeDir * MaxTargetDistance )
+		var tr = Trace.Ray( eyePos, eyePos + eyeDir * MaxTargetDistance )
 			.UseHitboxes()
 			.Ignore( owner, false )
 			.HitLayer( CollisionLayer.Debris )
@@ -156,9 +156,9 @@ public partial class PhysGun : Carriable
 		}
 	}
 
-	private void TryStartGrab( Player owner, Vector3 EyePosition, Rotation EyeRotation, Vector3 eyeDir )
+	private void TryStartGrab( Player owner, Vector3 eyePos, Rotation eyeRot, Vector3 eyeDir )
 	{
-		var tr = Trace.Ray( EyePosition, EyePosition + eyeDir * MaxTargetDistance )
+		var tr = Trace.Ray( eyePos, eyePos + eyeDir * MaxTargetDistance )
 			.UseHitboxes()
 			.Ignore( owner, false )
 			.HitLayer( CollisionLayer.Debris )
@@ -195,7 +195,7 @@ public partial class PhysGun : Carriable
 		if ( IsBodyGrabbed( body ) )
 			return;
 
-		GrabInit( body, EyePosition, tr.EndPosition, EyeRotation );
+		GrabInit( body, eyePos, tr.EndPosition, eyeRot );
 
 		GrabbedEntity = rootEnt;
 		GrabbedPos = body.Transform.PointToLocal( tr.EndPosition );
@@ -204,7 +204,7 @@ public partial class PhysGun : Carriable
 		Client?.Pvs.Add( GrabbedEntity );
 	}
 
-	private void UpdateGrab( Vector3 EyePosition, Rotation EyeRotation, Vector3 eyeDir, bool wantsToFreeze )
+	private void UpdateGrab( Vector3 eyePos, Rotation eyeRot, Vector3 eyeDir, bool wantsToFreeze )
 	{
 		if ( wantsToFreeze )
 		{
@@ -230,11 +230,11 @@ public partial class PhysGun : Carriable
 
 		if ( rotating )
 		{
-			DoRotate( EyeRotation, Input.MouseDelta * RotateSpeed );
+			DoRotate( eyeRot, Input.MouseDelta * RotateSpeed );
 			snapping = Input.Down( InputButton.Run );
 		}
 
-		GrabMove( EyePosition, eyeDir, EyeRotation, snapping );
+		GrabMove( eyePos, eyeDir, eyeRot, snapping );
 	}
 
 	private void Activate()
@@ -301,7 +301,7 @@ public partial class PhysGun : Carriable
 	{
 	}
 
-	private void GrabInit( PhysicsBody body, Vector3 StartPosition, Vector3 grabPos, Rotation rot )
+	private void GrabInit( PhysicsBody body, Vector3 startPos, Vector3 grabPos, Rotation rot )
 	{
 		if ( !body.IsValid() )
 			return;
@@ -310,7 +310,7 @@ public partial class PhysGun : Carriable
 
 		grabbing = true;
 		heldBody = body;
-		holdDistance = Vector3.DistanceBetween( StartPosition, grabPos );
+		holdDistance = Vector3.DistanceBetween( startPos, grabPos );
 		holdDistance = holdDistance.Clamp( MinTargetDistance, MaxTargetDistance );
 
 		heldRot = rot.Inverse * heldBody.Rotation;
@@ -354,12 +354,12 @@ public partial class PhysGun : Carriable
 		grabbing = false;
 	}
 
-	private void GrabMove( Vector3 StartPosition, Vector3 dir, Rotation rot, bool snapAngles )
+	private void GrabMove( Vector3 startPos, Vector3 dir, Rotation rot, bool snapAngles )
 	{
 		if ( !heldBody.IsValid() )
 			return;
 
-		holdBody.Position = StartPosition + dir * holdDistance;
+		holdBody.Position = startPos + dir * holdDistance;
 
 		if ( GrabbedEntity is Player player )
 		{
