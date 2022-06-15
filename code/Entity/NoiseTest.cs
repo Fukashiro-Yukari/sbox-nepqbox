@@ -87,12 +87,12 @@ public partial class NoiseTest : Prop
 						}
 					case 3:
 						{
-							val = Noise.Turbulence( 2, x * 0.1f + offset, y * 0.1f, offsetz ) * 0.5f;
+							val = Noise.Fbm( 2, x * 0.1f + offset, y * 0.1f, offsetz ) * 0.5f;
 							break;
 						}
 					case 4:
 						{
-							val = Noise.Fractal( 2, x * 0.1f + offset, y * 0.1f, offsetz ) * 0.5f;
+							val = Noise.Fbm( 2, x * 0.1f + offset, y * 0.1f, offsetz ) * 0.5f;
 							break;
 						}
 				}
