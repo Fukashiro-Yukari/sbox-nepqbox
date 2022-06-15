@@ -105,6 +105,17 @@ namespace Gamelib.DayNight
 			}
 		}
 
+		public Sky Sky
+		{
+			get
+			{
+				if ( _sky == null )
+					_sky = All.OfType<Sky>().FirstOrDefault();
+				return _sky;
+			}
+		}
+
+		private Sky _sky;
 		private EnvironmentLightEntity _environment;
 		private DayNightGradient _skyColorGradient;
 		private DayNightGradient _colorGradient;
@@ -186,8 +197,38 @@ namespace Gamelib.DayNight
 			if ( NepQBoxGame.DayNightCycleDebug )
 				DebugOverlay.Line( environment.Position, environment.Position + environment.Rotation.Forward * 10000f, Color.Blue );
 
-			//environment.SkyIntensity = -1f;
-			//environment.Brightness = -1f;
+			//environment.SkyIntensity = 0f;
+			//environment.Brightness = 0f;
+
+			var sky = Sky;
+			if ( sky == null )
+				return;
+
+			//SetSky( sky, environment.Position, environment.SkyColor );
+		}
+
+		[ClientRpc]
+		private void SetSky( Sky sky, Vector3 pos, Color color )
+		{
+			var skyobj = sky.SkyObject;
+			//SceneSkyBox.SkyLightInfo[] lightinfo = new {
+			//	new SceneSkyBox.SkyLightInfo
+			//	{
+			//		LightColor = color,
+			//		LightDirection = pos
+			//	},
+			//	new SceneSkyBox.SkyLightInfo
+			//	{
+			//		LightColor = color,
+			//		LightDirection = pos
+			//	}
+			//};
+
+			//string[] test = new { "1", "2" };
+
+			skyobj.SkyTint = color;
+
+			//skyobj.SetSkyLighting( pos );
 		}
 	}
 }

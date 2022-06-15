@@ -109,7 +109,12 @@ partial class SandboxPlayer : PlayerBase
 
 	public override void TakeDamage( DamageInfo info )
 	{
-		if ( Ragdoll.IsValid() && info.Body.GetEntity() != Ragdoll )
+		var isRagdoll = false;
+
+		if ( info.Body.IsValid() && info.Body.GetEntity() == Ragdoll )
+			isRagdoll = true;
+
+		if ( Ragdoll.IsValid() && !isRagdoll )
 			return;
 
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )

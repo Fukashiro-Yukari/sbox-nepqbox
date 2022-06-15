@@ -17,7 +17,7 @@ partial class NepQBoxGame : Game
 	private Color EnvColor = new Color();
 	private Color EnvSkyColor = new Color();
 	private bool HaveEnv = false;
-	private DayNightController dnc = null;
+	private DayNightController dnc;
 
 	public NepQBoxGame()
 	{
@@ -238,9 +238,9 @@ partial class NepQBoxGame : Game
 	}
 
 	private EnvironmentLightEntity env;
+	private Sky sky;
 	private bool envnotfind;
-	//private SkyboxObject sky;
-	//private bool skynotfind;
+	private bool skynotfind;
 
 	[Event.Tick.Server]
 	private void Tick()
@@ -273,23 +273,22 @@ partial class NepQBoxGame : Game
 			}
 		}
 
-		// Can't get the 'env_sky' entity
-		//if ( sky == null )
-		//{
-		//	sky = All.OfType<SkyboxObject>().FirstOrDefault();
+		if ( sky == null )
+		{
+			sky = All.OfType<Sky>().FirstOrDefault();
 
-		//	if ( sky != null )
-		//	{
-		//		Log.Info( "Sky Info: " );
-		//	}
-		//	else if ( !skynotfind )
-		//	{
-		//		Log.Info( "Sky Not Find !!!" );
-		//		//Log.Info( "Sky Info: " + Library.GetAttribute( "env_sky" ) + " | " + (Library.GetAttribute( "env_sky" ) == null) );
+			if ( sky != null )
+			{
+				Log.Info( "Sky Info: " );
+				LogSky( sky );
+			}
+			else if ( !skynotfind )
+			{
+				Log.Info( "Sky Not Find !!!" );
 
-		//		skynotfind = true;
-		//	}
-		//}
+				skynotfind = true;
+			}
+		}
 
 		if ( DayNightCycle != LastDayNightCycle )
 		{
@@ -308,6 +307,13 @@ partial class NepQBoxGame : Game
 				}
 			}
 		}
+	}
+
+	[ClientRpc]
+	private void LogSky( Sky sky )
+	{
+		Log.Info( $"SkyMaterial: {sky.SkyMaterial.Name}" );
+		Log.Info( $"SkyTint: {sky.TintColor}" );
 	}
 
 	/// <summary>

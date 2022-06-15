@@ -17,7 +17,7 @@ public partial class Ragdoll : Prop, IUse
 
 	public bool IsUsable( Entity user )
 	{
-		return !IsUsing;
+		return !IsUsing && user is SandboxPlayer ply && !ply.Ragdoll.IsValid();
 	}
 
 	public bool OnUse( Entity user )
@@ -56,18 +56,26 @@ public partial class Ragdoll : Prop, IUse
 			Player.TakeDamage( info );
 	}
 
+	private bool IsDelete;
+
+	private void ToDelete()
+	{
+		IsDelete = true;
+		DeleteAsync( 10f );
+	}
+
 	[Event.Tick.Server]
 	public void OnServerTick()
 	{
-		if ( IsUsing )
+		if ( IsUsing && !IsDelete )
 		{
 			if ( Player.IsValid() )
 			{
 				if ( Player.LifeState != LifeState.Alive )
-					Delete();
+					ToDelete();
 			}
 			else
-				Delete();
+				ToDelete();
 		}
 	}
 }
