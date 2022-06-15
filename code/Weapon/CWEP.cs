@@ -332,7 +332,7 @@ public partial class CWEPW : Weapon
 			case CType.Common:
 				{
 					var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.3f, 0.0f ) );
-					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 
 					draw.BlendMode = BlendMode.Lighten;
 					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
@@ -345,7 +345,7 @@ public partial class CWEPW : Weapon
 				}
 			case CType.ShotGun:
 				{
-					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 					draw.BlendMode = BlendMode.Lighten;
 					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
 
@@ -376,7 +376,7 @@ public partial class CWEPW : Weapon
 			case CType.Pistol:
 				{
 					var shootEase = Easing.EaseIn( lastAttack.LerpInverse( 0.2f, 0.0f ) );
-					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 
 					draw.BlendMode = BlendMode.Lighten;
 					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
@@ -395,7 +395,7 @@ public partial class CWEPW : Weapon
 				}
 			case CType.SMG:
 				{
-					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 					draw.BlendMode = BlendMode.Lighten;
 					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
 
@@ -427,7 +427,7 @@ public partial class CWEPW : Weapon
 				}
 			case CType.Rifle:
 				{
-					var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+					var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 					draw.BlendMode = BlendMode.Lighten;
 					draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
 

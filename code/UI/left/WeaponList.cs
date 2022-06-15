@@ -41,7 +41,7 @@ public partial class WeaponList : Panel
 		if ( isreload )
 			Canvas.Data.Clear();
 
-		var ents = TypeLibrary.GetDescriptions<Weapon>()
+		var ents = TypeLibrary.GetDescriptions<Carriable>()
 									.Where( x => x.HasTag( "spawnable" ) )
 									.OrderBy( x => x.Title )
 									.ToArray();

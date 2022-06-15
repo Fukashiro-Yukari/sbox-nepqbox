@@ -642,24 +642,19 @@ public partial class Weapon : Carriable, IUse
 		// ShootBullet is coded in a way where we can have bullets pass through shit
 		// or bounce off shit, in which case it'll return multiple results
 		//
-		int index = 0;
 		foreach ( var tr in TraceBullet( pos, pos + forward * 5000, bulletSize ) )
 		{
-			if ( index > 0 ) break;
-
-			index++;
+			tr.Surface.DoBulletImpact( tr );
 
 			if ( !IsServer ) continue;
-
-			tr.Surface.DoBulletImpact( tr );
+			if ( !tr.Entity.IsValid() ) continue;
 
 			//var random = new Random();
 			//var randVal = random.Next( 0, 2 );
 
 			//if ( randVal == 0 )
-			BulletTracer( tr.EndPosition );
 
-			if ( !tr.Entity.IsValid() ) continue;
+			BulletTracer( tr.EndPosition );
 
 			//
 			// We turn predictiuon off for this, so any exploding effects don't get culled etc

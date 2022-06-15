@@ -37,7 +37,7 @@ public partial class EntityList : Panel
 			Canvas.Data.Clear();
 
 		var ents = TypeLibrary.GetDescriptions<Entity>()
-									.Where( x => x.HasTag( "spawnable" ) && !x.ClassName.StartsWith( "weapon_" ) && !x.ClassName.StartsWith( "npc_" ) )
+									.Where( x => x.HasTag( "spawnable" ) && !x.ClassName.StartsWith( "weapon_" ) && !x.ClassName.StartsWith( "npc_" ) && x.ClassName != "flying" )
 									.OrderBy( x => x.Title )
 									.ToArray();
 

@@ -46,9 +46,33 @@ public partial class LoveTextEntity : Prop, IUse
 
 	public bool OnUse( Entity user )
 	{
-		//PlaySound( "" );
-		//user.PlaySound( "" );
+		var random = new Random();
+		var sound = "oh_no";
+
+		if ( random.NextSingle() < 0.3 )
+			sound = "no_no_no";
+
+		PlaySound( sound );
+		user.PlaySound( sound );
 
 		return false;
+	}
+
+	protected override void OnPhysicsCollision( CollisionEventData eventData )
+	{
+		base.OnPhysicsCollision( eventData );
+
+		if ( eventData.Speed < 100 )
+			return;
+
+		Log.Info( eventData.Speed );
+
+		var random = new Random();
+		var sound = "oh_no";
+
+		if ( random.NextSingle() < 0.3 )
+			sound = "no_no_no";
+
+		PlaySound( sound );
 	}
 }

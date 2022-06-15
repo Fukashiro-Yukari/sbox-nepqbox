@@ -19,6 +19,7 @@ partial class SandboxPlayer : PlayerBase
 
 	public bool IsHeadShot { get; private set; }
 	public bool SupressPickupNotices { get; private set; }
+	public Ragdoll Ragdoll { get; set; }
 
 	/// <summary>
 	/// Default init
@@ -108,6 +109,9 @@ partial class SandboxPlayer : PlayerBase
 
 	public override void TakeDamage( DamageInfo info )
 	{
+		if ( Ragdoll.IsValid() && info.Body.GetEntity() != Ragdoll )
+			return;
+
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
 			info.Damage *= 2.0f;

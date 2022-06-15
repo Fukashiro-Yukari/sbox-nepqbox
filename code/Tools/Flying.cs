@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 
 [Spawnable]
-[Library("weapon_flying", Title = "Flying" )]
+[Library("flying", Title = "Flying" )]
 partial class Flying : Carriable
 { 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";

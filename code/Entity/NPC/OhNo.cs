@@ -35,7 +35,7 @@ public partial class SayOhNo : NPC
 
 			var love = new LoveTextEntity()
 			{
-				Position = Position + Vector3.Up * 80
+				Position = Position + Vector3.Up * 100
 			};
 
 			love.Velocity = EyeRotation.Up * 500;
