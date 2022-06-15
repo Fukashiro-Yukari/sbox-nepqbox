@@ -1,4 +1,5 @@
 using Sandbox;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -40,8 +41,13 @@ public partial class SayOhNo : NPC
 			love.Velocity = EyeRotation.Up * 500;
 			love.DeleteAsync( 10f );
 
-			// I can't make a sound? Where the hell the tool?
-			//PlaySound( "" );
+			var random = new Random();
+			var sound = "oh_no";
+
+			if ( random.NextSingle() < 0.3 )
+				sound = "no_no_no";
+
+			PlaySound( sound );
 		}
 	}
 }
